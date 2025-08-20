@@ -1,0 +1,120 @@
+/* Reset & base */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: #000;
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+  padding: 40px 20px;
+  max-width: 1200px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+header h1 {
+  font-size: 3rem;
+  text-align: center;
+  margin-bottom: 30px;
+  background: linear-gradient(45deg, #ff00cc, #8000ff);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+/* Grid layout for cards */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 30px;
+}
+
+/* Card styles */
+.card {
+  background-color: #111;
+  border-radius: 16px;
+  box-shadow: 0 0 20px rgba(128, 0, 255, 0.15);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border: 2px solid transparent;
+  transition: border 0.3s ease, box-shadow 0.3s ease;
+  outline-offset: 4px;
+}
+
+.card:hover,
+.card:focus {
+  border: 2px solid #ff00cc;
+  box-shadow: 0 0 30px #ff00cc, 0 0 20px #8000ff;
+  cursor: pointer;
+  outline: none;
+}
+
+.card img {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  user-select: none;
+  pointer-events: none;
+}
+
+.card-content {
+  padding: 20px;
+  flex-grow: 1;
+}
+
+.card-title {
+  font-size: 1.6rem;
+  margin-bottom: 10px;
+  font-weight: 700;
+  background: linear-gradient(45deg, #ff00cc, #8000ff);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+.card-description {
+  font-size: 0.95rem;
+  color: #ccc;
+  margin-bottom: 25px;
+  line-height: 1.4;
+}
+
+/* Button styles */
+.btn-primary {
+  background: linear-gradient(45deg, #ff00cc, #8000ff);
+  border: none;
+  color: #fff;
+  padding: 12px 24px;
+  font-size: 1rem;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background 0.3s ease, box-shadow 0.3s ease;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-weight: 600;
+  user-select: none;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+  background: linear-gradient(45deg, #8000ff, #ff00cc);
+  box-shadow: 0 0 15px #ff00cc, 0 0 10px #8000ff;
+  color: #fff;
+  outline: none;
+}
+
+  *:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Remove tap highlight color globally */
+* {
+  -webkit-tap-highlight-color: transparent !important;
+  -moz-tap-highlight-color: transparent !important;
+  -ms-tap-highlight-color: transparent !important;
+  tap-highlight-color: transparent !important;

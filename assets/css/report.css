@@ -1,0 +1,192 @@
+/* Reset & base */
+* {
+  box-sizing: border-box;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #000;
+  color: #eee;
+  margin: 0;
+  padding: 2rem 1rem;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  background-color: #000;
+  border-radius: 16px;
+  max-width: 520px;
+  width: 100%;
+  padding: 2.5rem 2rem 3rem;
+  text-align: center;
+  user-select: none;
+  border: 1px solid #7b5cff; /* subtle border for container */
+}
+
+h1 {
+  font-size: 2.25rem;
+  margin-bottom: 1.6rem;
+  color: #e84df3;
+  /* no shadow */
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+input, select, textarea {
+  background: #2a2a2a;
+  border: 1px solid #444;
+  border-radius: 10px;
+  padding: 14px 16px;
+  color: #ccc;
+  font-size: 1rem;
+  font-weight: 500;
+  outline-offset: 2px;
+  outline-color: transparent;
+  resize: vertical;
+  min-height: 44px;
+  transition: outline-color 0.3s ease, border-color 0.3s ease;
+}
+
+input::placeholder,
+textarea::placeholder,
+select option {
+  color: #777;
+  font-weight: 400;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline-color: transparent;
+  border-color: #e84df3; /* accent border on focus */
+  background: #3b2f5e;
+  color: #eee;
+}
+
+textarea {
+  min-height: 100px;
+}
+
+select {
+  cursor: pointer;
+}
+
+button {
+  padding: 15px 0;
+  font-weight: 700;
+  font-size: 1.15rem;
+  color: #fff;
+  border: none;
+  border-radius: 25px;
+  background: linear-gradient(90deg, #7b5cff 0%, #e84df3 100%);
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.3s ease;
+  /* no glow or shadow */
+}
+
+button:hover,
+button:focus {
+  background: linear-gradient(90deg, #935dff 0%, #f05df9 100%);
+  outline: none;
+}
+
+/* Popup style */
+.popup {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(90deg, #7b5cff 0%, #e84df3 100%);
+  color: white;
+  padding: 18px 36px;
+  border-radius: 16px;
+  font-weight: 700;
+  font-size: 1.2rem;
+  text-align: center;
+  z-index: 10000;
+  animation: popupFade 3s ease forwards;
+  user-select: none;
+  pointer-events: none;
+  /* no shadow */
+}
+
+@keyframes popupFade {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -60%) scale(0.9);
+  }
+  10% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  90% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -40%) scale(0.9);
+  }
+}
+
+button {
+  position: relative;
+  overflow: hidden;
+}
+
+.spinner {
+  display: none;
+  position: absolute;
+  top: 50%;
+  right: 18px;
+  width: 18px;
+  height: 18px;
+  border: 3px solid transparent;
+  border-top: 3px solid #fff;
+  border-radius: 50%;
+  transform: translateY(-50%);
+  transform-origin: center center;
+  animation: spin 1s linear infinite;
+  pointer-events: none;
+}
+
+button.loading .btn-text {
+  opacity: 0.5;
+}
+
+button.loading .spinner {
+  display: block;
+}
+
+@keyframes spin {
+  0% {
+    transform: translateY(-50%) rotate(0deg);
+  }
+  100% {
+    transform: translateY(-50%) rotate(360deg);
+  }
+}
+
+/* Responsive tweaks */
+@media (max-width: 480px) {
+  .container {
+    padding: 1.5rem 1.2rem 2rem;
+  }
+  h1 {
+    font-size: 1.75rem;
+  }
+  button {
+    font-size: 1rem;
+  }
+}
+

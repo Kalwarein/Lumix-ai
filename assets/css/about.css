@@ -1,0 +1,199 @@
+/* -------------------------------
+   GLOBAL RESET & BASE STYLES
+-------------------------------- */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background: #0b0b0b;
+  color: #fff;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* HEADER */
+.header {
+  display: flex;
+  justify-content: center;
+  padding: 25px;
+  background: #0b0b0b;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.logo {
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.logo span {
+  background: linear-gradient(90deg, #ff00cc, #8a2be2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* HERO SECTION */
+.about-hero {
+  text-align: center;
+  padding: 80px 20px 50px;
+  background: linear-gradient(to bottom, #0b0b0b, #151515);
+}
+
+.about-hero h1 {
+  font-size: 3rem;
+  margin-bottom: 15px;
+}
+
+/* ABOUT CONTENT */
+.about-content.text-only {
+  max-width: 900px;
+  margin: auto;
+  padding: 60px 20px;
+}
+
+/* ANIMATED GRADIENT FOR ALL HEADINGS */
+h1, h2, h3, h4, h5, h6, .logo {
+  font-weight: 700;
+  background: linear-gradient(
+    270deg,
+    #ff00cc,
+    #8a2be2,
+    #00f0ff,
+    #ffea00
+  );
+  background-size: 800% 800%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradientShift 8s ease infinite;
+  line-height: 1.2;
+  margin-bottom: 25px;
+}
+
+.about-content h2 {
+  margin-top: 40px;
+}
+
+.about-content p {
+  color: #ddd;
+  margin: 15px 0;
+  font-size: 1.05rem;
+  font-weight: 400;
+}
+
+/* FEATURES LIST */
+.features-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 20px 0;
+}
+
+.features-list li {
+  margin: 12px 0;
+  color: #ccc;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.95rem;
+}
+
+.features-list li i {
+  color: #ff66d4;
+  font-size: 1.1rem;
+}
+
+/* BUTTONS */
+.gradient-btn {
+  display: inline-block;
+  padding: 12px 30px;
+  margin-top: 30px;
+  border-radius: 30px;
+  background: linear-gradient(90deg, #ff00cc, #8a2be2);
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  transition: transform 0.3s ease;
+}
+
+.gradient-btn:hover {
+  transform: scale(1.05);
+}
+
+/* FOOTER */
+footer {
+  text-align: center;
+  padding: 20px;
+  background: #0b0b0b;
+  font-size: 0.9rem;
+  color: #777;
+}
+
+footer a {
+  color: #ff66d4;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+/* ANIMATION KEYFRAMES */
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Lumix Preloader */
+#lumix-preloader {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  animation: preFadeIn 1s ease;
+}
+
+.lumix-logo {
+  font-size: 3rem;
+  font-weight: 700;
+  color: white;
+  opacity: 0;
+  animation: preLogoFade 2s ease forwards;
+}
+.lumix-logo span {
+  background: linear-gradient(90deg, #ff00cc, #8a2be2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* Fade animations */
+@keyframes preFadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+@keyframes preFadeOut {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+@keyframes preLogoFade {
+  0% { opacity: 0; transform: scale(0.5); }
+  50% { opacity: 1; transform: scale(1.1); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+/* Hidden after fade */
+#lumix-preloader.fade-out {
+  animation: preFadeOut 0.8s forwards;
+}

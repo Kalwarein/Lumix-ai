@@ -1,0 +1,122 @@
+:root {
+  --bg-dark: #0e0e1a;
+  --card-bg: #1e1e30;
+  --pink: #e84df3;
+  --purple: #7b5cff;
+  --text: #fff;
+  --muted: #aaa;
+}
+
+strong {
+  background: linear-gradient(60deg, #7b5cff, #e84df3);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+body {
+  background: linear-gradient(135deg, var(--bg-dark), #151524);
+  color: var(--text);
+  font-family: 'Segoe UI', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 20px;
+}
+
+.login-wrapper {
+  display: flex;
+  gap: 30px;
+  max-width: 900px;
+  width: 100%;
+  justify-content: center;
+  align-items: flex-start;
+  flex-wrap: wrap;
+}
+
+.card {
+  background: var(--card-bg);
+  border-radius: 16px;
+  padding: 30px 25px;
+  box-shadow: 0 0 25px rgba(255, 0, 204, 0.1);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  flex: 1 1 350px;
+  max-width: 420px;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+}
+
+h2.glow-text {
+  font-size: 1.7rem;
+  margin-bottom: 20px;
+  text-align: center;
+  background: linear-gradient(to right, var(--pink), var(--purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.login-form input {
+  background: #292942;
+  border: none;
+  border-radius: 10px;
+  padding: 14px;
+  margin-top: 15px;
+  font-size: 1rem;
+  color: var(--text);
+}
+
+.login-form input:focus {
+  outline: none;
+  background: #343456;
+  border: 1px solid var(--pink);
+}
+
+button[type="submit"] {
+  margin-top: 25px;
+  padding: 14px;
+  background: linear-gradient(to right, var(--pink), var(--purple));
+  border: none;
+  border-radius: 10px;
+  color: #fff;
+  font-weight: bold;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button[type="submit"]:hover {
+  transform: scale(1.03);
+}
+
+.side-info h3 {
+  font-size: 1.3rem;
+  margin-bottom: 10px;
+}
+
+.side-info p {
+  color: var(--muted);
+  font-size: 1rem;
+}
+
+.side-info a {
+  color: var(--pink);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+footer {
+  margin-top: 30px;
+  font-size: 0.95rem;
+  color: var(--muted);
+  text-align: center;
+}
+
+footer a {
+  color: var(--pink);
+  text-decoration: none;
+}

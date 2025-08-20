@@ -1,0 +1,135 @@
+:root {
+  --black: #0d0d0d;
+  --dark: #1a1a1a;
+  --gray: #aaaaaa;
+  --light: #ffffff;
+  --purple: #a259ff;
+}
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  background-color: var(--black);
+  color: var(--light);
+  padding-bottom: 80px;
+}
+
+.main-header {
+  display: flex;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid #222;
+}
+
+.main-header h1 {
+  font-size: 1.6rem;
+  margin-left: 10px;
+  color: var(--purple);
+}
+
+.back-button svg {
+  stroke: var(--gray);
+}
+
+.changelog-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.changelog-entry {
+  background-color: var(--dark);
+  border: 1px solid #222;
+  border-radius: 10px;
+  margin-bottom: 16px;
+  overflow: hidden;
+}
+
+.entry-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 20px;
+  background: none;
+  width: 100%;
+  color: var(--light);
+  font-size: 1rem;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+.entry-header h2 {
+  margin: 0;
+  font-size: 1.1rem;
+}
+
+.date {
+  font-size: 0.85rem;
+  color: var(--gray);
+}
+
+.arrow-icon svg {
+  transition: transform 0.3s ease;
+}
+
+.changelog-entry.open .arrow-icon svg {
+  transform: rotate(180deg);
+}
+
+.entry-content {
+  display: none;
+  padding: 0 20px 16px 20px;
+  font-size: 0.95rem;
+  color: var(--gray);
+}
+
+.entry-content ul {
+  padding-left: 18px;
+}
+
+.entry-content li {
+  margin-bottom: 8px;
+}
+
+.fixed-footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100vw; /* Force max viewport width only */
+  z-index: 1000;
+  background: transparent;
+  overflow: hidden; /* Prevent overflow */
+}
+
+.footer-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 100vw;
+  padding: 16px 20px;
+  font-size: 1rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: #fff;
+  background: linear-gradient(90deg, #a259ff, #8643dc);
+  border: none;
+  outline: none;
+  border-radius: 16px 0 0 0; /* Rounded only on top-left */
+  transition: background 0.3s ease, transform 0.2s ease;
+  box-sizing: border-box;
+}
+
+.footer-button:hover {
+  background: linear-gradient(90deg, #b574ff, #9e5cfb);
+  transform: translateY(-2px);
+}
+
+.footer-button svg {
+  margin-right: 10px;
+  stroke: white;
+  fill: none;
+  width: 20px;
+  height: 20px;
+}

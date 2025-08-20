@@ -1,0 +1,141 @@
+/* Basic Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #0e0e0e;
+  color: #fff;
+  font-family: 'Segoe UI', sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Container */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+/* Card */
+.form-box {
+  background: #0e0e0e;
+  padding: 40px 30px;
+  border-radius: 16px;
+  box-shadow: 0 0 30px rgba(255, 0, 255, 0.1);
+  width: 100%;
+  max-width: 400px;
+  text-align: center;
+}
+
+/* Sparkles */
+.icon-header {
+  font-size: 30px;
+  color: #ff66ff;
+  margin-bottom: 20px;
+}
+
+/* Title */
+.form-box h2 {
+  font-size: 24px;
+  margin-bottom: 6px;
+}
+
+.form-box p {
+  font-size: 14px;
+  color: #aaa;
+  margin-bottom: 30px;
+}
+
+/* Input Group */
+.input-group {
+  position: relative;
+  margin-bottom: 25px;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px 40px 12px 12px;
+  background: #1f1e25;
+  border: 1px solid #333;
+  border-radius: 10px;
+  font-size: 15px;
+  color: #fff;
+  outline: none;
+}
+
+.input-group label {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  font-size: 14px;
+  color: #888;
+  pointer-events: none;
+  transition: 0.2s ease;
+}
+
+.input-group input:focus + label,
+.input-group input:valid + label {
+  top: -10px;
+  left: 10px;
+  font-size: 12px;
+  background: #15141a;
+  padding: 0 5px;
+  color: #ff66ff;
+}
+
+/* Toggle Eye */
+.toggle {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  cursor: pointer;
+  color: #aaa;
+}
+
+/* Gradient Button */
+.btn-gradient {
+  background: linear-gradient(90deg, #ff66ff, #9966ff);
+  border: none;
+  padding: 12px;
+  width: 100%;
+  border-radius: 10px;
+  color: #fff;
+  font-weight: bold;
+  cursor: pointer;
+  margin-top: 10px;
+  transition: 0.3s;
+}
+
+.btn-gradient:hover {
+  opacity: 0.9;
+}
+
+/* Divider */
+.divider {
+  margin: 20px 0;
+  font-size: 13px;
+  color: #777;
+}
+
+/* Google Button */
+.google-btn {
+  background: #1f1e25;
+  border: 1px solid #333;
+  color: #fff;
+  padding: 12px;
+  width: 100%;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: 500;
+}
+
+.google-btn i {
+  margin-right: 10px;
+}

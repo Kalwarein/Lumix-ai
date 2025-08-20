@@ -1,0 +1,895 @@
+/* Custom Fonts (Optional, but enhances uniqueness) */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@400;600;700&display=swap');
+*:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Remove tap highlight color globally */
+* {
+  -webkit-tap-highlight-color: transparent !important;
+  -moz-tap-highlight-color: transparent !important;
+  -ms-tap-highlight-color: transparent !important;
+  tap-highlight-color: transparent !important;
+}
+
+/* Color Variables for easy theme management */
+:root {
+    --bg-dark: #0e0e0e; /* Changed from #1A1A2E to black */
+    --bg-medium: #222543; /* Card and secondary element background */      
+    --bg-light: #3F426F; /* Hover states, subtle highlights */
+    --sidebar-bg: #110F20; /* Even darker for sidebar */
+
+    --primary-accent: #7b5cff; /* Vibrant purple for primary actions */
+    --secondary-accent: #e84df3; /* Bright pink for secondary elements/highlights */
+    --text-light: #E0E0F2; /* Light text for readability */
+    --text-medium: #A0A3C7; /* Subtler text */
+    --text-dark: #6D728F; /* Placeholder text, minor details */
+
+    --border-color: #3F426F; /* Subtle border for elements */
+    --error-color: #FF6B6B; /* Red for errors */
+    --success-color: #4CAF50; /* Green for success (if implemented) */
+
+    --glow-effect: 0 0 15px var(--primary-accent), 0 0 30px rgba(123, 92, 255, 0.4); /* General glow */
+    --hover-glow: 0 0 10px var(--secondary-accent), 0 0 20px rgba(232, 77, 243, 0.3);
+}
+
+/* Base Styles */
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, var(--bg-dark), #0F0F1A); /* Gradient background */
+    color: var(--text-light);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden; /* Hide scrollbars for the main body to manage with custom ones */
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.app-container {
+    display: flex;
+    width: 100%;
+    max-width: 1400px; /* Increased max-width for a grander feel */
+    height: 90vh; /* Keep it within viewport height */
+    max-height: 900px;
+    background-color: var(--bg-medium);
+    border-radius: 20px;
+    box-shadow: var(--glow-effect); /* Main container glow */
+    overflow: hidden; /* Contains sidebar and main content */
+    border: 1px solid var(--border-color); /* Subtle border */
+}
+
+/* Sidebar Styling */
+.sidebar {
+    width: 350px;
+    min-width: 300px;
+    background-color: var(--sidebar-bg);
+    padding: 30px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid var(--border-color);
+    position: relative; /* For potential background elements */
+    overflow-y: auto; /* Allow scrolling for long content if needed */
+    z-index: 10; /* Ensure it's above main content */
+}
+
+/* New: Top controls section matching the image */
+.sidebar-top-controls {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Space between settings button and model selector */
+    margin-bottom: 25px; /* Space before the prompt section */
+    padding-bottom: 20px; /* Separator from prompt */
+    border-bottom: 1px dashed var(--border-color);
+}
+
+.sidebar-top-controls .settings-btn {
+    width: 50px;
+    height: 50px;
+    padding: 0;
+    flex-shrink: 0; /* Don't let it shrink */
+    font-size: 1.2em; /* Icon size */
+    background-color: var(--bg-medium); /* Match image */
+    color: var(--text-medium);
+    border-color: var(--border-color);
+}
+.sidebar-top-controls .settings-btn:hover {
+    background-color: var(--bg-light);
+    border-color: var(--secondary-accent);
+    color: var(--secondary-accent);
+    box-shadow: var(--hover-glow);
+}
+
+
+/* Adjust model selector within the top controls */
+.tool-btn.model-selector-btn {
+    flex-grow: 1; /* Allow it to fill remaining space */
+    background-color: var(--bg-medium); /* Match image */
+    color: var(--text-medium); /* Text color like prompt placeholder */
+    border: 1px solid var(--border-color);
+    justify-content: space-between;
+    padding: 12px 15px; /* Slightly more padding for better appearance */
+    box-shadow: none; /* Remove default shadow to match image */
+    font-size: 1em;
+}
+
+.tool-btn.model-selector-btn:hover {
+    background-color: var(--bg-light);
+    border-color: var(--border-color); /* Keep border same on hover as in image */
+    color: var(--text-light); /* Text brighter on hover */
+    box-shadow: none; /* No hover glow to match image's subtle style */
+}
+/* Ensure the icon color is slightly brighter */
+.tool-btn.model-selector-btn i {
+    color: var(--secondary-accent);
+}
+.tool-btn.model-selector-btn:hover i {
+    color: var(--secondary-accent); /* Maintain accent color */
+}
+
+
+/* Prompt Section Styling */
+.sidebar-section.prompt-section {
+    flex-grow: 1; /* Allow prompt section to take available vertical space */
+    margin-bottom: 25px;
+    padding-bottom: 0; /* No bottom padding or border for this section as it stands alone */
+    border-bottom: none;
+    display: flex;
+    flex-direction: column; /* Ensure child elements stack */
+}
+
+/* New: Prompt Input Group (for icon + textarea) */
+.prompt-input-group {
+    position: relative;
+    display: flex; /* Use flex to align icon and textarea */
+    align-items: center; /* Vertically center icon with textarea text */
+    background-color: var(--bg-dark);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 8px 12px; /* Internal padding for the group */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    flex-grow: 1; /* Allow the group to grow */
+}
+
+.prompt-input-group:focus-within { /* When any element inside gets focus */
+    border-color: var(--primary-accent);
+    box-shadow: 0 0 0 3px rgba(124, 77, 255, 0.3);
+}
+
+.prompt-icon {
+    color: var(--text-dark); /* Icon color */
+    font-size: 1.2em;
+    margin-right: 10px; /* Space between icon and text */
+    flex-shrink: 0; /* Prevent icon from shrinking */
+}
+
+.textarea-wrapper {
+    flex-grow: 1; /* Allow wrapper to take remaining space */
+    position: relative; /* Needed for the ::after pseudo-element */
+    display: grid;
+    align-items: flex-start;
+}
+
+/* Ensure textarea itself blends in and accommodates icon */
+#promptInput {
+    grid-area: 1 / 1 / 2 / 2;
+    width: 100%;
+    min-height: 100px;
+    padding: 0; /* Remove internal padding, handled by parent .prompt-input-group */
+    border: none; /* Remove border, handled by parent .prompt-input-group */
+    background-color: transparent; /* Make background transparent */
+    color: var(--text-light);
+    font-family: 'Poppins', sans-serif;
+    font-size: 1em;
+    line-height: 1.6;
+    resize: none; /* Disable manual resize, let wrapper handle it */
+    box-sizing: border-box;
+    outline: none; /* Remove outline on focus */
+}
+
+#promptInput::placeholder {
+    color: var(--text-dark);
+}
+
+/* Sidebar Actions (bottom section) */
+.sidebar-actions {
+    margin-top: auto; /* Pushes actions to the bottom */
+    padding-top: 25px;
+    border-top: 1px dashed var(--border-color);
+    display: flex; /* Use flexbox for overall action section */
+    flex-direction: column; /* Stack button groups vertically */
+    gap: 15px; /* Space between generation and output controls */
+}
+
+/* Main Generation Buttons (Sparkle + Create) */
+.generation-controls {
+    display: flex; /* Horizontal alignment for these two buttons */
+    gap: 10px; /* Space between sparkle and create buttons */
+    align-items: center; /* Vertically align items */
+}
+
+/* Sparkle Button */
+.sparkle-btn {
+    width: 50px; /* Fixed width as in the image */
+    height: 50px; /* Fixed height */
+    padding: 0;
+    flex-shrink: 0; /* Prevent shrinking */
+    background-color: var(--bg-medium); /* Match image */
+    color: var(--text-medium);
+    border: 1px solid var(--border-color);
+    font-size: 1.2em; /* Icon size */
+    box-shadow: none; /* No shadow as in image */
+}
+.sparkle-btn:hover {
+    background-color: var(--bg-light);
+    border-color: var(--secondary-accent);
+    color: var(--secondary-accent);
+    box-shadow: var(--hover-glow); /* Slight hover glow */
+    transform: translateY(-1px);
+}
+
+/* Create Button (Primary) */
+.primary-btn.create-btn {
+    flex-grow: 1; /* Allows it to take up available space */
+    background: linear-gradient(45deg, #e84df3, #7b5cff); /* Gradient for primary */
+    color: #fff;
+    border: none;
+    box-shadow: 0 5px 15px rgba(124, 77, 255, 0.4);
+    height: 50px; /* Match height of sparkle button */
+    font-size: 1.1em; /* Slightly larger text */
+    font-weight: 700;
+}
+
+.primary-btn.create-btn:hover {
+    background: linear-gradient(45deg, #7b5cff, #e84df3);
+    box-shadow: 0 8px 20px rgba(124, 77, 255, 0.6);
+    transform: translateY(-2px);
+}
+
+.cost-display {
+    background-color: rgba(0, 0, 0, 0.2); /* Semi-transparent background for cost */
+    padding: 5px 10px;
+    border-radius: 8px;
+    margin-left: 10px; /* Space from "Create" text */
+    font-size: 0.9em;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Default general button styles for settings sidebar and modals */
+.primary-btn, .action-btn, .tool-btn {
+    padding: 12px 20px;
+    border-radius: 10px;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-sizing: border-box;
+    white-space: nowrap; /* Prevent text wrapping */
+}
+
+/* Secondary/Action Buttons (Download/Share) */
+.output-actions {
+    display: flex; /* Horizontal alignment for download and share buttons */
+    gap: 10px; /* Space between buttons */
+    justify-content: space-between; /* Distribute buttons evenly */
+}
+.action-btn.download-btn, .action-btn.share-btn {
+    background-color: var(--bg-medium);
+    color: var(--secondary-accent);
+    border: 1px solid var(--border-color);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    flex-basis: 50%; /* Make download/share buttons share space equally */lp
+}
+
+.action-btn.download-btn:hover, .action-btn.share-btn:hover {
+    background-color: var(--bg-light);
+    border-color: var(--secondary-accent);
+    box-shadow: var(--hover-glow);
+    transform: translateY(-1px);
+}
+
+
+/* Main Content Area */
+.main-content {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    box-sizing: border-box;
+    position: relative;
+}
+
+.ai-output-card {
+    background-color: var(--bg-medium);
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    padding: 25px;
+    text-align: center;
+    max-width: 800px;
+    width: 100%;
+    height: auto;
+    min-height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid var(--border-color);
+}
+
+.ai-output-card h3 {
+    color: var(--secondary-accent);
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 1.5em;
+    font-weight: 700;
+    text-shadow: 0 0 5px rgba(0, 224, 255, 0.4);
+}
+
+#generatedImage {
+    max-width: 100%;
+    max-height: 60vh;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    object-fit: contain;
+    background-color: var(--bg-dark);
+}
+
+.info-message, .error-feedback {
+    margin-top: 20px;
+    padding: 15px;
+    border-radius: 8px;
+    font-size: 1em;
+    font-weight: 500;
+    width: 90%;
+    box-sizing: border-box;
+}
+
+.info-message {
+    background-color: rgba(124, 77, 255, 0.1);
+    color: var(--primary-accent);
+    border: 1px solid var(--primary-accent);
+}
+
+.error-feedback {
+    background-color: rgba(255, 107, 107, 0.1);
+    color: var(--error-color);
+    border: 1px solid var(--error-color);
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* Loading Indicator */
+.loading-indicator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px;
+}
+
+.spinner {
+    border: 4px solid var(--border-color);
+    border-top: 4px solid var(--secondary-accent);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin-bottom: 15px;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.loading-indicator p {
+    color: var(--text-medium);
+    font-size: 1.1em;
+}
+
+/* Advanced Settings Sidebar */
+.settings-sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 450px; /* Wider sidebar */
+    max-width: 95vw;
+    height: 100%;
+    background-color: var(--sidebar-bg);
+    box-shadow: 8px 0 30px rgba(0, 0, 0, 0.6);
+    z-index: 1000;
+    transform: translateX(-100%);
+    transition: transform 0.4s ease-out;
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    box-sizing: border-box;
+    border-right: 1px solid var(--primary-accent); /* Accent border */
+}
+
+.settings-sidebar.visible {
+    transform: translateX(0);
+}
+
+.settings-sidebar.hidden {
+    display: none;
+}
+
+.settings-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.settings-header h3 {
+    margin: 0;
+    color: var(--text-light);
+    font-size: 1.8em;
+    font-weight: 700;
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: var(--text-medium);
+    font-size: 1.8em;
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.2s ease;
+}
+
+.close-btn:hover {
+    color: var(--error-color);
+    transform: rotate(90deg);
+}
+
+.settings-content {
+    flex-grow: 1;
+    overflow-y: auto; /* Enable scrolling for settings content */
+    padding-right: 15px; /* Space for scrollbar */
+}
+
+/* Custom Scrollbar for sidebars/modals */
+.custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+    background: var(--bg-dark);
+    border-radius: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+    background: var(--primary-accent);
+    border-radius: 10px;
+    border: 2px solid var(--bg-dark);
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: var(--secondary-accent);
+}
+
+
+.settings-section {
+    margin-bottom: 35px;
+    padding-bottom: 25px;
+    border-bottom: 1px dashed var(--border-color);
+}
+
+.settings-section:last-of-type {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.settings-section h4 {
+    color: var(--secondary-accent);
+    font-size: 1.2em;
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    border-left: 5px solid var(--primary-accent); /* Accent line as in image */
+    padding-left: 15px;
+    text-shadow: 0 0 5px rgba(0, 224, 255, 0.2); /* Subtle glow for headers */
+}
+
+/* Negative Prompt Textarea Specific Styling (inside settings sidebar) */
+.settings-section #negativePromptInput {
+    /* Re-apply input group styling for consistency within settings */
+    padding: 12px; /* Standard padding for textareas without internal icon */
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-dark);
+    border-radius: 10px;
+    min-height: 100px;
+    resize: vertical; /* Allow resizing here */
+    outline: none;
+}
+.settings-section #negativePromptInput:focus {
+    border-color: var(--primary-accent);
+    box-shadow: 0 0 0 3px rgba(124, 77, 255, 0.3);
+}
+
+
+/* Advanced Control Sliders Styling */
+input[type="range"] {
+    width: 100%;
+    -webkit-appearance: none;
+    height: 8px; /* Height of the track */
+    border-radius: 5px;
+    outline: none;
+    cursor: pointer;
+    background: transparent; /* Needed for custom track */
+    /* Add a custom background for the track that changes with value via JS */
+}
+
+/* Webkit (Chrome, Safari, Opera) */
+input[type="range"]::-webkit-slider-runnable-track {
+    width: 100%;
+    height: 8px;
+    border-radius: 5px;
+    background: linear-gradient(to right, 
+                                var(--slider-track-fill) var(--fill-percentage, 50%), /* Filled part */
+                                var(--slider-track-empty) var(--fill-percentage, 50%) /* Empty part */
+                                );
+    transition: background 0.2s ease;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--slider-thumb-color); /* White thumb */
+    cursor: grab;
+    margin-top: -6px; /* Center thumb vertically on track */
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.4), 0 0 15px var(--secondary-accent); /* White glow + accent glow */
+    transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+
+input[type="range"]::-webkit-slider-thumb:active {
+    cursor: grabbing;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.6), 0 0 20px var(--secondary-accent);
+}
+
+/* Firefox */
+input[type="range"]::-moz-range-track {
+    width: 100%;
+    height: 8px;
+    border-radius: 5px;
+    background: linear-gradient(to right, 
+                                var(--slider-track-fill) var(--fill-percentage, 50%), 
+                                var(--slider-track-empty) var(--fill-percentage, 50%)
+                                );
+    transition: background 0.2s ease;
+}
+
+input[type="range"]::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--slider-thumb-color);
+    cursor: grab;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.4), 0 0 15px var(--secondary-accent);
+    transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+
+input[type="range"]::-moz-range-thumb:active {
+    cursor: grabbing;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.6), 0 0 20px var(--secondary-accent);
+}
+
+/* Ensure number input matches other inputs */
+input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.95em;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    outline: none;
+}
+
+input[type="number"]:focus {
+    border-color: var(--primary-accent);
+    box-shadow: 0 0 0 3px rgba(124, 77, 255, 0.3);
+}
+
+.tool-group label {
+    display: flex; /* Use flex to align label and value on same line */
+    justify-content: space-between; /* Push value to the right */
+    margin-bottom: 8px;
+    color: var(--text-medium);
+    font-size: 0.9em;
+}
+
+
+.style-options-grid,
+.aspect-ratio-options,
+.model-options-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 12px;
+}
+
+.aspect-ratio-options {
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+}
+
+.style-option-btn,
+.aspect-ratio-btn,
+.model-option-btn {
+    background-color: var(--bg-medium);
+    color: var(--text-medium);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 12px 18px;
+    font-size: 0.95em;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.1s ease, color 0.3s ease;
+    display: flex;
+    flex-direction: column; /* For badge */
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: 60px; /* Ensure consistent height for buttons */
+}
+
+.style-option-btn:hover,
+.aspect-ratio-btn:hover,
+.model-option-btn:hover {
+    background-color: var(--bg-light);
+    border-color: var(--secondary-accent);
+    color: var(--secondary-accent);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(0, 224, 255, 0.2);
+}
+
+.style-option-btn.selected,
+.aspect-ratio-btn.selected,
+.model-option-btn.selected {
+    background: linear-gradient(45deg, var(--primary-accent), var(--secondary-accent));
+    border-color: var(--primary-accent);
+    color: #FFFFFF;
+    font-weight: 600;
+    box-shadow: var(--glow-effect);
+    transform: translateY(-2px);
+}
+
+.settings-footer {
+    padding-top: 30px;
+    border-top: 1px dashed var(--border-color);
+    margin-top: auto;
+}
+
+.settings-footer .primary-btn {
+    width: 100%;
+}
+
+.apply-settings-btn {
+    background: linear-gradient(45deg, var(--primary-accent), var(--secondary-accent));
+    color: #FFFFFF;
+    border: none;
+    box-shadow: 0 5px 15px rgba(124, 77, 255, 0.4);
+}
+
+.apply-settings-btn:hover {
+    background: linear-gradient(45deg, var(--secondary-accent), var(--primary-accent));
+    box-shadow: 0 8px 20px rgba(124, 77, 255, 0.6);
+    transform: translateY(-2px);
+}
+
+/* Model Selection Modal */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.modal.visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background-color: var(--bg-medium);
+    border-radius: 15px;
+    padding: 30px;
+    width: 600px; /* Wider modal */
+    max-width: 90vw;
+    max-height: 80vh; /* Max height for content */
+    box-shadow: var(--glow-effect);
+    transform: translateY(-30px);
+    transition: transform 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--border-color);
+}
+
+.modal.visible .modal-content {
+    transform: translateY(0);
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.modal-header h3 {
+    margin: 0;
+    color: var(--text-light);
+    font-size: 1.6em;
+    font-weight: 700;
+}
+
+.model-options-grid {
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    flex-grow: 1; /* Allow grid to take available space */
+    overflow-y: auto; /* Enable scrolling if too many models */
+    padding-right: 15px; /* For scrollbar */
+}
+
+/* Badge for model options */
+.model-option-btn .badge {
+    background-color: var(--bg-dark);
+    color: var(--text-medium);
+    font-size: 0.7em;
+    padding: 4px 8px;
+    border-radius: 5px;
+    margin-top: 5px;
+    border: 1px solid var(--border-color);
+    white-space: nowrap;
+}
+
+.model-option-btn.selected .badge {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: #FFFFFF;
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1024px) {
+    .app-container {
+        flex-direction: column;
+        height: auto;
+        min-height: 100vh;
+        border-radius: 0;
+        max-width: 100%;
+    }
+
+    .sidebar {
+        width: 100%;
+        min-width: unset;
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+        height: auto;
+        padding-bottom: 20px;
+    }
+
+    .main-content {
+        padding: 20px;
+        flex-grow: 1;
+    }
+
+    .ai-output-card {
+        min-height: 250px;
+        padding: 15px;
+    }
+
+    .settings-sidebar {
+        width: 100%;
+        max-width: 100%;
+        border-right: none;
+        border-left: none;
+        border-radius: 0;
+    }
+
+    .modal-content {
+        width: 95vw;
+        padding: 20px;
+    }
+
+    .style-options-grid,
+    .aspect-ratio-options,
+    .model-options-grid {
+        grid-template-columns: repeat(auto-fit, minmax(90px, 1fr)); /* Adjust grid items */
+        gap: 8px;
+    }
+
+    /* Stack primary action buttons vertically on smaller screens */
+    .generation-controls {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .sparkle-btn,
+    .primary-btn.create-btn {
+        width: 100%; /* Make them full width when stacked */
+        flex-basis: auto; /* Reset flex-basis */
+        height: auto; /* Allow height to adjust */
+        padding: 12px 20px; /* Restore vertical padding */
+    }
+
+    /* Adjust secondary action buttons for mobile */
+    .output-actions {
+        flex-direction: column;
+        gap: 10px;
+    }
+    .action-btn.download-btn, .action-btn.share-btn {
+        width: 100%;
+        flex-basis: auto;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        font-size: 14px;
+    }
+    .sidebar, .settings-sidebar, .modal-content {
+        padding: 15px;
+    }
+    .sidebar-header h2 {
+        font-size: 1.8em;
+    }
+    .primary-btn, .action-btn, .tool-btn {
+        padding: 10px 15px;
+        font-size: 0.9em;
+        gap: 5px;
+    }
+    .settings-header h3, .modal-header h3 {
+        font-size: 1.4em;
+    }
+    .close-btn {
+        font-size: 1.5em;
+    }
+    .style-option-btn,
+    .aspect-ratio-btn,
+    .model-option-btn {
+        padding: 10px;
+        font-size: 0.85em;
+        min-height: 50px;
+    }
+    .prompt-input-group {
+        padding: 6px 10px;
+    }
+    .prompt-icon {
+        font-size: 1em;
+        margin-right: 8px;
+    }
+}
