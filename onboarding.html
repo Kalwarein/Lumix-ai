@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <style>
+  *:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Remove tap highlight color globally */
+* {
+  -webkit-tap-highlight-color: transparent !important;
+  -moz-tap-highlight-color: transparent !important;
+  -ms-tap-highlight-color: transparent !important;
+  tap-highlight-color: transparent !important;
+}
+</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lumix Welcome Onboard</title>
+  <link rel="icon" href="assets/images/favicon.png" />
+  <link href="assets/css/signin-output.css" rel="stylesheet" />
+  <link href="assets/css/preloader.css" rel="stylesheet" />
+  <link href="assets/css/Mm-boolang.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <!-- Firebase App (core) -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+  <!-- Firebase Auth -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+  <!-- Firebase Firestore -->
+  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+  <script src="assets/js/o-bors.js"></script>
+</head>
+<body>
+  <div class="onboarding-card">
+    <!-- Progress Indicator -->
+    <div class="onboarding-progress">
+      <div class="onboarding-step" id="stepper-1">1</div>
+      <div class="onboarding-step" id="stepper-2">2</div>
+      <div class="onboarding-step">3</div>
+      <div class="onboarding-step">4</div>
+    </div>
+    <!-- Step 1 -->
+    <form class="onboarding-form" id="step1-form" autocomplete="off">
+      <div class="avatar-upload">
+        <label for="avatarInput" class="avatar-preview" id="avatarPreview" style="cursor:pointer;">
+          <span id="avatarPlaceholderText" style="color:#888;font-size:1.05rem;"></span>
+          <img src="onboarding.html" alt="Profile Picture" id="avatarImg" style="display:none;">
+        </label>
+        <input type="file" id="avatarInput" accept=".jpg, .jpeg, .png, .gif, .bmp, .webp, .svg, .ico, .tiff" style="display:none">
+        <span style="font-size:0.98rem;color:#888;">Profile Picture</span>
+        <span class="error" id="avatarError" style="display:none;color:#EF4444;font-size:0.95rem;margin-top:0.5rem;">Please upload a valid image file.</span>
+      </div>
+      <label for="username">Username <span style="color:#EF4444;">*</span></label>
+      <input type="text" id="username" name="username" required placeholder="Choose a username">
+      <span class="error" id="usernameError" style="display:none;">Username is required.</span>
+      <label for="fullname">Full Name</label>
+      <input type="text" id="fullname" name="fullname" placeholder="Enter your full name (optional)">
+      <div class="onboarding-actions">
+        <button type="submit" class="onboarding-next-btn">Next</button>
+      </div>
+    </form>
+    <!-- Step 2 -->
+    <form class="onboarding-form" id="step2-form" style="display:none;" autocomplete="off">
+      <label style="margin-bottom:0.7rem;">How did you hear about Lumix?</label>
+      <div class="discovery-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:16px;margin-bottom:1.2rem;">
+        <div class="discovery-card" data-value="Instagram" tabindex="0">
+          <i class="fab fa-instagram fa-2x" style="color:#e1306c;"></i>
+          <span>Instagram</span>
+        </div>
+        <div class="discovery-card" data-value="Friend Referral" tabindex="0">
+          <i class="fas fa-user-friends fa-2x" style="color:#34D399;"></i>
+          <span>Friend Referral</span>
+        </div>
+        <div class="discovery-card" data-value="Ad" tabindex="0">
+          <i class="fas fa-bullhorn fa-2x" style="color:#fbbf24;"></i>
+          <span>Ad</span>
+        </div>
+        <div class="discovery-card" data-value="YouTube" tabindex="0">
+          <i class="fab fa-youtube fa-2x" style="color:#ff0000;"></i>
+          <span>YouTube</span>
+        </div>
+        <div class="discovery-card" data-value="Search Engine" tabindex="0">
+          <i class="fas fa-search fa-2x" style="color:#6366f1;"></i>
+          <span>Search Engine</span>
+        </div>
+        <div class="discovery-card" data-value="Other" tabindex="0">
+          <i class="fas fa-ellipsis-h fa-2x" style="color:#7b5cff;"></i>
+          <span>Other</span>
+        </div>
+      </div>
+      <div id="otherDiscoveryField" style="display:none;margin-bottom:1.1rem;">
+        <label for="otherDiscoveryInput">Please specify (optional):</label>
+        <input type="text" id="otherDiscoveryInput" name="otherDiscoveryInput" placeholder="Type here..." style="width:92%;padding:0.75rem 1rem;border-radius:999px;border:1.5px solid #e84df3;font-size:1rem;background:#1e1e1e;color:#fff;transition:border 0.2s;">
+      </div>
+      <input type="hidden" id="discoveryInput" name="discovery">
+      <label for="signupReason">What made you sign up?</label>
+      <textarea id="signupReason" name="signupReason" placeholder="Your reason..." rows="3" style="resize:none;width:92%;padding:0.85rem 1rem;border-radius:16px;border:1.5px solid #e84df3;font-size:1rem;margin-bottom:1.25rem;background:#1e1e1e ;color: #fff;transition:border 0.2s;box-shadow:0 1px 4px 0 rgba(123,92,255,0.04);"></textarea>
+      <div class="onboarding-actions" style="justify-content:space-between;">
+        <button type="button" class="onboarding-next-btn" id="step2-back">Back</button>
+        <button type="submit" class="onboarding-next-btn">Next</button>
+      </div>
+    </form>
+    <!-- Step 3 -->
+    <form class="onboarding-form" id="step3-form" style="display:none;" autocomplete="off">
+      <label style="margin-bottom:0.7rem;">What are your interests?</label>
+      <div class="interests-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:16px;margin-bottom:1.2rem;">
+        <div class="interest-card" data-value="AI Art" tabindex="0">
+          <span class="interest-icon"><i class="fas fa-brain"></i></span>
+          <span class="interest-label">AI Art</span>
+        </div>
+        <div class="interest-card" data-value="Photography" tabindex="0">
+          <span class="interest-icon"><i class="fas fa-camera-retro"></i></span>
+          <span class="interest-label">Photography</span>
+        </div>
+        <div class="interest-card" data-value="Design" tabindex="0">
+          <span class="interest-icon"><i class="fas fa-paint-brush"></i></span>
+          <span class="interest-label">Design</span>
+        </div>
+        <div class="interest-card" data-value="Writing" tabindex="0">
+          <span class="interest-icon"><i class="fas fa-pen-nib"></i></span>
+          <span class="interest-label">Writing</span>
+        </div>
+        <div class="interest-card" data-value="Music" tabindex="0">
+          <span class="interest-icon"><i class="fas fa-music"></i></span>
+          <span class="interest-label">Music</span>
+        </div>
+        <div class="interest-card" data-value="Tech News" tabindex="0">
+          <span class="interest-icon"><i class="fas fa-newspaper"></i></span>
+          <span class="interest-label">News</span>
+        </div>
+        <div class="interest-card" data-value="Education" tabindex="0">
+          <span class="interest-icon"><i class="fas fa-graduation-cap"></i></span>
+          <span class="interest-label">Education</span>
+        </div>
+        <div class="interest-card" data-value="Other" tabindex="0" id="interestOtherCard">
+          <span class="interest-icon"><i class="fas fa-ellipsis-h"></i></span>
+          <span class="interest-label">Other</span>
+        </div>
+      </div>
+      <div id="otherInterestField" style="display:none;margin-bottom:1.1rem;">
+        <label for="otherInterestInput">Please specify (optional):</label>
+        <input type="text" id="otherInterestInput" name="otherInterestInput" placeholder="Type here..." style="width:92%;padding:0.75rem 1rem;border-radius:14px;border:1.5px solid #e84df3;font-size:1rem;background: #1e1e1e;color:#222;transition:border 0.2s;">
+      </div>
+      <input type="hidden" id="interestsInput" name="interests">
+      <div class="interest-extra-card">
+        <label for="contentTypes" style="color: 1e1e1e;" >Preferred content types <span style="color: #e84df3;font-size:0.95em;">(optional)</span></label>
+        <textarea id="contentTypes" name="contentTypes" placeholder="e.g. Tutorials, Inspiration, News..." rows="2" style="resize:none;width:92%;padding:0.85rem 1rem;border-radius:14px;border:1.5px solid #e84df3;font-size:1rem;margin-bottom:1.25rem;background: #1e1e1e;color:#e84df3;transition:border 0.2s;box-shadow:0 1px 4px 0 rgba(123,92,255,0.04);"></textarea>
+        <div style="margin-bottom:0;display:flex;align-items:center;gap:16px;">
+          <label for="suggestionsToggle" style="margin-bottom:0;">Personalized suggestions</label>
+          <label class="switch">
+            <input type="checkbox" id="suggestionsToggle" name="suggestionsToggle">
+            <span class="slider round"></span>
+          </label>
+          <span id="suggestionsLabel" style="font-size:1.05rem;color:#7b5cff;font-weight:500;">No</span>
+        </div>
+      </div>
+      <div class="onboarding-actions" style="justify-content:space-between;">
+        <button type="button" class="onboarding-next-btn" id="step3-back">Back</button>
+        <button type="submit" class="onboarding-next-btn">Next</button>
+      </div>
+    </form>
+    <!-- Step 4 -->
+    <form class="onboarding-form" id="step4-form" style="display:none;" autocomplete="off">
+      <h2 style="font-size:1.3rem;font-weight:600;margin-bottom:1.2rem; color: #fff;">Review & Confirm</h2>
+      <div class="review-section" style="margin-bottom:1.5rem; color: #fff;">
+        <div style="display:flex;align-items:center;gap:18px;margin-bottom:1.2rem;">
+          <div class="avatar-preview" style="width:64px;height:64px;min-width:64px;min-height:64px;">
+            <img id="reviewAvatarImg" src="onboarding.html" alt="Profile Picture" style="width:100%;height:100%;object-fit:cover;border-radius:50%;display:none;">
+            <span id="reviewAvatarPlaceholder" style="color: #fff;font-size:0.98rem;">No image</span>
+          </div>
+          <div>
+            <div style="font-weight:600;font-size:1.1rem;" id="reviewUsername">@username</div>
+            <div style="color: #fff;font-size:0.98rem;" id="reviewFullname">Full Name</div>
+          </div>
+        </div>
+        <div style="margin-bottom:0.7rem;">
+          <span style="font-weight:500;">How did you hear about Lumix?</span><br>
+          <span id="reviewDiscovery">-</span>
+          <span id="reviewDiscoveryOther" style="color:#fff;font-size:0.98rem;"></span>
+        </div>
+        <div style="margin-bottom:0.7rem;">
+          <span style="font-weight:500;">What made you sign up?</span><br>
+          <span id="reviewReason">-</span>
+        </div>
+        <div style="margin-bottom:0.7rem;">
+          <span style="font-weight:500;">Interests</span><br>
+          <span id="reviewInterests">-</span>
+          <span id="reviewInterestsOther" style="color:#fff;font-size:0.98rem;"></span>
+        </div>
+        <div style="margin-bottom:0.7rem;">
+          <span style="font-weight:500;">Preferred content types</span><br>
+          <span id="reviewContentTypes">-</span>
+        </div>
+        <div style="margin-bottom:0.7rem;">
+          <span style="font-weight:500;">Personalized suggestions</span><br>
+          <span id="reviewSuggestions">No</span>
+        </div>
+      </div>
+      <div class="onboarding-actions" style="justify-content:flex-end;">
+        <button type="submit" class="onboarding-next-btn" id="confirmBtn" style="position:relative;min-width:120px;">
+          <span id="confirmBtnText">Confirm</span>
+          <span id="confirmPreloader" style="display:none;position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);"><i class="fas fa-spinner fa-spin"></i></span>
+        </button>
+      </div>
+    </form>
+  </div>
+  <div id="onboardingPopup" class="onboarding-popup" style="display:none;position:fixed;top:36px;left:50%;transform:translateX(-50%);background:#fff;color:#EF4444;padding:1.2rem 2.2rem 1.5rem 2.2rem;border-radius:18px;box-shadow:0 6px 32px 0 rgba(0,0,0,0.13);z-index:1000;font-size:1.08rem;font-weight:500;min-width:320px;text-align:center;">
+    <span id="onboardingPopupMsg"></span>
+    <br>
+    <button id="onboardingPopupBtn" style="margin-top:1rem;background:#7b5cff;color:#fff;border:none;border-radius:999px;padding:0.6rem 1.6rem;font-size:1.05rem;font-weight:600;cursor:pointer;box-shadow:0 2px 8px 0 rgba(123,92,255,0.08);display:none;">Go to Step</button>
+  </div>
+
+  <script src="assets/js/Mm-boolang.js"></script>
+  <script>
+  // Show welcome/congrats popup after successful onboarding
+  function showOnboardingCongratsPopup(userName) {
+    document.getElementById('welcome-username').textContent = userName;
+    document.getElementById('welcome-popup').style.display = 'flex';
+    setTimeout(() => {
+      document.getElementById('welcome-popup').style.display = 'none';
+      document.getElementById('redirect-loading').style.display = 'flex';
+      setTimeout(() => {
+        window.location.href = './app.lumix.html';
+      }, 1500);
+    }, 3000);
+  }
+  // Attach to onboarding confirm button
+  const confirmBtn = document.getElementById('confirmBtn');
+  if (confirmBtn) {
+    confirmBtn.addEventListener('click', function(e) {
+      // Validate all required fields before showing popup
+      // (Assume validation is already done before this point)
+      setTimeout(function() {
+        // Get the username for the welcome message
+        var userName = document.getElementById('username')?.value || document.getElementById('fullname')?.value || 'User';
+        showOnboardingCongratsPopup(userName);
+      }, 100); // Slight delay to allow any final validation
+    });
+  }
+  window.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('redirect-loading').style.display = 'none';
+    document.getElementById('welcome-popup').style.display = 'none';
+  });
+  </script>
+</body>
+</html> 

@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Contact Lumix AI</title>
+  <link rel="stylesheet" href="./assets/css/contact.css" />
+</head>
+<body>
+      <style>
+  /* Preloader container */
+  #lumix-preloader {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+
+  /* Circle wrapper */
+  #lumix-preloader .circle-wrapper {
+    position: relative;
+    width: 150px;
+    height: 150px;
+  }
+
+  /* Image fills circle exactly */
+  #lumix-preloader img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    position: relative;
+    z-index: 2;
+    animation: logoFade 2s ease forwards;
+    opacity: 0;
+  }
+
+  /* Spinning border is exactly on the image border */
+  #lumix-preloader .circle-wrapper::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    border-radius: 50%;
+    border: 4px solid transparent;
+    border-top-color: #ff00cc;
+    border-right-color: #8a2be2;
+    border-bottom-color: #ff00cc;
+    border-left-color: #8a2be2;
+    animation: spinRing 2.5s linear infinite, glowPulse 2s ease-in-out infinite;
+    z-index: 1;
+    box-sizing: border-box;
+  }
+
+  /* Page content hidden by default */
+  #page-content {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+  }
+  #page-content.visible {
+    display: block;
+    opacity: 1;
+  }
+
+  /* Preloader fade out */
+  #lumix-preloader.fade-out {
+    animation: preFadeOut 0.8s forwards;
+  }
+
+  /* Animations */
+  @keyframes preFadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+  }
+  @keyframes spinRing {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  @keyframes glowPulse {
+    0%, 100% { box-shadow: 0 0 20px rgba(255,0,200,0.5); }
+    50% { box-shadow: 0 0 35px rgba(138,43,226,0.8); }
+  }
+  @keyframes logoFade {
+    0% { opacity: 0; transform: scale(0.5); }
+    50% { opacity: 1; transform: scale(1.05); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+</style>
+
+<!-- Preloader -->
+<div id="lumix-preloader">
+  <div class="circle-wrapper">
+    <!-- Replace logo.png with your logo -->
+    <img src="./assets/images/logo1.png" alt="Lumix Logo">
+  </div>
+</div>
+
+<!-- Wrap all page content here -->
+<div id="page-content">
+  <!-- Your full page content -->
+  
+</div>
+
+<script>
+  window.addEventListener("load", () => {
+    const preloader = document.getElementById("lumix-preloader");
+    const page = document.getElementById("page-content");
+
+    setTimeout(() => {
+      preloader.classList.add("fade-out");
+      page.classList.add("visible");
+
+      setTimeout(() => preloader.style.display = "none", 800);
+    }, 2500); // Duration for preloader
+  });
+</script>
+
+  <section class="contact-container">
+    <div class="contact-box">
+      <img src="./assets/images/logo.png" alt="Lumix AI Logo" class="logo" />
+      <h1>Contact Lumix AI</h1>
+      <p>Have a question, bug report, or suggestion?  or even suggest a feature so we improve Your experience   learn about using Lumix API and more you can report,ask or know about? | Tell us below</p>
+
+      <form id="contactForm" autocomplete="off">
+        <label for="name">Full Name</label>
+        <input type="text" id="name" placeholder="Your full name" required />
+
+        <label for="email">Email Address</label>
+        <input type="email" id="email" placeholder="Your email address" required />
+
+        <label for="subject">Subject</label>
+        <select id="subject" required>
+          <option value="" disabled selected>About</option>
+          <option value="Bug Report">Information</option>
+          <option value="Feature Request">Feature Request</option>
+          <option value="General Question">General Question</option>
+          <option value="General Question">Complaint</option>
+          <option value="General Question">Appreaction</option>
+          <option value="General Question">Banned Account</option>
+          <option value="General Question">API Info</option>
+          <option value="Other">Other</option>
+        </select>
+
+        <label for="message">Your Message</label>
+        <textarea id="message" rows="5" placeholder="Write your message here..." required></textarea>
+
+        <button type="submit" id="submitBtn">Send Message</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Preloader -->
+  <div id="preloader" class="preloader" style="display:none;">
+    <div class="spinner"></div>
+  </div>
+
+  <!-- Success Popup -->
+  <div id="popup" class="popup" style="display:none;">
+    <div class="popup-content">
+      <p>Thanks! Your message has been sent successfully.</p>
+      <button id="closePopup">Close</button>
+    </div>
+  </div>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-analytics-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+
+  <!-- Firebase Init -->
+  <script src="./assets/js/firebase-init.js"></script>
+
+  <!-- Contact Logic -->
+  <script src="./assets/js/contact.js"></script>
+</body>
+</html>

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Lumix AI Developer Sign In</title>
+<link rel="stylesheet" href="./assets/css/dev-805749937380337.css" />
+<link
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  rel="stylesheet"
+/>
+<style>
+  *:focus {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+  /* Remove tap highlight color globally */
+  * {
+    -webkit-tap-highlight-color: transparent !important;
+    -moz-tap-highlight-color: transparent !important;
+    -ms-tap-highlight-color: transparent !important;
+    tap-highlight-color: transparent !important;
+  }
+</style>
+</head>
+<body>
+  <main class="container">
+    <form id="signinForm" class="card" autocomplete="off" novalidate>
+  <h2 class="card-title"><strong>Login to your account</strong></h2>
+
+  <div class="input-group">
+    <label for="email">Email</label>
+    <input type="email" id="email" placeholder="you@example.com" required />
+  </div>
+
+  <div class="input-group">
+    <label for="password">Password</label>
+    <input type="password" id="password" placeholder="Enter your password" minlength="6" required />
+  </div>
+
+  <div class="input-group">
+    <label for="developerID">Developer ID</label>
+    <input type="text" id="developerID" placeholder="Paste your copied developer ID" required />
+  </div>
+
+  <button type="submit" class="btn-primary">Sign In</button>
+</form>
+
+<div id="notification" class="notification hidden"></div>
+<div id="loaderOverlay" class="hidden">
+  <img id="loaderImage" src="./assets/images/logo.png" alt="Loading..." />
+</div>
+
+<script type="module" src="./assets/js/dev-login.js"></script>
+
+    <div id="notification" class="notification hidden" role="alert" aria-live="assertive"></div>
+  </main>
+
+  <!-- Loader overlay added -->
+ <!-- Loader overlay -->
+<div id="loaderOverlay" class="hidden" aria-live="assertive" aria-busy="true" aria-label="Loading">
+  <img id="loaderImage" src="./assets/images/logo.png" alt="Loading..." />
+</div>
+
+  <script type="module" src="./assets/js/dev-063572573653737363636.js"></script>
+</body>
+</html>

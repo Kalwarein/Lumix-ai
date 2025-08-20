@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lumix AI</title>
+  <link rel="stylesheet" href="./assets/css/05775957575757.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+ </head>
+<body>
+    <style>
+  /* Preloader container */
+  #lumix-preloader {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+
+  /* Circle wrapper */
+  #lumix-preloader .circle-wrapper {
+    position: relative;
+    width: 150px;
+    height: 150px;
+  }
+
+  /* Image fills circle exactly */
+  #lumix-preloader img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    displaya: block;
+    position: relative;
+    z-index: 2;
+    animation: logoFade 2s ease forwards;
+    opacity: 0;
+  }
+
+  /* Spinning border is exactly on the image border */
+  #lumix-preloader .circle-wrapper::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    border-radius: 50%;
+    border: 4px solid transparent;
+    border-top-color: #ff00cc;
+    border-right-color: #8a2be2;
+    border-bottom-color: #ff00cc;
+    border-left-color: #8a2be2;
+    animation: spinRing 2.5s linear infinite, glowPulse 2s ease-in-out infinite;
+    z-index: 1;
+    box-sizing: border-box;
+  }
+
+  /* Page content hidden by default */
+  #page-content {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+  }
+  #page-content.visible {
+    display: block;
+    opacity: 1;
+  }
+
+  /* Preloader fade out */
+  #lumix-preloader.fade-out {
+    animation: preFadeOut 0.8s forwards;
+  }
+
+  /* Animations */
+  @keyframes preFadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+  }
+  @keyframes spinRing {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  @keyframes glowPulse {
+    0%, 100% { box-shadow: 0 0 20px rgba(255,0,200,0.5); }
+    50% { box-shadow: 0 0 35px rgba(138,43,226,0.8); }
+  }
+  @keyframes logoFade {
+    0% { opacity: 0; transform: scale(0.5); }
+    50% { opacity: 1; transform: scale(1.05); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+</style>
+
+<!-- Preloader -->
+<div id="lumix-preloader">
+  <div class="circle-wrapper">
+    <!-- Replace logo.png with your logo -->
+    <img src="./assets/images/logo1.png" alt="Lumix Logo">
+  </div>
+</div>
+
+<!-- Wrap all page content here -->
+<div id="page-content">
+  <!-- Your full page content -->
+  
+</div>
+
+<script>
+  window.addEventListener("load", () => {
+    const preloader = document.getElementById("lumix-preloader");
+    const page = document.getElementById("page-content");
+
+    setTimeout(() => {
+      preloader.classList.add("fade-out");
+      page.classList.add("visible");
+
+      setTimeout(() => preloader.style.display = "none", 800);
+    }, 2500); // Duration for preloader
+  });
+</script>
+  <!--  Top Alert Bar -->
+  <div class="top-alert">
+    <span><i class="fa-solid fa-sparkles"></i> New model just dropped: Realistic Vision v6.0</span>
+  </div>
+
+  <!--  Header -->
+  <header class="main-header">
+    <div class="header-inner">
+      <!-- Left: Logo -->
+      <div class="logo">
+        <img src="./assets/images/logo.png" alt="Lumix Logo" />
+        <span>LUMIX AI</span>
+      </div>
+
+      <!-- Center: Nav Links -->
+      <nav class="nav-links">
+          <a href="models.html"><i class="fa-solid fa-bolt"></i>Models<span class="glow-dot"></span></a>
+        <a href="auth.html"><i class="fa-solid fa-wand-magic-sparkles"></i> Generate</a>
+        <a href="help.html"><i class="fa-solid fa-cube"></i>Get help</a>
+        <a href="Pricing.html"><i class="fa-solid fa-dollar-sign"></i> Pricing</a>
+        <a href="#"><i class="fa-solid fa-users"></i> Community</a>
+        <a href="changelog.html"><i class="fa-solid fa-bolt"></i> What's New <span class="glow-dot"></span></a>
+      </nav>
+      <!-- Right: Auth & Lang -->
+      <div class="header-right">
+        <a href="signin.html" class="signin">Sign In</a>
+        <a href="auth.html" class="signup">Sign Up</a>
+        <div class="lang-switch">
+          <a href="pricing.html"><i class=""></i></a></div>
+        <div class="hamburger"><i class="fa-solid fa-bars"></i></div>
+      </div>
+    </div>
+  </header>
+<div id="loginPrompt" style="
+  display:none; 
+  position:fixed; 
+  top:0; left:0; right:0; bottom:0; 
+  background: rgba(0,0,0,0.5); 
+  justify-content:center; 
+  align-items:center;
+  z-index:1000;
+">
+  <div style="
+    background:#fff; 
+    padding:20px; 
+    border-radius:8px; 
+    max-width:320px; 
+    text-align:center;
+    box-shadow:0 4px 12px rgba(0,0,0,0.3);
+  ">
+    <p>You are already logged in to Lumix.<br>Would you like to go to the app now?</p>
+    <button id="btnYes" style="margin:10px; padding:8px 20px;">Yes</button>
+    <button id="btnNo" style="margin:10px; padding:8px 20px;">No</button>
+  </div>
+</div>
+<!-- 📱 Mobile Drawer -->
+<div class="mobile-drawer">
+  <div class="drawer-content">
+    <div class="close-drawer"><i class="fa-solid fa-xmark"></i></div>
+
+    <div class="drawer-link-group">
+
+      <a href="prompt.html"><i class="fa-solid fa-wand-magic-sparkles"></i> Generate</a>
+<a href="https://discord.gg/B6JBPfbz" target="_blank" rel="noopener noreferrer">
+  <i class="fab fa-discord"></i> Join us
+</a>
+
+      <!-- Dropdown 2 with image -->
+      <div class="dropdown">
+        <button class="dropdown-toggle">
+          <i class="fa-solid fa-bolt"></i> What's New <i class="fa-solid fa-chevron-down"></i>
+        </button>
+        <div class="dropdown-content with-image">
+          <div class="text">
+            <p><strong>HD Canvas</strong> — Higher resolution editing</p>
+            <p><strong>Faster Models</strong> — 2x faster generation</p>
+            <p><strong>Team Workspaces</strong> — Share & collab</p>
+            <p><strong>More Filters</strong> — Stylize results better</p>
+            <p><i class="fas fa-magic"></i> <strong>Creative Filters</strong> — With unique styles</p>
+          </div>
+          <div class="image">
+            <img src="assets/images/logo.png" alt="Preview" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Dropdown 3 -->
+      <div class="dropdown">
+        <button class="dropdown-toggle">
+          <i class="fa-solid fa-code"></i> API & SDKs <i class="fa-solid fa-chevron-down"></i>
+        </button>
+        <div class="dropdown-content">
+     <p><i class="fas fa-plug"></i> <strong>REST API</strong> — Easy integration</p>
+<p><i class="fab fa-js"></i> <strong>JavaScript SDK</strong> — Frontend ready</p>
+<p><i class="fab fa-python"></i> <strong>Python SDK</strong> — For AI workflows</p>
+<p><i class="fas fa-bell"></i> <strong>Webhooks</strong> — Real-time notifications</p>
+<p><i class="fas fa-book-open"></i> <strong>Docs & Tutorials</strong> — Getting started guides</p>
+        </div>
+      </div>
+
+
+      <!-- Dropdown 5 -->
+      <div class="dropdown">
+        <button class="dropdown-toggle">
+          <i class="fa-solid fa-headset"></i> Support <i class="fa-solid fa-chevron-down"></i>
+        </button>
+        <div class="dropdown-content">
+         <p><i class="fas fa-life-ring"></i> <strong>Help Center</strong> — FAQs & guides</p>
+<a href="contact.html"><p><i class="fas fa-envelope"></i> <strong> Contact Us</strong> — Have a question</p></a>
+<a href="help.html"><p><i class="fas fa-question-circle"></i> <strong> Have Questions</strong> — Get answers now</p></a>
+<a href="report.html"><p><i class="fas fa-bug"></i> <strong> Report Bugs</strong> — Get instant solutions</p></a>
+        </div>
+      </div>
+
+      <!-- Dropdown 6 -->
+      <div class="dropdown">
+        <button class="dropdown-toggle">
+          <i class="fa-solid fa-info-circle"></i> About Us <i class="fa-solid fa-chevron-down"></i>
+        </button>
+        <div class="dropdown-content">
+          <p><strong>Company</strong> — Our mission & team</p>
+          <p><strong>Careers</strong> — Join our team</p>
+          <p><strong>Press</strong> — Latest news</p>
+          <p><strong>Partners</strong> — Collaborations</p>
+          <p><strong>Blog</strong> — Stories & updates</p>
+        </div>
+      </div>
+
+      <!-- Additional 5 buttons -->
+      <a href="featured.html"><i class="fa-solid fa-star"></i> Featured</a>
+     <a href="models.html"><i class="fa-solid fa-microchip"></i> models</a>
+      <a href="events.html"><i class="fa-solid fa-calendar"></i> Events</a>
+      <a href="api-docs.html"><i class="fa-solid fa-book"></i> Api Docs</a>
+      <a href="contact.html"><i class="fa-solid fa-envelope"></i> Contact</a>
+      <a href="pricing.html"><i class="fa-solid fa-dollar-sign"></i> Pricing</a>
+          <a href="about.html"><i class="fa-solid fa-info-circle"></i> About Lumix</a>
+
+     
+    </div>
+
+    <hr/>
+
+    <a href="auth.html" class="signup">Get Started</a>
+    <a href="app.lumix.html" class="signup">Launch App</a>
+  </div>
+</div>
+
+<script>
+  // Toggle dropdown on button click
+  document.querySelectorAll('.dropdown-toggle').forEach(button => {
+    button.addEventListener('click', () => {
+      const dropdown = button.nextElementSibling;
+
+      // Close all other dropdowns first (optional)
+      document.querySelectorAll('.dropdown-content').forEach(dc => {
+        if (dc !== dropdown) dc.style.display = 'none';
+      });
+
+      // Toggle current dropdown
+      if (dropdown.style.display === 'flex' || dropdown.style.display === 'block') {
+        dropdown.style.display = 'none';
+        button.querySelector('i.fa-chevron-down').style.transform = 'rotate(0deg)';
+      } else {
+        dropdown.style.display = 'flex';
+        button.querySelector('i.fa-chevron-down').style.transform = 'rotate(180deg)';
+      }
+    });
+  });
+</script>
+
+<section class="hero-section">
+  <div class="hero-left">
+    <h1>Unleash Your Potential. Create Without Limits. Powered by : <strong> Lumix AI</strong></h1>
+    <p>Transform your ideas into stunning visuals instantly with our cutting-edge AI models.</p>
+    
+    <div class="hero-buttons">
+<!-- AFTER -->
+<a id="cta-button" href="auth.html" class="btn primary-btn btn-gradient">Try it Now <i class="fa-solid fa-arrow-right"></i></a>
+      <a href="api.html" class="btn secondary-btn ">𝗟𝘂𝗺𝗶𝘅 𝗔𝗣𝗜<i class="fa-solid fa-code"></i></a>
+    </div>
+    
+    <div class="prompt-chips">
+     <span><i class="fas fa-city"></i> Cyberpunk city at night</span>
+<span><i class="fas fa-user-ninja"></i> Anime girl with flowers</span>
+<span><i class="fas fa-moon"></i> Surreal dreamscape</span>
+<span><i class="fas fa-space-shuttle"></i> Futuristic spaceship</span>
+<span><i class="fas fa-tree"></i> Fantasy forest</span>
+<span><i class="fas fa-dragon"></i> Magical dragon realm</span>
+<span><i class="fas fa-robot"></i> Friendly AI robot</span>
+<span><i class="fas fa-star"></i> Starry night sky</span>
+<span><i class="fas fa-water"></i> Ocean adventure</span>
+<span><i class="fas fa-mountain"></i> Snowy mountain peak</span>
+    </div>
+  </div>
+  
+  <div class="hero-right">
+    <figure class="preview-card">
+      <img src="./assets/images/hero.jpg" alt="Featured Artwork: Dreamcore Cityscape" />
+      <figcaption>Featured Artwork: A random anime girl</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="info-cards">
+  <a href="creators.html" class="card">
+    <div class="card-content">
+      <h3>For Creators</h3>
+      <p>Create production-quality visual assets for your projects with unprecedented quality, speed, and style-consistency.</p>
+    </div>
+    <div class="arrow-btn">
+      <i class="fas fa-arrow-up-right-from-square"></i>
+    </div>
+  </a>
+
+  <a href="404.html" class="card">
+    <div class="card-content">
+      <h3>For Designers</h3>
+      <p>Bring your team's best ideas to life at scale, with our intuitive AI-first creative suite designed for collaboration and built for business.</p>
+    </div>
+    <div class="arrow-btn">
+      <i class="fas fa-arrow-up-right-from-square"></i>
+    </div>
+  </a>
+
+  <a href="api.html" class="card">
+    <div class="card-content">
+      <h3>For Developers</h3>
+      <p>Experience content creation excellence with Lumix Ai's API. With unmatched scalability, effortlessly tailor outputs to your brand guideline.</p>
+    </div>
+    <div class="arrow-btn">
+      <i class="fas fa-arrow-up-right-from-square"></i>
+    </div>
+  </a>
+</section>
+
+<section class="community-section">
+  <div class="container">
+    <h2 class="section-title"><strong>Join Our Creative Community</strong></h2>
+    <p class="section-subtitle">Connect with 5,000,000+ creators using LUMIX AI to build stunning visuals</p>
+
+    <div class="discord-panel">
+      <div class="discord-info">
+        <i class="fab fa-discord discord-icon"></i>
+        <span class="discord-text">Join our Discord</span>
+      </div>
+      <a href="https://discord.gg/U8CQR2Zp" class="btn btn-primary">Join Discord</a>
+    </div>
+    
+
+    <div class="active-counter">USERS JOINED: <strong>9,217 Users</strong></div>
+  </div>
+</section>
+
+
+
+<section class="lumix-toolkit">
+  <div class="container" id="toolkitGrid">
+    <h2>Lumix AI Toolkit — Your Creative Companion</h2>
+    <div class="toolkit-grid">
+      <article class="toolkit-card">
+        <i class="fas fa-lightbulb"></i>
+        <h3>Intelligent Prompting</h3>
+        <p>Get smarter, creative prompt suggestions to unlock new ideas and styles.</p>
+      </article>
+      <article class="toolkit-card">
+        <i class="fas fa-paint-brush"></i>
+        <h3>Style Transfer</h3>
+        <p>Transform images with artistic styles and give your creations a unique flair.</p>
+      </article>
+      <article class="toolkit-card">
+        <i class="fas fa-bolt"></i>
+        <h3>Real-time Generation</h3>
+        <p>Experience instant AI-powered image creation with lightning-fast results.</p>
+      </article>
+      <article class="toolkit-card">
+        <i class="fas fa-brain"></i>
+        <h3>Custom Model Training</h3>
+        <p>Personalize AI models tailored to your unique vision and creative needs.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+
+<section class="gallery-section" aria-label="Featured Creations">
+  <div class="gallery-header">
+    <h2>Explore Stunning AI Artworks</h2>
+    <p>Discover the creativity of the LUMIX community.</p>
+  </div>
+
+  <div class="gallery-slider-wrapper">
+    <button class="nav-arrow left" aria-label="Previous artwork" tabindex="0">
+      <i class="fas fa-chevron-left"></i>
+    </button>
+
+    <div class="gallery-slider" tabindex="0" role="list">
+      <!-- Example cards -->
+      <article class="gallery-card" role="listitem" tabindex="0">
+        <img
+          src="./assets/images/img-prev-1.jpg"
+          alt="ancient statue generated by AI"
+          loading="lazy"
+          decoding="async"
+        />
+        <div class="overlay">
+          <h3>ancient statue</h3>
+          <p>Model: Flux Dev</p>
+        </div>
+      </article>
+
+      <article class="gallery-card" role="listitem" tabindex="0">
+        <img
+          src="./assets/images/img-prev-2.jpg"
+          alt="mythical Chinese dragon"
+          loading="lazy"
+          decoding="async"
+        />
+        <div class="overlay">
+          <h3>Mythical Chinese dragon</h3>
+          <p>Model: Stable Diffusion 1.5</p>
+        </div>
+      </article>
+
+      <article class="gallery-card" role="listitem" tabindex="0">
+        <img
+          src="./assets/images/img-prev-3.jpg"
+          alt="Fantasy forest scene with glowing plants"
+          loading="lazy"
+          decoding="async"
+        />
+        <div class="overlay">
+          <h3>Fantasy Forest Scene</h3>
+          <p>Model: Realistic Vision v6.0</p>
+        </div>
+      </article>
+
+      <article class="gallery-card" role="listitem" tabindex="0">
+        <img
+          src="./assets/images/img-prev-4.jpg"
+          alt="Futuristic cityscape at dusk"
+          loading="lazy"
+          decoding="async"
+        />
+        <div class="overlay">
+          <h3>Futuristic Cityscape</h3>
+          <p>Model: Counterfeit v3.0</p>
+        </div>
+      </article>
+
+      <article class="gallery-card" role="listitem" tabindex="0">
+        <img
+          src="./assets/images/img-prev-5.jpg"
+          alt="Portrait of a cyberpunk character"
+          loading="lazy"
+          decoding="async"
+        />
+        <div class="overlay">
+          <h3>Cyberpunk Character</h3>
+          <p>Model: MeinaMix v11</p>
+        </div>
+      </article>
+    </div>
+
+    <button class="nav-arrow right" aria-label="Next artwork" tabindex="0">
+      <i class="fas fa-chevron-right"></i>
+    </button>
+  </div>
+
+  <div class="gallery-progress" role="tablist" aria-label="Gallery navigation dots">
+    <!-- Dots will be injected by JS -->
+  </div>
+</section>
+
+<section class="how-it-works" aria-labelledby="howitworks-title">
+  <header class="hiw-header">
+    <h2 id="howitworks-title" class="hiw-title">How It Works</h2>
+    <p class="hiw-subtitle">Create stunning AI artwork in 3 simple steps.</p>
+  </header>
+
+  <div class="hiw-steps" role="list">
+    <article class="hiw-step" role="listitem" tabindex="0" aria-labelledby="step1-title" aria-describedby="step1-desc">
+      <div class="step-number">1</div>
+      <div class="step-icon" aria-hidden="true">
+        <!-- Futuristic line art icon -->
+      </div>
+      <h3 id="step1-title" class="step-title">Enter Your Prompt</h3>
+      <p id="step1-desc" class="step-desc">Type a clear description of the image you want to create.</p>
+    </article>
+
+    <article class="hiw-step" role="listitem" tabindex="0" aria-labelledby="step2-title" aria-describedby="step2-desc">
+      <div class="step-number">2</div>
+      <div class="step-icon" aria-hidden="true">
+      </div>
+      <h3 id="step2-title" class="step-title">Generate Artwork</h3>
+      <p id="step2-desc" class="step-desc">Our AI processes your prompt to create stunning visuals.</p>
+    </article>
+
+    <article class="hiw-step" role="listitem" tabindex="0" aria-labelledby="step3-title" aria-describedby="step3-desc">
+      <div class="step-number">3</div>
+      <div class="step-icon" aria-hidden="true">
+      </div>
+      <h3 id="step3-title" class="step-title">Download & Share</h3>
+      <p id="step3-desc" class="step-desc">Save your creations or share them with the community instantly.</p>
+    </article>
+  </div>
+</section>
+<section class="pricing-section" aria-label="Pricing Plans">
+  <div class="pricing-header">
+    <h2>Pricing Plans</h2>
+    <p>Choose the perfect plan for your creative journey</p>
+  </div>
+
+  <div class="pricing-wrapper">
+    <button class="pricing-arrow left" aria-label="Scroll left" tabindex="0">
+      <svg width="24" height="24" fill="none" stroke="#b624fe" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polyline points="15 18 9 12 15 6"></polyline>
+      </svg>
+    </button>
+
+    <div class="pricing-cards" tabindex="0" role="list" aria-live="polite">
+      <!-- Pricing Card 1 -->
+      <article class="pricing-card" role="listitem" tabindex="0">
+        <img class="plan-image" src="./assets/images/logo.png" alt="Basic Plan Badge" loading="lazy" />
+        <h3 class="plan-name">Basic</h3>
+        <p class="plan-price">free<span>/da</span></p>
+        <ul class="plan-features">
+          <li>10 AI generations per day</li>
+          <li>Standard resolution images</li>
+          <li>Email support</li>
+        </ul>
+        <a href="/signup.html?plan=basic" class="btn-choose" role="button">Get Started</a>
+      </article>
+
+      <!-- Pricing Card 2 -->
+      <article class="pricing-card" role="listitem" tabindex="0">
+        <img class="plan-image" src="./assets/images/logo.png" alt="Pro Plan Badge" loading="lazy" />
+        <h3 class="plan-name">Pro</h3>
+        <p class="plan-price">$29<span>/mo</span></p>
+        <ul class="plan-features">
+          <li>Unlimited AI generations</li>
+          <li>High resolution images</li>
+          <li>Priority email support</li>
+          <li>Access to beta features</li>
+        </ul>
+        <a href="/signup.html?plan=pro" class="btn-choose" role="button">Choose Plan</a>
+      </article>
+
+      <!-- Pricing Card 3 -->
+      <article class="pricing-card" role="listitem" tabindex="0">
+        <img class="plan-image" src="./assets/images/logo.png" alt="Enterprise Plan Badge" loading="lazy" />
+        <h3 class="plan-name">Enterprise</h3>
+        <p class="plan-price">Custom</p>
+        <ul class="plan-features">
+          <li>Dedicated account manager</li>
+          <li>Custom AI models</li>
+          <li>Unlimited users & usage</li>
+          <li>24/7 priority support</li>
+        </ul>
+        <a href="/signup.html?plan=enterprise" class="btn-choose" role="button">Contact Us</a>
+      </article>
+
+      <!-- Pricing Card 4 -->
+      <article class="pricing-card" role="listitem" tabindex="0">
+        <img class="plan-image" src="./assets/images/logo.png" alt="Starter Plan Badge" loading="lazy" />
+        <h3 class="plan-name">Starter</h3>
+        <p class="plan-price">$0<span>/mo</span></p>
+        <ul class="plan-features">
+          <li>5 AI generations per day</li>
+          <li>Standard images</li>
+          <li>Community support</li>
+        </ul>
+        <a href="/signup.html?plan=starter" class="btn-choose" role="button">Start Free</a>
+      </article>
+
+      <!-- Pricing Card 5 -->
+      <article class="pricing-card" role="listitem" tabindex="0">
+        <img class="plan-image" src="./assets/images/logo.png" alt="Advanced Plan Badge" loading="lazy" />
+        <h3 class="plan-name">Advanced</h3>
+        <p class="plan-price">$59<span>/mo</span></p>
+        <ul class="plan-features">
+          <li>Unlimited AI generations</li>
+          <li>Ultra-high resolution</li>
+          <li>Dedicated support</li>
+          <li>Early access to new features</li>
+        </ul>
+        <a href="/signup.html?plan=advanced" class="btn-choose" role="button">Choose Plan</a>
+      </article>
+
+      <!-- Pricing Card 6 -->
+      <article class="pricing-card" role="listitem" tabindex="0">
+        <img class="plan-image" src="./assets/images/logo.png" alt="Ultimate Plan Badge" loading="lazy" />
+        <h3 class="plan-name">Ultimate</h3>
+        <p class="plan-price">$99<span>/mo</span></p>
+        <ul class="plan-features">
+          <li>All Advanced features</li>
+          <li>Unlimited team members</li>
+          <li>Personalized AI consulting</li>
+          <li>Dedicated cloud resources</li>
+        </ul>
+        <a href="/signup.html?plan=ultimate" class="btn-choose" role="button">Choose Plan</a>
+      </article>
+    </div>
+
+    <button class="pricing-arrow right" aria-label="Scroll right" tabindex="0">
+      <svg width="24" height="24" fill="none" stroke="#f94f9e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <polyline points="9 18 15 12 9 6"></polyline>
+      </svg>
+    </button>
+  </div>
+</section>
+<section class="faq-section" aria-label="Frequently Asked Questions">
+  <div class="faq-header">
+    <h2><strong>Frequently Asked Questions</strong></h2>
+    <p>Find answers to the most common questions.</p>
+  </div>
+
+  <div class="faq-container" role="list">
+    <div class="faq-item" role="listitem">
+      <button class="faq-question" aria-expanded="false" aria-controls="faq1" id="faq1-btn">
+        How does LUMIX generate AI images?
+        <span class="icon" aria-hidden="true">+</span>
+      </button>
+      <div id="faq1" class="faq-answer" role="region" aria-labelledby="faq1-btn" hidden>
+        LUMIX uses state-of-the-art AI models to convert your text prompts into stunning visual artworks within seconds.
+      </div>
+    </div>
+
+    <div class="faq-item" role="listitem">
+      <button class="faq-question" aria-expanded="false" aria-controls="faq2" id="faq2-btn">
+        Can I use LUMIX images commercially?
+        <span class="icon" aria-hidden="true">+</span>
+      </button>
+      <div id="faq2" class="faq-answer" role="region" aria-labelledby="faq2-btn" hidden>
+        Yes, images generated by LUMIX can be used commercially according to our terms of service.
+      </div>
+    </div>
+
+    <div class="faq-item" role="listitem">
+      <button class="faq-question" aria-expanded="false" aria-controls="faq3" id="faq3-btn">
+        What plans include unlimited AI generations?
+        <span class="icon" aria-hidden="true">+</span>
+      </button>
+      <div id="faq3" class="faq-answer" role="region" aria-labelledby="faq3-btn" hidden>
+        Our Pro, Advanced, and Ultimate plans offer unlimited AI generations for power users and enterprises.
+      </div>
+    </div>
+
+    <div class="faq-item" role="listitem">
+      <button class="faq-question" aria-expanded="false" aria-controls="faq4" id="faq4-btn">
+        How do I reset my password?
+        <span class="icon" aria-hidden="true">+</span>
+      </button>
+      <div id="faq4" class="faq-answer" role="region" aria-labelledby="faq4-btn" hidden>
+        You can reset your password using the "Forgot Password" link on the login page by entering your registered email address.
+      </div>
+    </div>
+
+    <div class="faq-item" role="listitem">
+      <button class="faq-question" aria-expanded="false" aria-controls="faq5" id="faq5-btn">
+        Is my data private and secure?
+        <span class="icon" aria-hidden="true">+</span>
+      </button>
+      <div id="faq5" class="faq-answer" role="region" aria-labelledby="faq5-btn" hidden>
+        Absolutely. We use industry-standard encryption and security measures to protect your data and privacy.
+      </div>
+    </div>
+
+    <div class="faq-item" role="listitem">
+      <button class="faq-question" aria-expanded="false" aria-controls="faq6" id="faq6-btn">
+        Can I collaborate with others on projects?
+        <span class="icon" aria-hidden="true">+</span>
+      </button>
+      <div id="faq6" class="faq-answer" role="region" aria-labelledby="faq6-btn" hidden>
+        No  Collaboration features are not currently available but will be in the coming years. And is currently in development.
+      </div>
+    </div>
+  </div>
+</section>
+<!-- WHAT OUR USERS SAY SECTION -->
+<!-- WHAT OUR USERS SAY SECTION -->
+<section class="testimonials-section">
+  <h2 class="section-title">What Our Users Say</h2>
+  <p class="section-subtitle">Real feedback from our creators and users worldwide.</p>
+
+  <div class="testimonials-container">
+    <!-- Testimonial Card 1 -->
+    <div class="testimonial-card">
+      <img src="./assets/images/profile/img2.jpg" alt="User 1" class="avatar" />
+      <div class="user-info">
+        <h3 class="user-name">Emily Rose</h3>
+        <p class="user-title">Digital Artist</p>
+        <div class="stars">★★★★★</div>
+      </div>
+      <p class="user-feedback">Lumix AI has revolutionized my art workflow. Stunning outputs and easy to use!</p>
+    </div>
+
+    <!-- Testimonial Card 2 -->
+    <div class="testimonial-card">
+      <img src="./assets/images/profile/img1.jpg" alt="User 2" class="avatar" />
+      <div class="user-info">
+        <h3 class="user-name">Carlos D.</h3>
+        <p class="user-title">Photographer</p>
+        <div class="stars">★★★★☆</div>
+      </div>
+      <p class="user-feedback">I use it every day for image generation. Incredible results for my portfolio.</p>
+    </div>
+
+    <!-- Testimonial Card 3 -->
+    <div class="testimonial-card">
+      <img src="./assets/images/profile/img5.jpg" alt="User 3" class="avatar" />
+      <div class="user-info">
+        <h3 class="user-name">Kal Z.</h3>
+        <p class="user-title">AI Content creator</p>
+        <div class="stars">★★★★★</div>
+      </div>
+      <p class="user-feedback">From portraits to fantasy scenes — Lumix delivers every single time.</p>
+    </div>
+
+    <!-- Add more cards if needed -->
+  </div>
+</section>
+
+<section class="cta-section">
+  <div class="cta-container">
+    <div class="cta-text">
+      <h2><strong>Start Creating with Lumix AI Today</strong></h2>
+      <p>Unleash your imagination with next-gen image generation tools.</p>
+      <div class="cta-buttons">
+        <a href="api.html" class="btn btn-gradient">
+          Get an Api
+          <i class="fa-solid fa-arrow-right"></i>
+        </a>
+        <a href="api-docs.html" class="btn btn-outline">
+          Api Documentation 
+          <i class="fas fa-book"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<footer class="lumix-footer">
+  <div class="footer-content">
+    <!-- Column 1: Logo & Description -->
+    <div class="footer-col logo-desc">
+      <div class="logo">
+        <img src="./assets/images/logo.png" alt="LUMIX AI Logo" />
+        <span>LUMIX AI</span>
+      </div>
+      <p>
+        lumix.ai is fully SOC 2 Type I and Type II accredited, demonstrating our commitment to the highest standards of security, availability, and data integrity. This ensures our customers can trust that their data is handled with enterprise-grade protection and compliance.
+      </p>
+      <div class="social-icons">
+        <a href="#" aria-label="Facebook" target="_blank" rel="noopener"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" aria-label="Twitter" target="_blank" rel="noopener"><i class="fab fa-twitter"></i></a>
+        <a href="https://discord.gg/B6JBPfbz" aria-label="Discord" target="_blank" rel="noopener"><i class="fab fa-discord"></i></a>
+        <a href="#" aria-label="LinkedIn" target="_blank" rel="noopener"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+    </div>
+
+    <!-- Column 2: Explore -->
+    <div class="footer-col">
+      <h3>Explore</h3>
+      <ul>
+        <li><a href="models.html">Models</a></li>
+        <li><a href="api-docs.html">Api Documentation</a></li>
+        <li><a href="changelog.html">Whats new</a></li>
+        <li><a href="api.html">Developers</a></li>
+        <li><a href="#">About</a></li>
+      </ul>
+    </div>
+
+    <!-- Column 3: Support -->
+    <div class="footer-col">
+      <h3>Support</h3>
+      <ul>
+        <li><a href="help.html">Help Center</a></li>
+        <li><a href="s-m.html">Social media</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+        <li><a href="report.html">Report a Bug</a></li>
+        <li><a href="terms.html">Terms &amp; Conditions</a></li>
+      </ul>
+    </div>
+
+<div class="footer-col">
+      <h3>Social</h3>
+      <ul>
+        <li><a href="https://discord.gg/B6JBPfbz">Join Our Discord</a></li>
+        <li><a href="s-m.html">Social media</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+        <li><a href="report.html">Report a Bug</a></li>
+        <li><a href="terms.html">Terms &amp; Conditions</a></li>
+      </ul>
+    </div>
+
+    <!-- Column 4: Newsletter Signup -->
+    <div class="footer-col newsletter">
+      <h3>Newsletter Signup</h3>
+      <p>Get the latest updates, tips, and releases</p>
+      <form action="#" method="post" class="newsletter-form" aria-label="Subscribe to newsletter">
+        <input
+          type="email"
+          name="email"
+          placeholder="Enter your email"
+          required
+          aria-required="true"
+          aria-label="Email address"
+        />        
+      </form>
+    </div>
+  </div>
+
+  <!-- Divider -->
+  <div class="footer-divider"></div>
+
+  <!-- Copyright Bar -->
+  <div class="footer-bottom">
+    <p>© 2025 LUMIX AI. All rights reserved. Designed with passion.</p>
+   </div>
+</div>
+  <script>      
+    const hamburger = document.querySelector(".hamburger");
+    const drawer = document.querySelector(".mobile-drawer");
+    const closeDrawer = document.querySelector(".close-drawer");
+
+    hamburger.onclick = () => drawer.classList.add("show");
+    closeDrawer.onclick = () => drawer.classList.remove("show");
+  </script>
+  <script>
+     // Accordion toggle logic
+  document.querySelectorAll('.faq-question').forEach(button => {
+    button.addEventListener('click', () => {
+      const expanded = button.getAttribute('aria-expanded') === 'true';
+      const answer = document.getElementById(button.getAttribute('aria-controls'));
+
+      // Close all answers (optional: for single open accordion at a time)
+      document.querySelectorAll('.faq-question').forEach(btn => {
+        btn.setAttribute('aria-expanded', 'false');
+        const ans = document.getElementById(btn.getAttribute('aria-controls'));
+        ans.hidden = true;
+      });
+
+      if (!expanded) {
+        button.setAttribute('aria-expanded', 'true');
+        answer.hidden = false;
+      } else {
+        button.setAttribute('aria-expanded', 'false');
+        answer.hidden = true;
+      }
+    });
+
+    // Keyboard accessibility: toggle on Enter or Space
+    button.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        button.click();
+      }
+    });
+  }); 
+  
+  </script>
+  <script>
+  const scrollContainer = document.querySelector('.toolkit-grid');
+  let scrollInterval;
+  let isHovered = false;
+  const scrollStep = 280 + 30; // card width + gap in px
+
+  function startAutoScroll() {
+    scrollInterval = setInterval(() => {
+      if (isHovered) return; // pause on hover
+      if (scrollContainer.scrollLeft + scrollContainer.clientWidth >= scrollContainer.scrollWidth) {
+        scrollContainer.scrollTo({ left: 0, behavior: 'smooth' });
+      } else {
+        scrollContainer.scrollBy({ left: scrollStep, behavior: 'smooth' });
+      }
+    }, 1800); // scroll every 1.8 seconds
+  }
+
+  function stopAutoScroll() {
+    clearInterval(scrollInterval);
+  }
+
+  scrollContainer.addEventListener('mouseenter', () => {
+    isHovered = true;
+    stopAutoScroll();
+  });
+
+  scrollContainer.addEventListener('mouseleave', () => {
+    isHovered = false;
+    startAutoScroll();
+  });
+
+  startAutoScroll();
+</script>
+<script>
+  import { auth } from './firebase-init.js';
+
+const launchBtn = document.getElementById("launchApp");
+const loginPrompt = document.getElementById("loginPrompt");
+const btnYes = document.getElementById("btnYes");
+const btnNo = document.getElementById("btnNo");
+
+launchBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+
+  const user = auth.currentUser;
+  if (user) {
+    // Show popup only if logged in
+    loginPrompt.style.display = "flex";
+  } else {
+    // Not logged in: Do nothing on click
+    // Optional: you can show a tooltip or message if you want
+  }
+});
+
+btnYes.addEventListener("click", () => {
+  window.location.href = "app.lumix.html";
+});
+
+btnNo.addEventListener("click", () => {
+  loginPrompt.style.display = "none";
+});
+</script>
+</body>
+</html>

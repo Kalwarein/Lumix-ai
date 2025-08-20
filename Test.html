@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leonardo-style AI Generator</title>
+<style>
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: #121212;
+    color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+  }
+
+  h1 { margin-bottom: 1rem; font-size: 2rem; text-align: center; }
+
+  .controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    justify-content: center;
+    width: 100%;
+    max-width: 900px;
+  }
+
+  input, select, button {
+    padding: 0.8rem 1rem;
+    font-size: 1rem;
+    border-radius: 6px;
+    border: none;
+  }
+
+  input { flex: 1 1 200px; }
+  button { cursor: pointer; background: #4a90e2; color: #fff; transition: 0.2s; }
+  button:hover { background: #357ab8; }
+
+  .style-buttons {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-bottom: 1rem;
+  }
+
+  .style-buttons button {
+    background: #2c2c2c;
+    color: #fff;
+    padding: 0.6rem 1rem;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    transition: 0.2s;
+  }
+
+  .style-buttons button:hover, .style-buttons button.active {
+    background: #4a90e2;
+    color: #fff;
+  }
+
+  .image-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1rem;
+    width: 100%;
+    max-width: 1200px;
+  }
+
+  .image-card {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    background: #1e1e1e;
+    box-shadow: 0 0 15px rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 250px;
+  }
+
+  .image-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .preloader {
+    border: 5px solid #2c2c2c;
+    border-top: 5px solid #4a90e2;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin { 100% { transform: rotate(360deg); } }
+</style>
+</head>
+<body>
+
+<h1>Leonardo-style AI Image Generator</h1>
+
+<div class="controls">
+  <input type="text" id="prompt" placeholder="Enter your prompt..." />
+  <select id="size">
+    <option value="default">Square</option>
+    <option value="landscape">Landscape</option>
+    <option value="portrait">Portrait</option>
+  </select>
+  <button id="generate">Generate Images</button>
+</div>
+
+<div class="style-buttons">
+  <button data-style="">Default</button>
+  <button data-style="realistic">Realistic</button>
+  <button data-style="anime">Anime</button>
+  <button data-style="cartoon">Cartoon</button>
+  <button data-style="digital-art">Digital Art</button>
+</div>
+
+<div class="image-grid" id="imageGrid"></div>
+
+<script>
+const promptInput = document.getElementById('prompt');
+const sizeSelect = document.getElementById('size');
+const generateBtn = document.getElementById('generate');
+const imageGrid = document.getElementById('imageGrid');
+const styleButtons = document.querySelectorAll('.style-buttons button');
+
+let selectedStyle = '';
+styleButtons.forEach(btn => {
+  btn.addEventListener('click', () => {
+    styleButtons.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    selectedStyle = btn.dataset.style;
+  });
+});
+
+generateBtn.addEventListener('click', async () => {
+  const prompt = promptInput.value.trim();
+  if (!prompt) return alert('Please enter a prompt!');
+
+  const finalPrompt = selectedStyle ? `${selectedStyle} style: ${prompt}` : prompt;
+
+  // Determine dimensions
+  let width = 300, height = 300;
+  if (sizeSelect.value === 'landscape') { width = 400; height = 250; }
+  else if (sizeSelect.value === 'portrait') { width = 250; height = 400; }
+
+  const numImages = 4; // 4 images at once
+  imageGrid.innerHTML = '';
+
+  // Add preloader cards
+  const loaders = [];
+  for (let i=0;i<numImages;i++){
+    const loaderCard = document.createElement('div');
+    loaderCard.classList.add('image-card');
+    loaderCard.innerHTML = '<div class="preloader"></div>';
+    imageGrid.appendChild(loaderCard);
+    loaders.push(loaderCard);
+  }
+
+  // Generate images
+  for (let i=0;i<numImages;i++){
+    try {
+      const apiUrl = `https://img.hazex.workers.dev/?prompt=${encodeURIComponent(prompt)}`;
+      const response = await fetch(apiUrl);
+      if (!response.ok) throw new Error('API error');
+
+      const blob = await response.blob();
+      const imageUrl = URL.createObjectURL(blob);
+
+      const img = document.createElement('img');
+      img.src = imageUrl;
+      img.alt = finalPrompt;
+      img.width = width;
+      img.height = height;
+
+      loaders[i].innerHTML = '';
+      loaders[i].appendChild(img);
+
+      // Auto-download
+      const a = document.createElement('a');
+      a.href = imageUrl;
+      a.download = finalPrompt.toLowerCase().replace(/\s+/g, '-') + `-${i+1}.jpg`;
+      a.click();
+
+    } catch(err){
+      console.error(err);
+      loaders[i].innerHTML = '<p style="color:red; text-align:center;">Failed</p>';
+    }
+  }
+});
+</script>
+
+</body>
+</html>

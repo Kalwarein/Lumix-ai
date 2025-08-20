@@ -1,0 +1,987 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumix AI Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="./assets/css/dev-dashboard.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <img src="./assets/imagea/logo.png " alt="Lumix AI Logo" class="logo">
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="#" class="nav-link active" data-page="dashboard"><i class="fas fa-th-large"></i> Dashboard</a></li>
+                    <li><a href="#" class="nav-link" data-page="api-keys"><i class="fas fa-key"></i> API Keys</a></li>
+                    <li><a href="#" class="nav-link" data-page="usage-analytics"><i class="fas fa-chart-line"></i> Usage Analytics</a></li>
+                    <li><a href="#" class="nav-link" data-page="team-management"><i class="fas fa-users"></i> Team Management</a></li>
+                    <li><a href="#" class="nav-link" data-page="integrations"><i class="fas fa-puzzle-piece"></i> Integrations</a></li>
+                    <li><a href="#" class="nav-link" data-page="webhooks"><i class="fas fa-link"></i> Webhooks</a></li>
+                    <li><a href="#" class="nav-link" data-page="models"><i class="fas fa-brain"></i> Models</a></li>
+                    <li><a href="#" class="nav-link" data-page="templates"><i class="fas fa-code"></i> Templates</a></li>
+                    <li><a href="#" class="nav-link" data-page="documentation"><i class="fas fa-book"></i> Documentation</a></li>
+                    <li><a href="#" class="nav-link" data-page="billing"><i class="fas fa-file-invoice"></i> Billing</a></li>
+                    <li><a href="#" class="nav-link" data-page="support"><i class="fas fa-life-ring"></i> Support</a></li>
+                    <li><a href="#" class="nav-link" data-page="settings"><i class="fas fa-cog"></i> Settings</a></li>
+                </ul>
+            </nav>
+            <div class="user-account-menu">
+                <div class="user-avatar-small">
+                    <img src="./assets/images/avatar-placeholder.png" alt="User Avatar">
+                </div>
+                <span>Jane Doe</span>
+                <i class="fas fa-sign-out-alt" id="logoutBtn"></i>
+            </div>
+        </aside>
+
+        <div class="main-content-wrapper">
+            <header class="top-nav">
+                <div class="hamburger-menu" id="hamburger-menu">
+                    <i class="fas fa-bars"></i>
+                </div>
+                <div class="search-bar">
+                    <input type="text" placeholder="Search dashboard...">
+                    <i class="fas fa-search"></i>
+                </div>
+                <h2 class="current-page-title" id="current-page-title">Dashboard</h2>
+                <div class="top-nav-icons">
+                    <i class="fas fa-bell notification-icon" id="notificationIcon"></i>
+                    <i class="fas fa-sun theme-toggle-icon" id="themeToggleIcon"></i>
+                    <div class="user-avatar-dropdown" id="userAvatarDropdown">
+                        <img src="https://via.placeholder.com/45x45?text=JD" alt="User Avatar">
+                        <i class="fas fa-caret-down"></i>
+                        </div>
+                </div>
+            </header>
+
+            <main class="dashboard-content">
+                <section class="page-content active-page" id="dashboard-page">
+                    <section class="welcome-banner glass-card">
+                        <h1>Welcome, Jane Doe!</h1>
+                        <p>You’re on the <span class="highlight-plan">Pro Plan</span></p>
+                    </section>
+
+                    <section class="key-metrics">
+                        <div class="metric-card glass-card">
+                            <h3>API Calls Today</h3>
+                            <p class="metric-value">1,234</p>
+                        </div>
+                        <div class="metric-card glass-card">
+                            <h3>Monthly Usage</h3>
+                            <p class="metric-value">25,678</p>
+                        </div>
+                        <div class="metric-card glass-card">
+                            <h3>Current Plan & Limits</h3>
+                            <p class="metric-value">Pro (50,000/month)</p>
+                        </div>
+                        <div class="metric-card glass-card">
+                            <h3>Remaining Quota</h3>
+                            <p class="metric-value">24,322</p>
+                        </div>
+                        <div class="metric-card glass-card">
+                            <h3>Billing Due Date</h3>
+                            <p class="metric-value">Aug 15, 2025</p>
+                        </div>
+                    </section>
+
+                    <section class="usage-graphs">
+                        <div class="graph-card glass-card">
+                            <h2>Daily API Requests</h2>
+                            <canvas id="dailyApiChart"></canvas>
+                        </div>
+                        <div class="graph-card glass-card">
+                            <h2>Endpoint Distribution</h2>
+                            <canvas id="endpointPieChart"></canvas>
+                        </div>
+                    </section>
+
+                    <section class="plan-info glass-card">
+                        <h2>Plan Information</h2>
+                        <p>Your current plan is: **Pro Plan**</p>
+                        <ul>
+                            <li>Monthly calls: 50,000</li>
+                            <li>High-res generations: Enabled</li>
+                            <li>Dedicated support: Yes</li>
+                        </ul>
+                        <button class="upgrade-btn" id="upgradePlanBtn">Upgrade Your Plan</button>
+                        <h3>Billing Summary</h3>
+                        <p>Last payment: $49.99 on Jul 1, 2025</p>
+                        <p>Next payment due: Aug 1, 2025</p>
+                    </section>
+
+                    <section class="logs-activity glass-card">
+                        <h2>Recent Activity</h2>
+                        <div class="log-entry">
+                            <span class="timestamp">[2025-07-27 17:10:05]</span>
+                            <span class="status-code success">[200 OK]</span>
+                            <span class="endpoint">/generate</span>
+                            <span class="message">Image generated successfully.</span>
+                        </div>
+                        <div class="log-entry">
+                            <span class="timestamp">[2025-07-27 17:08:12]</span>
+                            <span class="status-code error">[400 BAD REQUEST]</span>
+                            <span class="endpoint">/upscale</span>
+                            <span class="message">Invalid image dimensions provided.</span>
+                        </div>
+                        <div class="log-entry">
+                            <span class="timestamp">[2025-07-27 16:55:30]</span>
+                            <span class="status-code success">[200 OK]</span>
+                            <span class="endpoint">/enhance</span>
+                            <span class="message">Image enhanced.</span>
+                        </div>
+                        <div class="log-entry">
+                            <span class="timestamp">[2025-07-27 16:40:10]</span>
+                            <span class="status-code success">[200 OK]</span>
+                            <span class="endpoint">/generate</span>
+                            <span class="message">New image created.</span>
+                        </div>
+                        <button class="view-all-logs-btn">View All Logs</button>
+                    </section>
+                </section>
+
+                <section class="page-content" id="api-keys-page">
+                    <section class="api-access-block glass-card">
+                        <h2>Manage API Keys</h2>
+                        <p>Here you can view, generate, rotate, and revoke your API authentication keys. Keep them secure!</p>
+                        <div class="api-key-display">
+                            <p class="api-key-value" id="currentApiKey">sk-lumix_xxxxxxxxxxxxxxxxxxxxxx</p>
+                            <div class="api-key-actions">
+                                <button class="action-btn" id="copyApiKeyBtn"><i class="fas fa-copy"></i> Copy</button>
+                                <button class="action-btn" id="rotateApiKeyBtn"><i class="fas fa-sync-alt"></i> Rotate</button>
+                                <button class="action-btn danger-btn" id="revokeApiKeyBtn"><i class="fas fa-trash-alt"></i> Revoke</button>
+                            </div>
+                        </div>
+                        <button class="generate-key-btn" id="generateNewKeyBtn">Generate New API Key</button>
+                    </section>
+
+                    <section class="glass-card">
+                        <h2>Key Management Guidelines</h2>
+                        <p>For optimal security, follow these best practices:</p>
+                        <ul>
+                            <li>**Rotate Keys Regularly:** Change your keys every 30-90 days, especially if multiple developers have access.</li>
+                            <li>**Environment Variables:** Never hardcode API keys directly into your source code. Use environment variables (e.g., in `.env` files) for local development and secure secrets management services in production.</li>
+                            <li>**Server-Side Usage:** Whenever possible, make API calls from your backend server to prevent exposing your keys on the client-side.</li>
+                            <li>**Access Control:** Limit access to API keys only to individuals and systems that absolutely require them.</li>
+                            <li>**IP Whitelisting:** If supported, restrict API key usage to specific IP addresses where your applications are hosted.</li>
+                        </ul>
+                    </section>
+
+                    <section class="glass-card">
+                        <h2>API Key Status Log</h2>
+                        <div class="log-entry">
+                            <span class="timestamp">[2025-07-20 10:00:00]</span>
+                            <span class="status-code success">Generated</span>
+                            <span class="endpoint">sk-lumix_newkey...</span>
+                            <span class="message">New API Key created by User.</span>
+                        </div>
+                        <div class="log-entry">
+                            <span class="timestamp">[2025-06-20 09:30:00]</span>
+                            <span class="status-code warning">Rotated</span>
+                            <span class="endpoint">sk-lumix_oldkey...</span>
+                            <span class="message">API Key rotated. Old key invalidated.</span>
+                        </div>
+                    </section>
+                </section>
+
+                <section class="page-content" id="usage-analytics-page">
+                    <section class="glass-card">
+                        <h2>Detailed Usage Analytics</h2>
+                        <p>Explore your API usage trends and endpoint performance in depth. Data is updated hourly.</p>
+                        <div class="graph-card">
+                            <h3>Monthly API Call Trend</h3>
+                            <canvas id="monthlyTrendChart"></canvas>
+                        </div>
+                        <div class="graph-card">
+                            <h3>Daily Breakdown by Endpoint</h3>
+                            <canvas id="dailyEndpointBreakdownChart"></canvas>
+                        </div>
+                        <div class="metrics-grid">
+                            <div class="metric-card analytics-metric glass-card">
+                                <h3>Peak Usage Hour</h3>
+                                <p class="metric-value">3 PM (UTC)</p>
+                            </div>
+                            <div class="metric-card analytics-metric glass-card">
+                                <h3>Avg. Response Time</h3>
+                                <p class="metric-value">150 ms</p>
+                            </div>
+                            <div class="metric-card analytics-metric glass-card">
+                                <h3>Error Rate</h3>
+                                <p class="metric-value">0.5%</p>
+                            </div>
+                        </div>
+                        <button class="action-btn" id="downloadReportBtn"><i class="fas fa-download"></i> Download Full Report</button>
+                    </section>
+                </section>
+
+                <section class="page-content" id="team-management-page">
+                    <section class="glass-card">
+                        <h2>Team Members</h2>
+                        <p>Manage access for your team. Invite new members, assign roles, and revoke access.</p>
+                        <div class="team-header">
+                            <button class="generate-key-btn" id="inviteMemberBtn"><i class="fas fa-user-plus"></i> Invite New Member</button>
+                        </div>
+                        <div class="member-list">
+                            <div class="member-entry log-entry glass-card">
+                                <div class="member-info">
+                                    <div class="user-avatar-small"><img src="https://via.placeholder.com/40x40?text=JD" alt="User Avatar"></div>
+                                    <span>Jane Doe (You)</span>
+                                    <span class="role admin-role">Admin</span>
+                                </div>
+                                <div class="member-actions">
+                                    <button class="action-btn small-btn" disabled><i class="fas fa-pen"></i> Edit</button>
+                                    <button class="action-btn small-btn danger-btn" disabled><i class="fas fa-user-times"></i> Remove</button>
+                                </div>
+                            </div>
+                            <div class="member-entry log-entry glass-card">
+                                <div class="member-info">
+                                    <div class="user-avatar-small"><img src="https://via.placeholder.com/40x40?text=AD" alt="User Avatar"></div>
+                                    <span>Alex Doe</span>
+                                    <span class="role developer-role">Developer</span>
+                                </div>
+                                <div class="member-actions">
+                                    <button class="action-btn small-btn"><i class="fas fa-pen"></i> Edit</button>
+                                    <button class="action-btn small-btn danger-btn"><i class="fas fa-user-times"></i> Remove</button>
+                                </div>
+                            </div>
+                            <div class="member-entry log-entry glass-card">
+                                <div class="member-info">
+                                    <div class="user-avatar-small"><img src="https://via.placeholder.com/40x40?text=MB" alt="User Avatar"></div>
+                                    <span>Michael Brown</span>
+                                    <span class="role viewer-role">Viewer</span>
+                                </div>
+                                <div class="member-actions">
+                                    <button class="action-btn small-btn"><i class="fas fa-pen"></i> Edit</button>
+                                    <button class="action-btn small-btn danger-btn"><i class="fas fa-user-times"></i> Remove</button>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section class="glass-card">
+                        <h2>Pending Invitations</h2>
+                        <div class="log-entry">
+                            <span class="timestamp">[Pending]</span>
+                            <span class="endpoint">charlie@example.com</span>
+                            <span class="message">Role: Developer</span>
+                            <button class="action-btn small-btn">Resend</button>
+                            <button class="action-btn small-btn danger-btn">Cancel</button>
+                        </div>
+                    </section>
+                </section>
+
+                <section class="page-content" id="integrations-page">
+                    <section class="glass-card">
+                        <h2>Lumix AI Integrations</h2>
+                        <p>Connect Lumix AI with your favorite tools and platforms to automate workflows and enhance capabilities.</p>
+                        <div class="integrations-grid">
+                            <div class="integration-card glass-card">
+                                <img src="https://via.placeholder.com/80x80?text=Zapier" alt="Zapier Logo">
+                                <h3>Zapier</h3>
+                                <p>Automate tasks by connecting Lumix AI with 5000+ apps.</p>
+                                <button class="action-btn small-btn">Connect</button>
+                            </div>
+                            <div class="integration-card glass-card">
+                                <img src="https://via.placeholder.com/80x80?text=Slack" alt="Slack Logo">
+                                <h3>Slack</h3>
+                                <p>Get real-time notifications about API usage and events.</p>
+                                <button class="action-btn small-btn">Configure</button>
+                            </div>
+                            <div class="integration-card glass-card">
+                                <img src="https://via.placeholder.com/80x80?text=Webflow" alt="Webflow Logo">
+                                <h3>Webflow</h3>
+                                <p>Generate images directly within your Webflow projects.</p>
+                                <button class="action-btn small-btn">Learn More</button>
+                            </div>
+                            <div class="integration-card glass-card">
+                                <img src="https://via.placeholder.com/80x80?text=Shopify" alt="Shopify Logo">
+                                <h3>Shopify</h3>
+                                <p>Enhance product images and generate descriptions automatically.</p>
+                                <button class="action-btn small-btn">Install App</button>
+                            </div>
+                        </div>
+                        <button class="generate-key-btn">Explore More Integrations</button>
+                    </section>
+                </section>
+
+                <section class="page-content" id="webhooks-page">
+                    <section class="glass-card">
+                        <h2>Webhooks</h2>
+                        <p>Receive real-time notifications about events in your Lumix AI account by configuring webhooks.</p>
+
+                        <h3>Active Webhooks</h3>
+                        <div class="webhook-list">
+                            <div class="log-entry glass-card webhook-entry">
+                                <div class="webhook-info">
+                                    <strong><i class="fas fa-code-branch"></i> Status Update Hook</strong>
+                                    <span>URL: `https://your-app.com/lumix-updates`</span>
+                                    <span>Events: `generation.completed`, `billing.updated`</span>
+                                    <span class="status-code success">Active</span>
+                                </div>
+                                <div class="webhook-actions">
+                                    <button class="action-btn small-btn"><i class="fas fa-pen"></i> Edit</button>
+                                    <button class="action-btn small-btn danger-btn"><i class="fas fa-trash-alt"></i> Delete</button>
+                                    <button class="action-btn small-btn">Test</button>
+                                </div>
+                            </div>
+                            <div class="log-entry glass-card webhook-entry">
+                                <div class="webhook-info">
+                                    <strong><i class="fas fa-file-invoice-dollar"></i> Billing Alert</strong>
+                                    <span>URL: `https://your-billing-service.com/webhook`</span>
+                                    <span>Events: `billing.over_limit`, `billing.failed`</span>
+                                    <span class="status-code warning">Active (Test)</span>
+                                </div>
+                                <div class="webhook-actions">
+                                    <button class="action-btn small-btn"><i class="fas fa-pen"></i> Edit</button>
+                                    <button class="action-btn small-btn danger-btn"><i class="fas fa-trash-alt"></i> Delete</button>
+                                    <button class="action-btn small-btn">Test</button>
+                                </div>
+                            </div>
+                        </div>
+                        <button class="generate-key-btn" id="addWebhookBtn"><i class="fas fa-plus"></i> Add New Webhook</button>
+                    </section>
+
+                    <section class="glass-card">
+                        <h2>Webhook Event Types</h2>
+                        <div class="event-types-grid">
+                            <div class="event-type-card glass-card">
+                                <h3>Image Generation</h3>
+                                <ul>
+                                    <li>`generation.completed`</li>
+                                    <li>`generation.failed`</li>
+                                    <li>`generation.started`</li>
+                                </ul>
+                            </div>
+                            <div class="event-type-card glass-card">
+                                <h3>Billing & Usage</h3>
+                                <ul>
+                                    <li>`billing.updated`</li>
+                                    <li>`billing.over_limit`</li>
+                                    <li>`invoice.paid`</li>
+                                </ul>
+                            </div>
+                            <div class="event-type-card glass-card">
+                                <h3>Account & API Keys</h3>
+                                <ul>
+                                    <li>`api_key.rotated`</li>
+                                    <li>`api_key.revoked`</li>
+                                    <li>`user.deleted`</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </section>
+                </section>
+
+                <section class="page-content" id="models-page">
+                    <section class="glass-card">
+                        <h2>Lumix AI Models</h2>
+                        <p>Explore and manage the AI models available for image generation, enhancement, and more.</p>
+
+                        <div class="model-selection">
+                            <label for="model-category">Filter by Category:</label>
+                            <select id="model-category" class="glass-input">
+                                <option value="all">All Categories</option>
+                                <option value="generation">Image Generation</option>
+                                <option value="enhancement">Image Enhancement</option>
+                                <option value="upscaling">Image Upscaling</option>
+                                <option value="specialized">Specialized</option>
+                            </select>
+                        </div>
+
+                        <div class="model-grid">
+                            <div class="model-card glass-card">
+                                <h3>Lumix-Gen-V3.1</h3>
+                                <p class="model-type">Image Generation</p>
+                                <p>Our latest and most versatile generative model for stunning visuals.</p>
+                                <div class="model-stats">
+                                    <span><i class="fas fa-star"></i> 4.9 Rating</span>
+                                    <span><i class="fas fa-fire"></i> Popular</span>
+                                </div>
+                                <button class="action-btn small-btn">Use Model</button>
+                                <button class="action-btn small-btn secondary-btn">Details</button>
+                            </div>
+                            <div class="model-card glass-card">
+                                <h3>Lumix-Enhance-HD</h3>
+                                <p class="model-type">Image Enhancement</p>
+                                <p>Enhance image clarity, color, and detail for high-definition output.</p>
+                                <div class="model-stats">
+                                    <span><i class="fas fa-star"></i> 4.7 Rating</span>
+                                </div>
+                                <button class="action-btn small-btn">Use Model</button>
+                                <button class="action-btn small-btn secondary-btn">Details</button>
+                            </div>
+                            <div class="model-card glass-card">
+                                <h3>Lumix-Upscale-Pro</h3>
+                                <p class="model-type">Image Upscaling</p>
+                                <p>Upscale images up to 8x without quality loss using advanced AI.</p>
+                                <div class="model-stats">
+                                    <span><i class="fas fa-star"></i> 4.8 Rating</span>
+                                    <span><i class="fas fa-fire"></i> Popular</span>
+                                </div>
+                                <button class="action-btn small-btn">Use Model</button>
+                                <button class="action-btn small-btn secondary-btn">Details</button>
+                            </div>
+                            <div class="model-card glass-card">
+                                <h3>Lumix-Sketch2Art</h3>
+                                <p class="model-type">Specialized</p>
+                                <p>Transforms hand-drawn sketches into vibrant, photorealistic images.</p>
+                                <div class="model-stats">
+                                    <span><i class="fas fa-star"></i> 4.5 Rating</span>
+                                </div>
+                                <button class="action-btn small-btn">Use Model</button>
+                                <button class="action-btn small-btn secondary-btn">Details</button>
+                            </div>
+                        </div>
+                    </section>
+                </section>
+
+                <section class="page-content" id="templates-page">
+                    <section class="glass-card">
+                        <h2>Code Templates & Quickstarts</h2>
+                        <p>Browse and acquire ready-to-use code templates to kickstart your Lumix AI integrations. Simplify common tasks and accelerate your development.</p>
+
+                        <div class="template-grid">
+                            <div class="template-card glass-card">
+                                <h3>Python: Generate Basic Image</h3>
+                                <p class="template-description">Quickly generate an image from a text prompt using Python.</p>
+                                <div class="code-block-wrapper">
+                                    <pre><code class="language-python">
+import requests
+import json
+
+API_KEY = "YOUR_LUMIX_API_KEY"
+API_ENDPOINT = "https://api.lumixai.com/v1/generate"
+
+headers = {
+    "Authorization": f"Bearer {API_KEY}",
+    "Content-Type": "application/json"
+}
+
+data = {
+    "prompt": "A futuristic city skyline at sunset, cyberpunk style",
+    "model": "Lumix-Gen-V3.1",
+    "dimensions": "1024x1024",
+    "num_images": 1
+}
+
+try:
+    response = requests.post(API_ENDPOINT, headers=headers, json=data)
+    response.raise_for_status() # Raise an exception for HTTP errors
+
+    result = response.json()
+    print("Generated Image URL:", result["data"][0]["url"])
+
+except requests.exceptions.RequestException as e:
+    print(f"API Request failed: {e}")
+    print(f"Response: {response.text if 'response' in locals() else 'N/A'}")
+                                    </code></pre>
+                                    <button class="copy-code-btn" data-template-id="py-gen-basic"><i class="fas fa-copy"></i> Copy</button>
+                                    <button class="buy-template-btn" data-template-id="py-gen-basic">Acquire & Use</button>
+                                </div>
+                                <div class="template-meta">
+                                    <span><i class="fas fa-tag"></i> Python, Image Generation</span>
+                                    <span><i class="fas fa-dollar-sign"></i> Free</span>
+                                </div>
+                            </div>
+
+                            <div class="template-card glass-card">
+                                <h3>Node.js: Upscale Image</h3>
+                                <p class="template-description">Upscale an existing image URL with Node.js.</p>
+                                <div class="code-block-wrapper">
+                                    <pre><code class="language-javascript">
+const fetch = require('node-fetch');
+
+const API_KEY = "YOUR_LUMIX_API_KEY";
+const API_ENDPOINT = "https://api.lumixai.com/v1/upscale";
+
+async function upscaleImage(imageUrl) {
+    const headers = {
+        "Authorization": `Bearer ${API_KEY}`,
+        "Content-Type": "application/json"
+    };
+
+    const data = {
+        "image_url": imageUrl,
+        "scale": "2x",
+        "model": "Lumix-Upscale-Pro"
+    };
+
+    try {
+        const response = await fetch(API_ENDPOINT, {
+            method: 'POST',
+            headers: headers,
+            body: JSON.stringify(data)
+        });
+
+        if (!response.ok) {
+            const errorText = await response.text();
+            throw new Error(`HTTP error! status: ${response.status}, ${errorText}`);
+        }
+
+        const result = await response.json();
+        console.log("Upscaled Image URL:", result.data[0].url);
+
+    } catch (error) {
+        console.error("API Request failed:", error);
+    }
+}
+
+upscaleImage("https://example.com/your-image.jpg");
+                                    </code></pre>
+                                    <button class="copy-code-btn" data-template-id="node-upscale"><i class="fas fa-copy"></i> Copy</button>
+                                    <button class="buy-template-btn" data-template-id="node-upscale">Acquire & Use</button>
+                                </div>
+                                <div class="template-meta">
+                                    <span><i class="fas fa-tag"></i> Node.js, Image Upscaling</span>
+                                    <span><i class="fas fa-dollar-sign"></i> Free</span>
+                                </div>
+                            </div>
+
+                            <div class="template-card glass-card">
+                                <h3>PHP: Enhance Image</h3>
+                                <p class="template-description">Improve image quality using the Lumix AI enhance endpoint in PHP.</p>
+                                <div class="code-block-wrapper">
+                                    <pre><code class="language-php">
+&lt;?php
+$apiKey = "YOUR_LUMIX_API_KEY";
+$apiEndpoint = "https://api.lumixai.com/v1/enhance";
+
+$imageUrl = "https://example.com/low-res-image.jpg";
+
+$headers = [
+    "Authorization: Bearer " . $apiKey,
+    "Content-Type: application/json"
+];
+
+$data = json_encode([
+    "image_url" => $imageUrl,
+    "quality_preset" => "high"
+]);
+
+$ch = curl_init($apiEndpoint);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+curl_setopt($ch, CURLOPT_POST, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+
+$response = curl_exec($ch);
+$httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+
+if (curl_errno($ch)) {
+    echo 'Curl error: ' . curl_error($ch);
+} elseif ($httpCode !== 200) {
+    echo "API Error: " . $response;
+} else {
+    $result = json_decode($response, true);
+    echo "Enhanced Image URL: " . $result['data'][0]['url'];
+}
+
+curl_close($ch);
+?&gt;
+                                    </code></pre>
+                                    <button class="copy-code-btn" data-template-id="php-enhance"><i class="fas fa-copy"></i> Copy</button>
+                                    <button class="buy-template-btn" data-template-id="php-enhance">Acquire & Use</button>
+                                </div>
+                                <div class="template-meta">
+                                    <span><i class="fas fa-tag"></i> PHP, Image Enhancement</span>
+                                    <span><i class="fas fa-dollar-sign"></i> Free</span>
+                                </div>
+                            </div>
+
+                            <div class="template-card glass-card">
+                                <h3>Python: Generate with Custom Model</h3>
+                                <p class="template-description">Generate images using a specific custom-trained model ID.</p>
+                                <div class="code-block-wrapper">
+                                    <pre><code class="language-python">
+import requests
+import json
+
+API_KEY = "YOUR_LUMIX_API_KEY"
+API_ENDPOINT = "https://api.lumixai.com/v1/generate"
+CUSTOM_MODEL_ID = "mod_abc123def456" # Replace with your custom model ID
+
+headers = {
+    "Authorization": f"Bearer {API_KEY}",
+    "Content-Type": "application/json"
+}
+
+data = {
+    "prompt": "A vintage car driving through a futuristic cityscape",
+    "model": CUSTOM_MODEL_ID,
+    "dimensions": "768x768",
+    "style_preset": "cinematic"
+}
+
+try:
+    response = requests.post(API_ENDPOINT, headers=headers, json=data)
+    response.raise_for_status()
+
+    result = response.json()
+    print("Custom Model Generated Image URL:", result["data"][0]["url"])
+
+except requests.exceptions.RequestException as e:
+    print(f"API Request failed: {e}")
+                                    </code></pre>
+                                    <button class="copy-code-btn" data-template-id="py-custom-gen"><i class="fas fa-copy"></i> Copy</button>
+                                    <button class="buy-template-btn" data-template-id="py-custom-gen">Acquire & Use</button>
+                                </div>
+                                <div class="template-meta">
+                                    <span><i class="fas fa-tag"></i> Python, Custom Models</span>
+                                    <span><i class="fas fa-dollar-sign"></i> Free (requires custom model)</span>
+                                </div>
+                            </div>
+
+                             <div class="template-card glass-card">
+                                <h3>Node.js: Webhook Listener (Express)</h3>
+                                <p class="template-description">Simple Express app to receive Lumix AI webhook events.</p>
+                                <div class="code-block-wrapper">
+                                    <pre><code class="language-javascript">
+const express = require('express');
+const bodyParser = require('body-parser');
+
+const app = express();
+const PORT = process.env.PORT || 3000;
+
+// Use bodyParser to parse JSON bodies
+app.use(bodyParser.json());
+
+app.post('/lumix-webhook', (req, res) => {
+    const event = req.body;
+    console.log('Received Lumix AI Webhook Event:', event.event_type);
+    console.log('Payload:', event.data);
+
+    // Process the event based on its type
+    if (event.event_type === 'generation.completed') {
+        console.log('Image generation completed for:', event.data.image_id);
+        // Add your logic here, e.g., update database, notify user
+    } else if (event.event_type === 'billing.over_limit') {
+        console.warn('Billing limit exceeded alert received!');
+    }
+
+    res.status(200).send('Webhook received successfully');
+});
+
+app.listen(PORT, () => {
+    console.log(`Webhook listener running on port ${PORT}`);
+    console.log(`Configure your Lumix AI webhook URL to: http://localhost:${PORT}/lumix-webhook`);
+});
+                                    </code></pre>
+                                    <button class="copy-code-btn" data-template-id="node-webhook"><i class="fas fa-copy"></i> Copy</button>
+                                    <button class="buy-template-btn" data-template-id="node-webhook">Acquire & Use</button>
+                                </div>
+                                <div class="template-meta">
+                                    <span><i class="fas fa-tag"></i> Node.js, Webhooks, Express.js</span>
+                                    <span><i class="fas fa-dollar-sign"></i> Free</span>
+                                </div>
+                            </div>
+
+                            <div class="template-card glass-card">
+                                <h3>React.js: Display Generated Image</h3>
+                                <p class="template-description">Conceptual React component to display an image generated by Lumix AI.</p>
+                                <div class="code-block-wrapper">
+                                    <pre><code class="language-jsx">
+import React, { useState, useEffect } from 'react';
+
+function LumixImageGenerator() {
+    const [imageUrl, setImageUrl] = useState('');
+    const [loading, setLoading] = useState(false);
+    const API_ENDPOINT = "/api/generate-image"; // Your backend endpoint
+
+    const generateImage = async () => {
+        setLoading(true);
+        try {
+            // In a real app, API_KEY would be on your backend,
+            // and this frontend calls your backend.
+            const response = await fetch(API_ENDPOINT, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ prompt: "An abstract art piece" })
+            });
+            const data = await response.json();
+            if (data.url) {
+                setImageUrl(data.url);
+            } else {
+                console.error("No image URL received:", data);
+            }
+        } catch (error) {
+            console.error("Error generating image:", error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        // Optional: generate an image on component mount
+        // generateImage();
+    }, []);
+
+    return (
+        &lt;div&gt;
+            &lt;button onClick={generateImage} disabled={loading}&gt;
+                {loading ? 'Generating...' : 'Generate New Image'}
+            &lt;/button&gt;
+            {imageUrl && &lt;img src={imageUrl} alt="Generated Lumix AI" style={{ maxWidth: '100%', marginTop: '20px' }} /&gt;}
+            {!imageUrl && !loading && &lt;p&gt;Click 'Generate New Image' to create one.&lt;/p&gt;}
+        &lt;/div&gt;
+    );
+}
+
+export default LumixImageGenerator;
+                                    </code></pre>
+                                    <button class="copy-code-btn" data-template-id="react-display"><i class="fas fa-copy"></i> Copy</button>
+                                    <button class="buy-template-btn" data-template-id="react-display">Acquire & Use</button>
+                                </div>
+                                <div class="template-meta">
+                                    <span><i class="fas fa-tag"></i> React.js, Frontend, UI</span>
+                                    <span><i class="fas fa-dollar-sign"></i> Free</span>
+                                </div>
+                            </div>
+
+                             <div class="template-card glass-card">
+                                <h3>CLI: Quick Generate (Curl)</h3>
+                                <p class="template-description">A simple command-line curl request to generate an image.</p>
+                                <div class="code-block-wrapper">
+                                    <pre><code class="language-bash">
+curl -X POST https://api.lumixai.com/v1/generate \
+     -H "Authorization: Bearer YOUR_LUMIX_API_KEY" \
+     -H "Content-Type: application/json" \
+     -d '{
+           "prompt": "A serene landscape with cherry blossoms and a distant mountain",
+           "model": "Lumix-Gen-V3.1",
+           "dimensions": "512x512"
+         }'
+                                    </code></pre>
+                                    <button class="copy-code-btn" data-template-id="curl-generate"><i class="fas fa-copy"></i> Copy</button>
+                                    <button class="buy-template-btn" data-template-id="curl-generate">Acquire & Use</button>
+                                </div>
+                                <div class="template-meta">
+                                    <span><i class="fas fa-tag"></i> CLI, cURL, Bash</span>
+                                    <span><i class="fas fa-dollar-sign"></i> Free</span>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </section>
+
+
+                <section class="page-content" id="documentation-page">
+                    <section class="glass-card">
+                        <h2>Lumix AI API Documentation</h2>
+                        <p>Access comprehensive guides and reference materials to integrate Lumix AI seamlessly into your applications. We regularly update our docs with new features and best practices.</p>
+                        <ul class="doc-links-grid">
+                            <li><a href="api-docs.html" target="_blank" class="doc-link-card glass-card">
+                                <i class="fas fa-book-open"></i>
+                                <h3>Getting Started</h3>
+                                <p>Begin your integration journey with our quickstart guides.</p>
+                            </a></li>
+                            <li><a href="#" target="_blank" class="doc-link-card glass-card">
+                                <i class="fas fa-code"></i>
+                                <h3>API Reference</h3>
+                                <p>Detailed documentation for all endpoints: /generate, /enhance, /upscale, etc.</p>
+                            </a></li>
+                            <li><a href="api-docs-auth.html" target="_blank" class="doc-link-card glass-card">
+                                <i class="fas fa-shield-alt"></i>
+                                <h3>Authentication & Security</h3>
+                                <p>Learn how to secure your API calls and handle errors.</p>
+                            </a></li>
+                            <li><a href="api-docs-example-codes.html" target="_blank" class="doc-link-card glass-card">
+                                <i class="fas fa-flask"></i>
+                                <h3>Code Examples</h3>
+                                <p>Practical code snippets in various languages to jumpstart development.</p>
+                            </a></li>
+                            <li><a href="changelog.html" target="_blank" class="doc-link-card glass-card">
+                                <i class="fas fa-history"></i>
+                                <h3>Changelog</h3>
+                                <p>Stay updated with the latest API changes and feature releases.</p>
+                            </a></li>
+                            <li><a href="api-docs-faq.html" target="_blank" class="doc-link-card glass-card">
+                                <i class="fas fa-question-circle"></i>
+                                <h3>FAQ</h3>
+                                <p>Answers to frequently asked questions about Lumix AI.</p>
+                            </a></li>
+                        </ul>
+                        <button onclick="window.open('api-docs.html', '_blank')" class="generate-key-btn">Go to Full Documentation Portal</button>
+                    </section>
+                </section>
+
+                <section class="page-content" id="billing-page">
+                    <section class="glass-card">
+                        <h2>Billing Information & Subscriptions</h2>
+                        <p>Manage your Lumix AI subscription, view past invoices, and update payment details.</p>
+                        <h3>Your Current Plan: <span class="highlight-plan">Pro Plan</span></h3>
+                        <p>Monthly Price: **$49.99**</p>
+                        <p>Usage Limits: **50,000 API calls/month, unlimited high-res generations.**</p>
+                        <p>Next billing date: **August 1, 2025**</p>
+                        <p>Payment Method: **Visa **** **** 1234 (Expires 12/26)**</p>
+                        <div class="billing-actions">
+                            <button id="managePaymentBtn"><i class="fas fa-credit-card"></i> Manage Payment Methods</button>
+                            <button class="upgrade-btn" id="changePlanBtn"><i class="fas fa-arrow-up"></i> Change Plan</button>
+                        </div>
+
+                        <h3 style="margin-top: 40px;">Recent Invoices</h3>
+                        <div class="invoice-list">
+                            <div class="log-entry invoice-entry glass-card">
+                                <span class="timestamp">[2025-07-01]</span>
+                                <span class="status-code success">Paid</span>
+                                <span class="endpoint">#INV-20250701</span>
+                                <span class="message">$49.99 for July Usage (Pro Plan)</span>
+                                <button class="action-btn small-btn" onclick="alert('Downloading invoice PDF...')"><i class="fas fa-download"></i> PDF</button>
+                            </div>
+                            <div class="log-entry invoice-entry glass-card">
+                                <span class="timestamp">[2025-06-01]</span>
+                                <span class="status-code success">Paid</span>
+                                <span class="endpoint">#INV-20250601</span>
+                                <span class="message">$49.99 for June Usage (Pro Plan)</span>
+                                <button class="action-btn small-btn" onclick="alert('Downloading invoice PDF...')"><i class="fas fa-download"></i> PDF</button>
+                            </div>
+                            <div class="log-entry invoice-entry glass-card">
+                                <span class="timestamp">[2025-05-01]</span>
+                                <span class="status-code success">Paid</span>
+                                <span class="endpoint">#INV-20250501</span>
+                                <span class="message">$29.99 for May Usage (Basic Plan)</span>
+                                <button class="action-btn small-btn" onclick="alert('Downloading invoice PDF...')"><i class="fas fa-download"></i> PDF</button>
+                            </div>
+                        </div>
+                        <button id="viewAllInvoicesBtn" class="generate-key-btn">View All Invoices</button>
+                    </section>
+                </section>
+
+                <section class="page-content" id="support-page">
+                    <section class="glass-card">
+                        <h2>Support & Help Center</h2>
+                        <p>We're here to ensure your Lumix AI experience is smooth and productive. Find answers to common questions, explore our knowledge base, or reach out to our support team.</p>
+                        <ul class="support-options-grid">
+                            <li><a href="help.html" target="_blank" class="support-link-card glass-card" id="faqLink">
+                                <i class="fas fa-question-circle"></i>
+                                <h3>FAQ & Knowledge Base</h3>
+                                <p>Find instant answers to common questions and troubleshoot issues.</p>
+                            </a></li>
+                            <li><a href="404.html" target="_blank" class="support-link-card glass-card" id="communityForumLink">
+                                <i class="fas fa-comments"></i>
+                                <h3>Community Forum</h3>
+                                <p>Connect with other developers, share tips, and get advice.</p>
+                            </a></li>
+                            <li><a href="contact.html" target="_blank" class="support-link-card glass-card" id="contactSupportLink">
+                                <i class="fas fa-envelope"></i>
+                                <h3>Contact Support</h3>
+                                <p>Submit a ticket for personalized assistance from our team.</p>
+                            </a></li>
+                            <li><a href="report.html" target="_blank" class="support-link-card glass-card" id="bugReportLink">
+                                <i class="fas fa-bug"></i>
+                                <h3>Report a Bug</h3>
+                                <p>Help us improve by reporting any bugs or unexpected behavior.</p>
+                            </a></li>
+                            <li><a href="#" target="_blank" class="support-link-card glass-card" id="rateLimitsLink">
+                                <i class="fas fa-tachometer-alt"></i>
+                                <h3>Rate Limits Explained</h3>
+                                <p>Understand API call limits and how to optimize your usage.</p>
+                            </a></li>
+                        </ul>
+                        <button id="createTicketBtn" class="generate-key-btn">Create a New Support Ticket</button>
+                    </section>
+                </section>
+
+                <section class="page-content" id="settings-page">
+                    <section class="glass-card">
+                        <h2>Account Settings</h2>
+                        <p>Manage your profile, security preferences, and dashboard display options.</p>
+
+                        <h3>General Information</h3>
+                        <div class="settings-form">
+                            <div class="form-group">
+                                <label for="userName">Full Name</label>
+                                <input type="text" id="userName" value="Jane Doe" class="glass-input">
+                            </div>
+                            <div class="form-group">
+                                <label for="userEmail">Email Address</label>
+                                <input type="email" id="userEmail" value="jane.doe@example.com" class="glass-input" disabled>
+                            </div>
+                            <button class="action-btn" id="saveProfileBtn">Save Profile</button>
+                        </div>
+
+                        <h3 style="margin-top: 40px;">Security</h3>
+                        <div class="settings-form">
+                            <div class="form-group">
+                                <label for="currentPassword">Current Password</label>
+                                <input type="password" id="currentPassword" class="glass-input">
+                            </div>
+                            <div class="form-group">
+                                <label for="newPassword">New Password</label>
+                                <input type="password" id="newPassword" class="glass-input">
+                            </div>
+                            <div class="form-group">
+                                <label for="confirmPassword">Confirm New Password</label>
+                                <input type="password" id="confirmPassword" class="glass-input">
+                            </div>
+                            <button class="action-btn" id="changePasswordBtn">Change Password</button>
+                            <button class="action-btn secondary-btn" id="enable2FABtn">Enable 2FA</button>
+                        </div>
+
+                        <h3 style="margin-top: 40px;">Notifications</h3>
+                        <div class="settings-form">
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="emailNotifications" checked>
+                                <label for="emailNotifications">Email Notifications for Usage Alerts</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="billingNotifications" checked>
+                                <label for="billingNotifications">Email Notifications for Billing</label>
+                            </div>
+                            <div class="checkbox-group">
+                                <input type="checkbox" id="productUpdates">
+                                <label for="productUpdates">Receive Product Updates & News</label>
+                            </div>
+                            <button class="action-btn" id="saveNotificationsBtn">Save Notification Preferences</button>
+                        </div>
+
+                        <h3 style="margin-top: 40px;">Danger Zone</h3>
+                        <div class="danger-zone glass-card">
+                            <p>Proceed with caution. These actions are irreversible.</p>
+                            <button class="danger-btn" id="deleteAccountBtn">Delete My Account</button>
+                        </div>
+                    </section>
+                </section>
+            </main>
+        </div>
+    </div>
+
+    <div class="mobile-sidebar-drawer" id="mobile-sidebar-drawer">
+        <div class="drawer-header">
+            <img src="https://via.placeholder.com/100x50?text=Lumix+AI+Logo" alt="Lumix AI Logo" class="logo">
+            <i class="fas fa-times close-drawer-btn" id="close-drawer-btn"></i>
+        </div>
+        <nav class="sidebar-nav">
+            <ul>
+                <li><a href="#" class="nav-link active" data-page="dashboard"><i class="fas fa-th-large"></i> Dashboard</a></li>
+                <li><a href="#" class="nav-link" data-page="api-keys"><i class="fas fa-key"></i> API Keys</a></li>
+                <li><a href="#" class="nav-link" data-page="usage-analytics"><i class="fas fa-chart-line"></i> Usage Analytics</a></li>
+                <li><a href="#" class="nav-link" data-page="team-management"><i class="fas fa-users"></i> Team Management</a></li>
+                <li><a href="#" class="nav-link" data-page="integrations"><i class="fas fa-puzzle-piece"></i> Integrations</a></li>
+                <li><a href="#" class="nav-link" data-page="webhooks"><i class="fas fa-link"></i> Webhooks</a></li>
+                <li><a href="#" class="nav-link" data-page="models"><i class="fas fa-brain"></i> Models</a></li>
+                <li><a href="#" class="nav-link" data-page="templates"><i class="fas fa-code"></i> Templates</a></li>
+                <li><a href="#" class="nav-link" data-page="documentation"><i class="fas fa-book"></i> Documentation</a></li>
+                <li><a href="#" class="nav-link" data-page="billing"><i class="fas fa-file-invoice"></i> Billing</a></li>
+                <li><a href="#" class="nav-link" data-page="support"><i class="fas fa-life-ring"></i> Support</a></li>
+                <li><a href="#" class="nav-link" data-page="settings"><i class="fas fa-cog"></i> Settings</a></li>
+            </ul>
+        </nav>
+        <div class="user-account-menu">
+            <div class="user-avatar-small">
+                <img src="https://via.placeholder.com/40x40?text=User" alt="User Avatar">
+            </div>
+            <span>Jane Doe</span>
+            <i class="fas fa-sign-out-alt" id="logoutBtnMobile"></i>
+        </div>
+    </div>
+
+    <div class="overlay" id="overlay"></div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="./assets/js/dev-dashboard.js"></script>
+</body>
+</html>

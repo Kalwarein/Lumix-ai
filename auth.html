@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Authentication | Lumix</title>
+  <link rel="stylesheet" href="./assets/css/auth.css" />
+   <style>
+  *:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Remove tap highlight color globally */
+* {
+  -webkit-tap-highlight-color: transparent !important;
+  -moz-tap-highlight-color: transparent !important;
+  -ms-tap-highlight-color: transparent !important;
+  tap-highlight-color: transparent !important;
+}
+</style>
+</head>
+<body>
+    
+    <!-- Popup message for multi-click warning -->
+<div id="popup-message" class="popup-message">Please click 1 at a time</div>
+
+  <div class="page-wrapper">
+    <div class="logo-container">
+      <img src="assets/images/preloader-lumix.png" alt="Logo" class="logo-img">
+    </div>
+
+    <div class="auth-container">
+      <div class="auth-card">
+        <h2>Welcome </h2>
+
+        <div class="social-buttons">
+          <a href="https://apple.com" class="social-btn image-btn">
+            <img src="https://i.imghippo.com/files/NjW2223R.png" class="icon-img" alt="Apple" />
+            Continue with Apple
+          </a>
+          <a href="https://microsoft.com" class="social-btn image-btn">
+            <img src="https://i.imghippo.com/files/wN7040pxg.png" class="icon-img" alt="Windows" />
+            Continue with Windows
+          </a>
+          <a href="https://accounts.google.com" class="social-btn image-btn">
+            <img src="https://i.imghippo.com/files/hAT2082qtY.png" class="icon-img" alt="Google" />
+            Continue with Google
+          </a>
+        </div>
+
+        <div class="divider"><span>OR</span></div>
+
+        <div class="auth-links">
+          <a href="signup.html" class="email-btn gradient-btn image-btn">Sign up using Email</a>
+          <a href="signin.html" class="email-btn image-btn">Sign in using Email</a>
+          <a href="forgot-password.html" class="email-btn image-btn">Forgot Password?</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="./assets/js/auth-11.js"></script>
+</body>
+</html>

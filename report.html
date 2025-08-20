@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Report a Bug | Lumix AI</title>
+  <link rel="stylesheet" href="assets/css/report.css" />
+<style>
+  *:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Remove tap highlight color globally */
+* {
+  -webkit-tap-highlight-color: transparent !important;
+  -moz-tap-highlight-color: transparent !important;
+  -ms-tap-highlight-color: transparent !important;
+  tap-highlight-color: transparent !important;
+}
+</style>
+</head>
+<body>
+  <div class="container">
+    <h1>🐞 Report a Bug</h1>
+    <form id="reportForm" autocomplete="off">
+      <input type="email" id="email" placeholder="Your Email" required autocomplete="email" />
+      <input type="text" id="username" placeholder="Username (optional)" autocomplete="username" />
+      <select id="reportType" required>
+        <option value="" disabled selected>Select Issue Type</option>
+        <option value="UI Bug">UI Bug</option>
+        <option value="Performance Issue">Performance Issue</option>
+        <option value="Feature Request">Feature Request</option>
+        <option value="Other">Other</option>
+      </select>
+      <textarea id="description" placeholder="Describe the issue..." required></textarea>
+      <input type="text" id="deviceInfo" placeholder="Device info (optional)" autocomplete="off" />
+      <input type="text" id="pageUrl" placeholder="Page URL (optional)" autocomplete="off" />
+      <button type="submit" id="submitBtn">
+  <span class="btn-text">Submit Report</span>
+  <span class="spinner" aria-hidden="true"></span>
+</button>
+    </form>
+  </div>
+
+  <!-- Popup -->
+  <div id="popup" class="popup">Thanks! Bug report submitted.</div>
+
+  <script type="module" src="assets/js/report.js"></script>
+</body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Code Block Example</title>
+    <style>
+        .code-block-container {
+            margin: 20px 0;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            font-family: 'Monaco', monospace;
+        }
+
+        .code-block-header {
+            background-color: #2f2f2f;
+            color: #fff;
+            padding: 10px;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .code-block {
+            background-color: #1a1a1a;
+            padding: 20px;
+            border-bottom-left-radius: 10px;
+            border-bottom-right-radius: 10px;
+            overflow-x: auto;
+            position: relative;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .code-block .keyword {
+            color: #c678dd;
+            font-weight: bold;
+        }
+
+        .code-block .string {
+            color: #98c379;
+        }
+
+        .code-block .function {
+            color: #61afef;
+            font-weight: bold;
+        }
+
+        .code-block .comment {
+            color: #5c6370;
+            font-style: italic;
+        }
+
+        .copy-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        .copy-btn:hover {
+            background-color: #444;
+        }
+        .code-block-container {
+    margin: 20px 0;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-family: 'Monaco', monospace;
+}
+
+.code-block-header {
+    background-color: #2f2f2f;
+    color: #fff;
+    padding: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.code-block {
+    background-color: #1a1a1a;
+    padding: 20px;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    overflow-x: auto;
+    position: relative;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #fff;
+}
+
+.code-block .keyword {
+    color: #c678dd;
+    font-weight: bold;
+}
+
+.code-block .string {
+    color: #98c379;
+}
+
+.copy-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 12px;
+}
+
+.copy-btn:hover {
+    background-color: #444;
+}
+
+    </style>
+</head>
+<body>
+    <div class="code-block-container">
+        <div class="code-block-header">
+            Python Code Block Example
+        </div>
+        <div class="code-block">
+            <pre>
+<span class="keyword">def</span> <span class="function">hello_world</span>():
+    <span class="comment"># Print a message to the console</span>
+    <span class="keyword">print</span>(<span class="string">"Hello, World!"</span>)
+
+<span class="function">hello_world</span>()
+            </pre>
+            <button class="copy-btn">Copy</button>
+        </div>
+    </div>
+<div class="code-block-container">
+    <div class="code-block-header">
+        Authorization Header Example
+    </div>
+    <div class="code-block">
+        <pre>
+<span class="keyword">Authorization:</span> <span class="string">Bearer YOUR_API_KEY</span>
+        </pre>
+        <button class="copy-btn">Copy</button>
+    </div>
+</div>
+
+    <script>
+        // Add event listener to copy button
+        document.querySelectorAll('.copy-btn').forEach(button => {
+            button.addEventListener('click', () => {
+                const code = button.parentNode.querySelector('pre').textContent;
+                navigator.clipboard.writeText(code).then(() => {
+                    button.textContent = 'Copied!';
+                    setTimeout(() => {
+                        button.textContent = 'Copy';
+                    }, 2000);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

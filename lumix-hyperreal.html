@@ -1,0 +1,29 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Lumix  hyperreal- Detailed Model & API Guide</title><style>body{margin:0;padding:40px 20px;font-family:Poppins,sans-serif;background:#000;color:#fff;max-width:900px;margin:auto}h1{font-size:3rem;background:linear-gradient(45deg,#ff00cc,#8000ff);-webkit-background-clip:text;color:transparent;margin-bottom:10px}h2{margin-top:30px;color:#ff00cc;font-weight:700}p,ul{color:#ccc;line-height:1.6;font-size:1rem}ul{padding-left:20px}ul li{margin-bottom:8px}img.model-img{width:100%;max-height:300px;object-fit:cover;border-radius:16px;margin:20px 0}section{margin-bottom:40px}header p.tagline{font-size:1.2rem;color:#d08aff;margin-top:-8px}pre[class*=language-]{position:relative;padding:1.5em;overflow:auto;border-radius:12px;background:#111;color:#ffb3ff;font-family:Courier New,monospace;font-size:.9rem;line-height:1.4;margin:20px 0}button.copy-btn{position:absolute;top:8px;right:8px;padding:5px 10px;border-radius:8px;border:none;background:linear-gradient(45deg,#ff00cc,#8000ff);color:#fff;cursor:pointer;font-size:.8rem;transition:.3s;user-select:none;z-index:10}button.copy-btn:hover{box-shadow:0 0 8px #ff00cc}</style><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css"/><script>!function(){function t(t){navigator.clipboard.writeText(t);document.querySelectorAll(".copy-btn").forEach(e=>{e.textContent="Copy"});event.target.textContent="Copied!";setTimeout(()=>{event.target.textContent="Copy"},1500)}window.copyCode=t}();</script></head><body><header><h1>Lumix Hyperreal</h1><p class=tagline>High-speed AI model optimized for rapid, low-latency image generation with moderate quality.</p><img src="./assets/images/models/Lumixai_Image_419203022402894.jpg" alt="Lumix Flux Schnell Model" class="model-img"></header><main><section><h2>Model Overview</h2><p>Lumix Hyperreal delivers – Ultra-realistic images optimized for applications demanding  low latency  and quick responses. It uses a Highend architecture tailored for Ultra-realistic output rather than maximum image detail.</p><p>This model suits use cases like live demos, rapid prototyping, and interactive AI-powered tools where speed is not paramount.</p></section><section><h2>API Endpoint</h2><p><strong>POST</strong> <code>https://api.lumix.ai/v1/generate</code></p><p>Set <code>lumix-flux-schnell</code> in your request payload to use this model.</p><h3>Request Headers</h3><ul><li><code>Authorization: Bearer &lt;your_api_key&gt;</code></li><li><code>Content-Type: application/json</code></li></ul><h3>Request Body Parameters</h3><pre class="language-json"><button class="copy-btn" onclick="copyCode(document.getElementById('reqjson').textContent)">Copy</button><code id="reqjson">{
+  "prompt": "string (required)",
+  "model": "lumix-flux-schnell",
+  "size": "string (optional, default: 256x256)",
+  "steps": "integer (optional, default: 15)",
+  "guidance_scale": "float (optional, 1.0-15.0, default: 6.0)",
+  "seed": "integer (optional)",
+  "batch_size": "integer (optional, default: 1, max: 10)"
+}</code></pre><h2>Sample API Request</h2><pre class="language-json"><button class="copy-btn" onclick="copyCode(document.getElementById('sampleReq').textContent)">Copy</button><code id="sampleReq">{
+  "prompt": "Minimalist logo design with geometric shapes",
+  "model": "lumix-flux-schnell",
+  "size": "256x256",
+  "steps": 15,
+  "guidance_scale": 6.0,
+  "seed": 44556,
+  "batch_size": 5
+}</code></pre><h2>Sample API Response</h2><pre class="language-json"><button class="copy-btn" onclick="copyCode(document.getElementById('sampleRes').textContent)">Copy</button><code id="sampleRes">{
+  "status": "success",
+  "request_id": "req_schnell123",
+  "images": [
+    "https://cdn.lumix.ai/generated/minimalist_logo_123_1.jpg",
+    "https://cdn.lumix.ai/generated/minimalist_logo_123_2.jpg",
+    "https://cdn.lumix.ai/generated/minimalist_logo_123_3.jpg",
+    "https://cdn.lumix.ai/generated/minimalist_logo_123_4.jpg",
+    "https://cdn.lumix.ai/generated/minimalist_logo_123_5.jpg"
+  ],
+  "model_used": "lumix-flux-schnell",
+  "processing_time": "1.2s"
+}</code></pre><section><h2>Authentication &amp; Rate Limits</h2><ul><li>API key required in <code>Authorization</code> header.</li><li>Rate limit: 100 requests per minute per API key.</li><li>Batch requests count per image generated.</li></ul></section><section><h2>Error Handling</h2><p>Common errors:</p><ul><li><code>401 Unauthorized</code> — Invalid API key.</li><li><code>429 Too Many Requests</code> — Rate limit exceeded.</li><li><code>400 Bad Request</code> — Malformed request.</li></ul><p>See JSON <code>message</code> for details.</p></section><section><h2>Tips &amp; Best Practices</h2><ul><li>Lower <code>steps</code> and smaller <code>size</code> improve speed.</li><li>Batch size can be larger due to optimized throughput.</li><li>Use seed for repeatable results.</li><li>Ideal for quick experiments and live user interactions.</li></ul></section></main><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script><script>!function(){function t(t){navigator.clipboard.writeText(t);document.querySelectorAll(".copy-btn").forEach(e=>{e.textContent="Copy"});event.target.textContent="Copied!";setTimeout(()=>{event.target.textContent="Copy"},1500)}window.copyCode=t}();</script></body></html>

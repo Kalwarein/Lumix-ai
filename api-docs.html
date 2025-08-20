@@ -1,0 +1,713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Lumix API Documentation</title>
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <!-- External CSS -->
+  <link rel="stylesheet" href="./assets/css/api-docs.css">
+<!-- Prism.js CSS for syntax highlighting -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+<!-- Prism.js JS at end of body -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Fira+Code&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+
+<!-- Page Content -->
+<div id="page-content">
+
+  <header class="api-header">
+    <h1><i class="fas fa-book-open"></i> Lumix API Documentation</h1>
+    <p>
+      Welcome to the <b>Lumix API Documentation full</b>, the ultimate developer tool for generating
+      breathtaking AI-powered images, experimenting with creative machine learning models,
+      and integrating the power of Lumix into your applications.
+    </p>
+    <p>
+      This documentation is designed to take you on a complete journey—from the very first
+      authentication step to building complex production-level integrations.
+      You will discover best practices, error handling strategies, advanced usage,
+      and real-world examples that save time and elevate your application’s output.
+    </p>
+    <p>
+      <b>Quick Navigation:</b>
+    </p>
+    <div class="nav-buttons">
+      <a href="#overview" class="nav-btn"><i class="fas fa-info-circle"></i> Overview</a>
+      <a href="#authentication" class="nav-btn"><i class="fas fa-lock"></i> Authentication</a>
+      <a href="#templates" class="nav-btn"><i class="fas fa-layer-group"></i> Templates</a>
+      <a href="#endpoints" class="nav-btn"><i class="fas fa-terminal"></i> Endpoints</a>
+      <a href="#best-practices" class="nav-btn"><i class="fas fa-lightbulb"></i> Best Practices</a>
+      <a href="#errors" class="nav-btn"><i class="fas fa-exclamation-triangle"></i> Errors</a>
+      <a href="#changelog" class="nav-btn"><i class="fas fa-history"></i> Changelog</a>
+    </div>
+  </header>
+
+  <main class="api-content">
+
+    <!-- INTRODUCTION & OVERVIEW -->
+    <section id="overview">
+      <h2><i class="fas fa-info-circle"></i> Overview & Use Cases</h2>
+      <p>
+        The Lumix API is more than a simple image generator—it's an entire
+        AI-powered ecosystem for developers who want speed, quality, and
+        flexibility in digital content creation. Whether you are building a
+        <b>mobile app</b>, a <b>web SaaS platform</b>, or an <b>internal creative tool</b>,
+        Lumix delivers.
+      </p>
+      <p>
+        Imagine instantly generating social media graphics, concept art for games,
+        realistic marketing visuals, or even research-based datasets in seconds.
+        Lumix supports multiple generation models, including:
+      </p>
+      <ul>
+        <li><b>lumix-precision</b> – Lightning-fast generation for prototypes & high-volume outputs.</li>
+        <li><b>lumix-hyperreal</b> – Stunning photorealism for detailed visuals & product renders.</li>
+        <li><b>lumix-Aurora</b> – Artistic and creative outputs for stylized content.</li>
+      </ul>
+      <p>
+        Developers can leverage Lumix to:
+      </p>
+      <ul>
+        <li>Power <b>content creation apps</b> with instant artwork generation.</li>
+        <li>Enable <b>AI-driven game design</b> with procedural textures and concept art.</li>
+        <li>Build <b>marketing automation tools</b> for campaigns and social media.</li>
+        <li>Provide <b>enterprise-level workflows</b> with batch generation and secure handling.</li>
+      </ul>
+      <h3><i class="fas fa-lightbulb"></i> Why Choose Lumix?</h3>
+      <p>
+        1. <b>Speed:</b> Generate in seconds, even at high resolutions.<br>
+        2. <b>Scalability:</b> Handle thousands of requests with our cloud-powered infrastructure.<br>
+        3. <b>Security:</b> Enterprise-grade token authentication with optional IP whitelisting.<br>
+        4. <b>Control:</b> Use advanced parameters like <b>guidance_scale</b> and <b>negative prompts</b>
+        for precision.<br>
+        5. <b>Integration:</b> Works seamlessly with Node.js, Python, PHP, and serverless functions.
+      </p>
+
+      <p>
+        This section alone could be read for minutes, but we’re just getting started. Scroll down
+        to explore <b>authentication, endpoint deep dives, template usage, and real-world
+        examples</b> that will help you craft professional AI-powered apps.
+      </p>
+    </section>
+    <!-- AUTHENTICATION -->
+    <section id="authentication">
+      <h2><i class="fas fa-lock"></i> Authentication</h2>
+    <p>Every interaction with the Lumix API requires authentication to ensure that only authorized developers and applications are making requests. Our authentication system is based on the use of secure <b>Bearer tokens</b>, which are used to verify the identity of the requesting party and grant access to our API endpoints. To obtain a Bearer token, you'll need to create an account on our platform and follow the instructions provided in the <a href="#">Getting Started</a> guide. Once you have your token, you can use it to authenticate your API requests by including it in the <code>Authorization</code> header of your HTTP requests.</p>
+  <div class="btn-group">
+    <button class="btn" onclick="window.location.href='get-started.html'">Get Started Guide</button>
+    </div>
+      <h2><i class="fas fa-lock"></i>Getting started</h2>
+      <p>           
+       <i class="fas fa-info-circle"></i>   <b>Step 1: Go to the Developers <a href="dev-signup.html">signup page</a> </b><br>
+       <i class="fas fa-info-circle"></i>   <b>step 2:you will be required to enter an email</b><br> 
+       <i class="fas fa-info-circle"></i>   <b>Step 3: Then you will  enter a secure password </b><br>
+       <i class="fas fa-info-circle"></i>   <b>Step 4: And to enter an organisation/team name </b><br>
+       <i class="fas fa-info-circle"></i>   <b>Step 5: Now here comes the fun part you are to memorize or know/keep your <strong>DEVELOPER ID</strong> safe it will be neaded to login and get access to your dashboard page </b><br> 
+   Now that you are good to go :  Log into your  dashboard with (dev id) required <b>Lumix Developer Dashboard</b>, navigate to
+        <b>Sidebar</b>  <i class="fa-solid fa-arrow-right"></i>  <b>API Keys</b>, and click <b>Generate Key</b>.
+        Store this key securely. Treat it like a password—never expose it publicly.
+      </p>
+
+      <p>
+        <b>Step 2: Use Bearer Token in Headers</b><br>
+        Include your API key as a Bearer token in the <code>Authorization</code> header.
+        Example:
+      </p>
+
+<section class="api-content">
+    <!-- Existing content -->
+    <section>
+        <h2><i class="fas fa-lock"></i> Authentication</h2>
+        <p>All requests require an API Key. Steps to authenticate:</p>
+        <div class="code-block-container">
+            <div class="code-block-header">
+                Authorization Header Example
+            </div>
+            <div class="code-block">
+                <pre>
+<span class="keyword">Authorization:</span> <span class="string">Bearer YOUR_API_KEY</span>
+                </pre>
+                <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+            </div>
+        </div>
+    </section>
+    <!-- Other sections with code blocks -->
+</section>
+
+
+      <p>
+        <b>Step 3: Rotate Keys When Needed</b><br>
+        For security, regenerate keys periodically. Lumix allows multiple active keys
+        so you can rotate without downtime.
+      </p>
+
+      <p>
+        <b>Important Security Tips:</b>
+      </p>
+      <ul>
+        <li>Never expose keys in client-side JavaScript or mobile apps.</li>
+        <li>Use environment variables or secure vaults for key storage.</li>
+        <li>For production apps, restrict keys by domain or IP whenever possible.</li>
+      </ul>
+
+      <div class="info-box">
+        <i class="fas fa-shield-alt"></i> 
+        <b>Note:</b> If your key is compromised, revoke it immediately from the dashboard.
+      </div>
+    </section>
+
+    <!-- TEMPLATES & STARTER KITS -->
+    <section id="templates">
+      <h2><i class="fas fa-layer-group"></i> Templates & Starter Kits</h2>
+      
+      <p>
+        To make integration faster, Lumix provides multiple ready-to-use templates
+        and code snippets for developers. These templates are designed to help
+        you start building apps without writing everything from scratch.
+      </p>
+
+      <h3><i class="fas fa-code"></i> Web Templates</h3>
+      <p>
+        These are pre-built HTML + JS templates for quickly integrating image
+        generation into a website. They include:
+      </p>
+      <ul>
+        <li><b>Simple Generator:</b> Enter a prompt, generate a single image, download result.</li>
+        <li><b>Grid Gallery Generator:</b> Generate multiple images and display in a gallery grid.</li>
+        <li><b>Advanced Playground:</b> Adjust model, steps, size, and guidance scale interactively.</li>
+      </ul>
+
+      <div class="template-buttons">
+        <button class="copy-btn"><i class="fas fa-play-circle"></i> Open Simple Generator</button>
+        <button class="copy-btn"><i class="fas fa-th"></i> Open Grid Generator</button>
+        <button class="copy-btn"><i class="fas fa-sliders-h"></i> Open Advanced Playground</button>
+      </div>
+
+      <h3><i class="fas fa-mobile-alt"></i> Mobile App Starters</h3>
+      <p>
+        We also offer <b>React Native</b> and <b>Flutter</b> starter kits to quickly bring
+        Lumix AI capabilities to mobile. Each starter app comes with:
+      </p>
+      <ul>
+        <li>Login screen & secure key storage</li>
+        <li>Image generation interface with loading indicators</li>
+        <li>History view to review generated images</li>
+        <li>Example of handling errors & retries gracefully</li>
+      </ul>
+
+      <p>
+        Use these templates as a base to build production-grade apps.
+        Many developers start with the advanced playground, then evolve it into
+        a multi-user SaaS product or a mobile creative tool.
+      </p>
+
+      <div class="tip-box">
+        <i class="fas fa-lightbulb"></i> 
+        <b>Pro Tip:</b> Templates are fully responsive and designed with best practices.
+        Save time by customizing rather than starting from scratch.
+      </div>
+    </section>
+
+    <!-- CALL-TO-ACTION BUTTONS FOR API FUNCTIONS -->
+    <section class="api-functions">
+      <h2><i class="fas fa-cogs"></i> Explore API Functions</h2>
+      <p>
+        The Lumix API provides a wide range of functionalities beyond image generation.
+        Use the buttons below to jump directly to the respective sections.
+      </p>
+      <div class="function-buttons">
+        <a href="#generate" class="nav-btn"><i class="fas fa-image"></i> Generate Image</a>
+        <a href="#models" class="nav-btn"><i class="fas fa-server"></i> Available Models</a>
+        <a href="#history" class="nav-btn"><i class="fas fa-history"></i> Request History</a>
+        <a href="#account" class="nav-btn"><i class="fas fa-user-circle"></i> Account & Usage</a>
+        <a href="#webhooks" class="nav-btn"><i class="fas fa-plug"></i> Webhook Setup</a>
+        <a href="#advanced" class="nav-btn"><i class="fas fa-tools"></i> Advanced Controls</a>
+      </div>
+      <p>
+        Each function comes with example requests, sample responses, and best practices
+        for efficiency and reliability. Scroll down to start exploring, or use the
+        buttons above to navigate directly.
+      </p>
+    </section><!-- ENDPOINTS SECTION -->
+    <section id="endpoints">
+      <h2><i class="fas fa-terminal"></i> API Endpoints</h2>
+      <p>
+        Lumix provides several powerful endpoints that cover the full spectrum of AI image generation
+        and management. Each endpoint is carefully designed to be <b>simple, flexible, and fast</b>.
+        Below is a comprehensive breakdown of each endpoint with extensive explanations so that
+        developers can get started without guesswork.
+      </p>
+
+      <h3 id="generate"><i class="fas fa-image"></i> 1. Generate Image (POST /generate)</h3>
+      <p>
+        This is the core endpoint that allows you to generate AI images from text prompts. 
+        It supports multiple AI models, sizes, and generation parameters to give you total creative control.
+      </p>
+      <ul>
+        <li><b>prompt</b> (string, required) – Your description of the image.</li>
+        <li><b>model</b> (string, optional) – AI model to use. Default: <code>flux-schnell</code>.</li>
+        <li><b>size</b> (string, optional) – Output size, e.g. <code>512x512</code> or <code>1024x1024</code>.</li>
+        <li><b>steps</b> (int, optional) – Number of generation steps for quality. Default: <code>30</code>.</li>
+      </ul>
+
+      <p><b>Example Request:</b></p>
+ <section>
+    <h2><i class="fas fa-code"></i> API Request Example</h2>
+    <p>Here's an example of how to make a POST request to the Lumix API:</p>
+    <div class="code-block-container">
+        <div class="code-block-header">
+            API Request Example
+        </div>
+        <div class="code-block">
+            <pre>
+<span class="method">POST</span> <span class="url">https://api.lumix.ai/v1/generate</span>
+<span class="header">Content-Type:</span> <span class="value">application/json</span>
+<span class="header">Authorization:</span> <span class="value">Bearer <span class="api-key">YOUR_API_KEY</span></span>
+
+{
+    "<span class="property">prompt</span>": "<span class="string">A majestic dragon flying over a neon-lit city skyline</span>",
+    "<span class="property">model</span>": "<span class="string">realistic-vision-v6</span>",
+    "<span class="property">size</span>": "<span class="string">1024x1024</span>",
+    "<span class="property">steps</span>": <span class="number">50</span>
+}
+            </pre>
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+    </div>
+</section>
+<section>
+    <h2><i class="fas fa-code"></i> Sample JSON Response</h2>
+    <p>Here's an example of a JSON response from the Lumix API:</p>
+    <div class="code-block-container">
+        <div class="code-block-header">
+            JSON Response
+        </div>
+        <div class="code-block">
+            <pre>
+{
+    "<span class="keyword">status</span>": "<span class="string">success</span>",
+    "<span class="keyword">request_id</span>": "<span class="string">req_67890</span>",
+    "<span class="keyword">image_url</span>": "<span class="string">https:                                                        
+    "<span class="keyword">model_used</span>": "<span class="string">realistic-vision-v6</span>",
+    "<span class="keyword">processing_time</span>": "<span class="string">3.2s</span>"
+}
+            </pre>
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+    </div>
+</section>
+
+
+      <p>
+        When using the generation endpoint, remember:
+        <ul>
+          <li>Large image sizes and high step counts will take longer to process.</li>
+          <li>Some models excel at realism, others at speed or artistic style.</li>
+          <li>You can store the <code>request_id</code> to fetch status updates or retrieve images later.</li>
+        </ul>
+      </p>
+
+      <h3 id="models"><i class="fas fa-server"></i> 2. Get Available Models (GET /models)</h3>
+      <p>
+        Use this endpoint to see which models are currently supported by Lumix.
+        This is especially useful for apps that allow users to choose the model dynamically.
+      </p>
+
+    <section>
+    <h2><i class="fas fa-code"></i> API Request Example</h2>
+    <p>Here's an example of how to make a GET request to the Lumix API:</p>
+    <div class="code-block-container">
+        <div class="code-block-header">
+            API Request Example
+        </div>
+        <div class="code-block">
+            <pre>
+<span class="method">GET</span> <span class="string">https:                               
+<span class="header">Authorization:</span> <span class="string">Bearer <span class="api-key">YOUR_API_KEY</span></span>
+            </pre>
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+    </div>
+</section>
+
+<section>
+    <h2><i class="fas fa-code"></i> Sample JSON Response</h2>
+    <p>Here's an example of a JSON response from the Lumix API:</p>
+    <div class="code-block-container">
+        <div class="code-block-header">
+            JSON Response
+        </div>
+        <div class="code-block">
+            <pre>
+{
+    "<span class="property">models</span>": [
+        {
+            "<span class="property">name</span>": "<span class="string">flux-schnell</span>",
+            "<span class="property">type</span>": "<span class="string">fast</span>",
+            "<span class="property">description</span>": "<span class="string">Quick versatile model</span>"
+        },
+        {
+            "<span class="property">name</span>": "<span class="string">realistic-vision-v6</span>",
+            "<span class="property">type</span>": "<span class="string">high-detail</span>",
+            "<span class="property">description</span>": "<span class="string">Photorealistic images</span>"
+        },
+        {
+            "<span class="property">name</span>": "<span class="string">counterfeit-v3</span>",
+            "<span class="property">type</span>": "<span class="string">artistic</span>",
+            "<span class="property">description</span>": "<span class="string">Artistic anime & concept art</span>"
+        }
+    ]
+}
+            </pre>
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+    </div>
+</section>
+
+      <p>
+        Models change occasionally as new updates roll out.
+        Always fetch the latest list if your app depends on model selection.
+      </p>
+
+      <h3 id="history"><i class="fas fa-history"></i> 3. Retrieve Generation History (GET /history)</h3>
+      <p>
+        Use this endpoint to check your recent image generation requests. It’s helpful for:
+      </p>
+      <ul>
+        <li>Displaying generated images in a user gallery</li>
+        <li>Keeping a log of used prompts and model configurations</li>
+        <li>Debugging failed requests</li>
+      </ul>
+<section>
+    <h2><i class="fas fa-code"></i> API Request Example</h2>
+    <p>Here's an example of how to make a GET request to the Lumix API:</p>
+    <div class="code-block-container">
+        <div class="code-block-header">
+            API Request Example
+        </div>
+        <div class="code-block">
+            <pre>
+<span class="method">GET</span> <span class="string">https://api.lumix.ai/v1/history</span>
+<span class="header">Authorization:</span> <span class="string">Bearer <span class="api-key">YOUR_API_KEY</span></span>
+            </pre>
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+    </div>
+</section>
+
+
+      <p>
+        Responses will include metadata like <code>prompt</code>, <code>model_used</code>,
+        <code>generation_time</code>, and <code>image_url</code>. History records remain
+        accessible for 30 days in the free tier, and 90 days for Pro accounts.
+      </p>
+
+      <div class="tip-box">
+        <i class="fas fa-lightbulb"></i> 
+        <b>Tip:</b> Use the history endpoint to implement a “My Creations” section in your app.
+      </div>
+    </section>
+
+    <!-- ADVANCED API FEATURES -->
+    <section id="advanced">
+      <h2><i class="fas fa-tools"></i> Advanced API Features</h2>
+      <p>
+        Lumix also provides advanced parameters and controls for developers who want
+        to push the boundaries of AI image generation. These features allow you to:
+      </p>
+      <ul>
+        <li>Control <b>guidance scale</b> for prompt adherence</li>
+        <li>Provide <b>negative prompts</b> to avoid unwanted elements</li>
+        <li>Request <b>high-resolution upscaling</b> after initial generation</li>
+        <li>Use <b>async mode</b> for ultra-high-quality images without blocking requests</li>
+      </ul>
+
+      <h3><i class="fas fa-magic"></i> Example with Advanced Parameters</h3>
+   <section>
+    <h2><i class="fas fa-code"></i> API Request Example</h2>
+    <p>Here's an example of how to make a POST request to the Lumix API:</p>
+    <div class="code-block-container">
+        <div class="code-block-header">
+            API Request Example
+        </div>
+        <div class="code-block">
+            <pre>
+<span class="method">POST</span> <span class="string">https://api.lumix.ai/v1/generate</span>
+<span class="header">Authorization:</span> <span class="string">Bearer <span class="api-key">YOUR_API_KEY</span></span>
+<span class="header">Content-Type:</span> <span class="string">application/json</span>
+
+{
+    "<span class="property">prompt</span>": "<span class="string">A cinematic landscape of a desert with futuristic structures</span>",
+    "<span class="property">negative_prompt</span>": "<span class="string">blurry, low-quality, watermark</span>",
+    "<span class="property">model</span>": "<span class="string">realistic-vision-v6</span>",
+    "<span class="property">size</span>": "<span class="string">2048x1024</span>",
+    "<span class="property">steps</span>": <span class="number">60</span>,
+    "<span class="property">guidance_scale</span>": <span class="number">8</span>,
+    "<span class="property">async</span>": <span class="boolean">true</span>
+}
+            </pre>
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+    </div>
+</section>
+
+      <p>
+        With async mode, you’ll receive a <code>task_id</code> and can poll a status
+        endpoint or set up a webhook for notification when the image is ready.
+        This approach is ideal for very large or batch requests.
+      </p>
+    </section>
+    <!-- AUTHENTICATION -->
+<section>
+  <h2><i class="fas fa-lock"></i> Authentication</h2>
+  <p>
+    All requests require an <b>API Key</b> to authorize and secure access to Lumix services. This mechanism protects both your account and our platform from misuse. Make sure to keep your key confidential and never expose it publicly.
+  </p>
+  <p>
+    The authentication process is straightforward but critical. Upon signing up and logging into the Lumix Dashboard, you'll generate an API Key in the Developer Settings. This key acts as a secret token that you include in your request headers using the Bearer token scheme.
+  </p>
+  <p>
+    Proper key management is essential. Rotate your API keys periodically and immediately revoke any keys you suspect have been compromised. If you are working in a team environment, create separate keys for different applications or users to maintain security and traceability.
+  </p>
+  <p>
+    Remember, exposing your API key on the client side (e.g., in frontend JavaScript) risks unauthorized use. Use backend servers or secure environments to handle sensitive keys.
+  </p>
+
+  <div class="code-block-container">
+    <div class="code-block-header">
+        Authorization Header Example
+    </div>
+    <div class="code-block">
+        <pre>
+<span class="header">Authorization:</span> <span class="string">Bearer <span class="api-key">YOUR_API_KEY</span></span>
+        </pre>
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+    </div>
+</div>
+
+
+  <div class="tip-box">
+    <i class="fas fa-lightbulb"></i>
+    <span><b>Pro Tip:</b> Use environment variables and secure vaults to store and inject your API keys in production systems.</span>
+  </div>
+
+  <!-- Buttons under Authentication -->
+  <div class="btn-group">
+    <button class="btn" onclick="window.location.href='#generate-image'">Generate Image API</button>
+    <button class="btn" onclick="window.location.href='#get-models'">Model List API</button>
+    <button class="btn" onclick="window.location.href='#best-practices'">Best Practices</button>
+  </div>
+</section>
+
+<!-- ENDPOINTS -->
+<section>
+  <h2><i class="fas fa-terminal"></i> Endpoints</h2>
+
+  <!-- Generate Endpoint -->
+  <h3 id="generate-image">1. Generate Image (POST /generate)</h3>
+  <p>
+    This endpoint allows you to create AI-generated images based on text prompts. You can customize image size, model selection, and generation steps to suit your needs. It's the core functionality powering Lumix's creative capabilities.
+  </p>
+  <p>
+    When you send a request, the system queues and processes it through the selected model, returning a URL to the generated image. You can embed or download this image in your application.
+  </p>
+  <p>
+    Advanced users can experiment with different models for unique styles, from realistic visuals to artistic renditions. For large scale use, consider batching requests and caching responses to optimize performance and cost.
+  </p>
+
+  <p><b>Parameters:</b></p>
+  <ul>
+    <li><b>prompt</b> (string, required) – The text description to generate the image.</li>
+    <li><b>model</b> (string, optional) – Which AI model to use, defaulting to <code>flux-schnell</code>.</li>
+    <li><b>size</b> (string, optional) – Desired output resolution, such as <code>512x512</code> or <code>1024x1024</code>.</li>
+    <li><b>steps</b> (int, optional) – Number of inference steps for quality control; more steps generally improve quality but take longer.</li>
+  </ul>
+
+  <p><b>Example Request:</b></p>
+<section>
+    <h2><i class="fas fa-code"></i> API Request Example</h2>
+    <p>Here's an example of how to make a POST request to the Lumix API:</p>
+    <div class="code-block-container">
+        <div class="code-block-header">
+            API Request Example
+        </div>
+        <div class="code-block">
+            <pre>
+<span class="method">POST</span> <span class="string">https://api.lumix.ai/v1/generate</span>
+<span class="header">Content-Type:</span> <span class="string">application/json</span>
+<span class="header">Authorization:</span> <span class="string">Bearer <span class="api-key">YOUR_API_KEY</span></span>
+
+{
+    "<span class="property">prompt</span>": "<span class="string">A futuristic neon city at night with flying cars</span>",
+    "<span class="property">model</span>": "<span class="string">realistic-vision-v6</span>",
+    "<span class="property">size</span>": "<span class="string">1024x1024</span>",
+    "<span class="property">steps</span>": <span class="number">40</span>
+}
+            </pre>
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+    </div>
+</section>
+
+<section>
+    <h2><i class="fas fa-code"></i> Sample JSON Response</h2>
+    <p>Here's an example of a JSON response from the Lumix API:</p>
+    <div class="code-block-container">
+        <div class="code-block-header">
+            JSON Response
+        </div>
+        <div class="code-block">
+            <pre>
+{
+    "<span class="property">status</span>": "<span class="string">success</span>",
+    "<span class="property">request_id</span>": "<span class="string">req_12345</span>",
+    "<span class="property">image_url</span>": "<span class="string">https:                                                   
+    "<span class="property">model_used</span>": "<span class="string">realistic-vision-v6</span>",
+    "<span class="property">processing_time</span>": "<span class="string">2.1s</span>"
+}
+            </pre>
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+    </div>
+</section>
+
+
+  <!-- Model List Endpoint -->
+  <h3 id="get-models">2. Get Available Models (GET /models)</h3>
+  <p>
+    This endpoint returns the current list of supported AI models. You can use this to dynamically populate your application’s model selection UI, ensuring users always have access to the latest options.
+  </p>
+  <p>
+    Models vary by speed, detail, and style. Choose the model that best fits your application's needs—whether fast previews or ultra-detailed renderings.
+  </p>
+<section>
+    <h2><i class="fas fa-code"></i> API Request Example</h2>
+    <p>Here's an example of how to make a GET request to the Lumix API:</p>
+    <div class="code-block-container">
+        <div class="code-block-header">
+            API Request Example
+        </div>
+        <div class="code-block">
+            <pre>
+<span class="method">GET</span> <span class="string">https://api.lumix.ai/v1/models</span>
+<span class="header">Authorization:</span> <span class="string">Bearer <span class="api-key">YOUR_API_KEY</span></span>
+            </pre>
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+    </div>
+</section>
+
+
+<section>
+    <h2><i class="fas fa-code"></i> API Request Example</h2>
+    <p>Here's an example of how to make a GET request to the Lumix API:</p>
+    <div class="code-block-container">
+        <div class="code-block-header">
+            API Request Example
+        </div>
+        <div class="code-block">
+            <pre>
+<span class="method">GET</span> <span class="string">https://api.lumix.ai/v1/models</span>
+<span class="header">Authorization:</span> <span class="string">Bearer <span class="api-key">YOUR_API_KEY</span></span>
+            </pre>
+            <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        </div>
+    </div>
+</section>
+
+
+  <!-- Buttons under Endpoints -->
+  <div class="btn-group">
+    <button class="btn" onclick="window.location.href='#rate-limits'">Rate Limits & Tips</button>
+  </div>
+</section>
+
+<!-- RATE LIMITS & BEST PRACTICES -->
+<section id="best-practices">
+  <h2><i class="fas fa-tachometer-alt"></i> Rate Limits & Best Practices</h2>
+  <p>
+    Lumix API rate limits ensure fair usage and system stability. Free tier users have 60 requests per minute, Pro users 600, and Enterprise plans offer customizable limits.
+  </p>
+  <p>
+    To maximize efficiency:
+  </p>
+  <ul>
+    <li>Cache generated images where possible to reduce redundant calls.</li>
+    <li>Queue or batch requests in high-volume apps to avoid hitting rate limits.</li>
+    <li>Monitor your usage dashboard to proactively manage consumption.</li>
+  </ul>
+  <p>
+    Consider exponential backoff for handling 429 (Too Many Requests) or 500 (Server Error) responses gracefully.
+  </p>
+
+  <!-- Buttons under Rate Limits -->
+  <div class="btn-group">
+    <button class="btn" onclick="window.location.href='#authentication'">Authentication Guide</button>
+    <button class="btn" onclick="window.location.href='#generate-image'">Generate Image Endpoint</button>
+    <button class="btn" onclick="window.location.href='#error-handling'">Error Handling</button>
+  </div>
+</section>
+<!-- ERROR HANDLING -->
+<section id="error-handling">
+  <h2><i class="fas fa-exclamation-triangle"></i> Error Handling</h2>
+  <p>
+    The Lumix API uses standard HTTP status codes to indicate success or failure of API requests. All error responses return a JSON body with detailed messages to help you diagnose and fix issues.
+  </p>
+  <ul>
+    <li><b>200 OK</b> – Request was successful.</li>
+    <li><b>400 Bad Request</b> – The request was malformed or missing required fields.</li>
+    <li><b>401 Unauthorized</b> – Your API key is invalid or missing.</li>
+    <li><b>429 Too Many Requests</b> – You have exceeded your rate limit; slow down your requests.</li>
+    <li><b>500 Server Error</b> – An unexpected error occurred on the server; try again later.</li>
+  </ul>
+  <p><b>Best Practice:</b> Implement exponential backoff retries when you receive 429 or 500 status codes to improve reliability.</p>
+
+  <!-- Buttons under Error Handling -->
+  <div class="btn-group">
+    <button class="btn" onclick="window.location.href='#authentication'">Authentication</button>
+    <button class="btn" onclick="window.location.href='#generate-image'">Generate Image</button>
+    <button class="btn" onclick="window.location.href='#rate-limits'">Rate Limits & Tips</button>
+  </div>
+</section>
+
+<!-- CHANGELOG -->
+<section>
+  <h2><i class="fas fa-history"></i> Changelog</h2>
+  <ul>
+    <li><b>v1.0</b> – Initial release with Flux Schnell, Realistic Vision, Counterfeit v3 models.</li>
+    <li><b>v1.1</b> – Added support for prompt steps and 1024x1024 image sizes.</li>
+    <li><b>v1.2</b> – Improved rate limit handling and added new example requests.</li>
+    <li><b>v1.3</b> – Enhanced error messages and added new authentication features.</li>
+  </ul>
+</section>
+
+</main>
+
+  <script>
+    // Copy code block function
+    function copyCode(btn) {
+      const codeBlock = btn.previousElementSibling.innerText;
+      navigator.clipboard.writeText(codeBlock).then(() => {
+        btn.innerText = "Copied!";
+        btn.disabled = true;
+        setTimeout(() => {
+          btn.innerText = "Copy";
+          btn.disabled = false;
+        }, 1500);
+      }).catch(() => {
+        btn.innerText = "Failed";
+        setTimeout(() => {
+          btn.innerText = "Copy";
+          btn.disabled = false;
+        }, 1500);
+      });
+    }
+  </script>
+</body>
+</html>

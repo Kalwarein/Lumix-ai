@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lumix Ai- Image Generation</title>
+<link rel="stylesheet" href="./assets/css/gen.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+<div class="app-container">
+    <!-- Desktop Sm la4ß=9n.photo-1485827404703-89b55fcc595e
+    87idebar -->
+    <div class="desktop-sidebar" id="desktop-sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <div class="logo-icon">AI</div>
+                <span class="logo-text"><strong>Lumix</strong></span>
+            </div>
+        </div>
+        
+        <div class="sidebar-content">
+            <div class="setting-group">
+                <label><strong>Model / Preset</label></strong>
+                <div class="setting-select dropdown-trigger" data-dropdown="model-dropdown">
+                    <div class="model-preview">
+                        <img src="assets/images/models/Lumixai_Image_099196907910481.jpg?w=40&h=40&fit=crop&crop=center" alt="Flux Dev" class="model-preview-image">
+                        <span>Lumix Velocity</span>
+                    </div>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="dropdown-menu" id="model-dropdown">
+                    <div class="dropdown-item" data-model="Lumix Precision">
+                        <img src="assets/images/models/Lumixai_Image_078005440222954.jpg?w=40&h=40&fit=crop&crop=center" alt="Flux Dev" class="model-preview-image">
+                        <span>Lumix Precision</span>
+                    </div>
+                    <div class="dropdown-item" data-model="Lumix Hyperreal">
+                        <img src="assets/images/models/Lumixai_Image_419203022402894.jpg?w=40&h=40&fit=crop&crop=center" alt="Phoenix 1.0" class="model-preview-image">
+                        <span>Lumix Hyperreal</span>
+                    </div>
+                    <div class="dropdown-item" data-model="Lumix Dream">
+                        <img src="assets/images/models/Lumixai_Image_359380502241593.jpg?w=40&h=40&fit=crop&crop=center" alt="Phoenix 0.9" class="model-preview-image">
+                        <span>Lumix Dream</span>
+                    </div>
+                    <div class="dropdown-item" data-model="Lumix Aurora">
+                        <img src="assets/images/models/Lumixai_Image_372459412505798.jpg?w=40&h=40&fit=crop&crop=center" alt="Anime" class="model-preview-image">
+                        <span>Lumix Aurora</span>
+                    </div>
+                    <div class="dropdown-item" data-model="Cinematic Kino">
+                        <img src="./assets/images/models/Lumixai_Image_07800544022295896.jpg?w=40&h=40&fit=crop&crop=center" alt="Cinematic" class="model-preview-image">
+                        <span>Cinematic Kino</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="setting-group">
+                <label>
+                    <i class="fas fa-magic"></i>
+                    Prompt Enhance
+                </label>
+                <div class="setting-select dropdown-trigger" data-dropdown="enhance-dropdown">
+                    <span>Auto</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="dropdown-menu" id="enhance-dropdown">
+                    <div class="dropdown-item" data-value="auto">Auto</div>
+                    <div class="dropdown-item" data-value="off">Off</div>
+                    <div class="dropdown-item" data-value="creative">Creative</div>
+                    <div class="dropdown-item" data-value="precise">Precise</div>
+                </div>
+            </div>
+            
+            <div class="setting-group">
+                <label>
+                    <i class="fas fa-palette"></i>
+                    Style
+                </label>
+                <div class="setting-select dropdown-trigger" data-dropdown="style-dropdown">
+                    <span>Dynamic</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="dropdown-menu" id="style-dropdown">
+                    <div class="dropdown-item" data-value="dynamic">
+                        <div class="style-preview dynamic"></div>
+                        <span>Dynamic</span>
+                    </div>
+                    <div class="dropdown-item" data-value="cinematic">
+                        <div class="style-preview cinematic"></div>
+                        <span>Cinematic</span>
+                    </div>
+                    <div class="dropdown-item" data-value="photography">
+                        <div class="style-preview photography"></div>
+                        <span>Photography</span>
+                    </div>
+                    <div class="dropdown-item" data-value="artistic">
+                        <div class="style-preview artistic"></div>
+                        <span>Artistic</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="setting-group">
+                <label><strong>Image Dimensions</strong></label>
+                <div class="aspect-ratio-grid">
+                    <button class="aspect-btn">
+                        <div class="aspect-icon portrait"></div>
+                        <span>2:3</span>
+                    </button>
+                    <button class="aspect-btn active">
+                        <div class="aspect-icon square"></div>
+                        <span>1:1</span>
+                    </button>
+                    <button class="aspect-btn">
+                        <div class="aspect-icon landscape"></div>
+                        <span>16:9</span>
+                    </button>
+                    <button class="aspect-btn">
+                        <div class="aspect-icon custom"></div>
+                        <span>Custom</span>
+                    </button>
+                </div>
+                
+                <div class="size-options">
+                    <button class="size-btn">
+                        <span>Small</span>
+                        <small>896×896</small>
+                    </button>
+                    <button class="size-btn active">
+                        <span>Medium</span>
+                        <small>1024×1024</small>
+                    </button>
+                    <button class="size-btn premium">
+                        <span>Large</span>
+                        <small>1120×1120</small>
+                        <i class="fas fa-gem"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="setting-group">
+                <label>Number of Images</label>
+                <div class="number-grid">
+                    <button class="number-btn active">1</button>
+                    <button class="number-btn">2</button>
+                    <button class="number-btn">3</button>
+                    <button class="number-btn">4</button>
+                </div>
+            </div>
+            
+            <div class="setting-group">
+                <label>Add to Collection</label>
+                <div class="setting-select dropdown-trigger" data-dropdown="collection-dropdown">
+                    <span>Select Collection</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="dropdown-menu" id="collection-dropdown">
+                    <div class="dropdown-item" data-value="favorites">
+                        <i class="fas fa-heart"></i>
+                        <span>Favorites</span>
+                    </div>
+                    <div class="dropdown-item" data-value="portfolio">
+                        <i class="fas fa-briefcase"></i>
+                        <span>Portfolio</span>
+                    </div>
+                    <div class="dropdown-item" data-value="experiments">
+                        <i class="fas fa-flask"></i>
+                        <span>Experiments</span>
+                    </div>
+                    <div class="dropdown-item" data-value="new">
+                        <i class="fas fa-plus"></i>
+                        <span>Create New</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="setting-group">
+                <label>Advanced Settings</label>
+                <div class="setting-select dropdown-trigger" data-dropdown="advanced-dropdown">
+                    <span>Configure</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="dropdown-menu advanced-menu" id="advanced-dropdown">
+                    <div class="advanced-setting">
+                        <label>Guidance Scale</label>
+                        <input type="range" min="1" max="20" value="7" class="slider">
+                        <span class="slider-value">7</span>
+                    </div>
+                    <div class="advanced-setting">
+                        <label>Steps</label>
+                        <input type="range" min="10" max="50" value="20" class="slider">
+                        <span class="slider-value">20</span>
+                    </div>
+                    <div class="advanced-setting">
+                        <label>Seed</label>
+                        <input type="number" placeholder="Random" class="seed-input">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="setting-group">
+                <label>Private Mode</label>
+                <div class="toggle-container">
+                    <div class="toggle-switch">
+                        <input type="checkbox" id="private-mode">
+                        <label for="private-mode"></label>
+                    </div>
+                    <i class="fas fa-gem premium-icon"></i>
+                </div>
+            </div>
+            
+            <button class="reset-btn">
+                <i class="fas fa-undo"></i>
+                Reset to Defaults
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Interface -->
+    <div class="main-interface">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-left">
+                <a href="app.lumix.html" class="back-btn">
+                    <i class="fas fa-arrow-left"></i>
+                </a>
+                <div class="logo mobile-logo">
+                    <div class="logo-icon">L</div>
+                </div>
+            </div>
+            
+            <div class="header-center">
+                <button class="model-selector glow-btn" id="header-model-btn">
+                    <img src="assets/images/models/Lumixai_Image_099196907910481.jpg?w=40&h=40&fit=crop&crop=center" alt="Model" class="model-icon">
+                    <span>Lumix Velocity</span>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+            </div>
+            
+            <div class="header-right">
+                <div class="tokens">
+                    <i class="fas fa-coins"></i>
+                    <span id="user-tokens">150</span>
+                </div>
+                <a href="pricing.html"><button class="upgrade-btn glow-btn">Upgrade</button></a>
+            </div>
+        </header>
+
+        <!-- Content Area -->
+        <div class="content-area">
+            <!-- Prompt Input -->
+            <div class="prompt-section">
+                <div class="prompt-container">
+                    <div class="prompt-icon">
+                        <i class="fas fa-image"></i>
+                    </div>
+                    <textarea 
+                        id="prompt-input" 
+                        class="prompt-input" 
+                        placeholder="Write a prompt for Your image"
+                        rows="5"
+                    ></textarea>
+                </div>
+            </div>
+
+            <!-- Generation Controls -->
+            <div class="generation-controls">
+                <button class="settings-btn mobile-only glow-btn" id="settings-btn">
+                    <i class="fas fa-cog"></i>
+                </button>
+
+                <button class="create-btn glow-btn primary" id="create-btn">
+                    <span>Create</span>
+                    <div class="token-cost">
+                        <i class="fas fa-coins"></i>
+                        <span>40</span>
+                    </div>
+                </button>
+            </div>
+
+            <!-- Upgrade Prompt -->
+            <div class="upgrade-prompt">
+                <div class="upgrade-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <div class="upgrade-content">
+                    <p class="upgrade-title"><strong>You are currently on a free plan.</strong></p>
+                    <p class="upgrade-description">Upgrade for priority generations, additional token credits, and much more!</p>
+                    <a href="pricing.html" class="upgrade-plan-btn glow-btn">Upgrade Plan</a>
+                </div>
+            </div>
+       <h3 class="shimmer-box">Generation History</h3>
+            <!-- Generation History -->
+       <div class="generation-history">
+    <!-- Example history item -->
+    <div class="history-item">
+        <div class="history-image">
+            <img src="assets/images/lazy/lumix.png"
+                 alt="Generated image"
+                 class="lazy-image"
+                 data-src="assets/images/xyz1.jpg?q=80&w=400&auto=format&fit=crop">
+            <div class="history-overlay">
+                <button class="history-btn glow-btn" data-modal="modal-enhance" title="Enhance"><i class="fas fa-star"></i></button>
+                <button class="history-btn glow-btn" data-modal="modal-upscale" title="Upscale"><i class="fas fa-arrow-up"></i></button>
+                <button class="history-btn glow-btn" data-modal="modal-collection" title="Add to Collection"><i class="fas fa-plus"></i></button>
+                <button class="history-btn glow-btn" data-modal="modal-download" title="Download"><i class="fas fa-download"></i></button>
+                <button class="history-btn glow-btn" data-modal="modal-share" title="Share"><i class="fas fa-share-alt"></i></button>
+            </div>
+        </div>
+        <div class="history-prompt"><span>Prompt will appear here...</span></div>
+        <p class="history-date">Date will appear here...</p>
+        <div class="history-meta">
+            <span class="history-model">Model</span>
+            <span class="history-dimensions">1024 × 1024px</span>
+            <button class="history-more"><i class="fas fa-ellipsis-h"></i></button>
+            <div class="history-popup">
+                <button data-modal="modal-preview"><i class="fas fa-eye"></i> Preview</button>
+                <button data-modal="modal-download"><i class="fas fa-download"></i> Download</button>
+                <button data-modal="modal-enhance"><i class="fas fa-star"></i> Enhance</button>
+                <button data-modal="modal-upscale"><i class="fas fa-arrow-up"></i> Upscale</button>
+                <button data-modal="modal-edit"><i class="fas fa-edit"></i> Edit</button>
+                <button data-modal="modal-collection"><i class="fas fa-plus"></i> Add to Collection</button>
+                <button data-modal="modal-share"><i class="fas fa-share-alt"></i> Share</button>
+                <button data-modal="modal-info"><i class="fas fa-info-circle"></i> Info</button>
+                <button data-modal="modal-delete"><i class="fas fa-trash"></i> Delete</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ================= MODALS ================= -->
+
+<!-- Preview Modal -->
+<div id="modal-preview" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <img src="assets/images/xyz1.jpg" alt="Preview" class="modal-image">
+  </div>
+</div>
+
+<!-- Enhance Modal -->
+<div id="modal-enhance" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>Enhance Image</h2>
+    <p>Apply AI-based enhancements to improve quality.</p>
+    <button class="modal-action">Enhance Now</button>
+  </div>
+</div>
+
+<!-- Upscale Modal -->
+<div id="modal-upscale" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>Upscale Image</h2>
+    <p>Choose upscale factor:</p>
+    <button class="modal-action">2×</button>
+    <button class="modal-action">4×</button>
+  </div>
+</div>
+
+<!-- Edit Modal -->
+<div id="modal-edit" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>Edit Image</h2>
+    <textarea placeholder="Describe your edits..."></textarea>
+    <button class="modal-action">Apply Edits</button>
+  </div>
+</div>
+
+<!-- Add to Collection Modal -->
+<div id="modal-collection" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>Add to Collection</h2>
+    <input type="text" placeholder="Collection name">
+    <button class="modal-action">Save</button>
+  </div>
+</div>
+
+<!-- Download Modal -->
+<div id="modal-download" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>Download</h2>
+    <button class="modal-action">Download JPG</button>
+    <button class="modal-action">Download PNG</button>
+  </div>
+</div>
+
+<!-- Share Modal -->
+<div id="modal-share" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>Share</h2>
+    <button class="modal-action">Copy Link</button>
+    <button class="modal-action">Share on WhatsApp</button>
+    <button class="modal-action">Share on Twitter</button>
+  </div>
+</div>
+
+<!-- Info Modal -->
+<div id="modal-info" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>Image Info</h2>
+    <p><b>Prompt:</b> Example prompt text</p>
+    <p><b>Model:</b> Stable Diffusion 1.5</p>
+    <p><b>Dimensions:</b> 1024×1024</p>
+    <p><b>Date:</b> Aug 19, 2025</p>
+  </div>
+</div>
+
+<!-- Delete Modal -->
+<div id="modal-delete" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <h2>Delete Image</h2>
+    <p>Are you sure you want to delete this image?</p>
+    <button class="modal-action danger">Yes, Delete</button>
+  </div>
+</div>
+          
+        </div>
+    </div>
+
+    <!-- Mobile Settings Sidebar -->
+    <div class="sidebar settings-sidebar mobile-only" id="settings-sidebar">
+        <div class="sidebar-header">
+            <h3>Settings</h3>
+            <button class="close-sidebar" id="close-settings">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="sidebar-content">
+            <div class="setting-group">
+                <label>Model / Preset</label>
+                <div class="setting-select dropdown-trigger" data-dropdown="mobile-model-dropdown">
+                    <div class="model-preview">
+                        <img src="assets/images/models/Lumixai_Image_099196907910481.jpg?w=40&h=40&fit=crop&crop=center" alt="Flux Dev" class="model-preview-image">
+                        <span>Lumix Velocity</span>
+                    </div>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="dropdown-menu" id="mobile-model-dropdown">
+                  <div class="dropdown-item" data-model="Lumix Velocity">
+                        <img src="assets/images/models/Lumixai_Image_099196907910481.jpg?w=40&h=40&fit=crop&crop=center" alt="Flux Dev" class="model-preview-image">
+                        <span>Lumix Velocity</span>
+                    </div>
+                    <div class="dropdown-item" data-model="Lumix Precision">
+                        <img src="assets/images/models/Lumixai_Image_078005440222954.jpg?w=40&h=40&fit=crop&crop=center" alt="Flux Dev" class="model-preview-image">
+                        <span>Lumix Precision</span>
+                    </div>
+                    <div class="dropdown-item" data-model="Lumix Hyperreal">
+                        <img src="assets/images/models/Lumixai_Image_419203022402894.jpg?w=40&h=40&fit=crop&crop=center" alt="Phoenix 1.0" class="model-preview-image">
+                        <span>Lumix Hyperreal</span>
+                    </div>
+                    <div class="dropdown-item" data-model="Lumix Dream">
+                        <img src="assets/images/models/Lumixai_Image_359380502241593.jpg?w=40&h=40&fit=crop&crop=center" alt="Phoenix 0.9" class="model-preview-image">
+                        <span>Lumix Dream</span>
+                    </div>
+                    <div class="dropdown-item" data-model="Lumix Aurora">
+                        <img src="assets/images/models/Lumixai_Image_372459412505798.jpg?w=40&h=40&fit=crop&crop=center" alt="Anime" class="model-preview-image">
+                        <span>Lumix Aurora</span>
+                    </div>
+                    <div class="dropdown-item" data-model="Cinematic Kino">
+                        <img src="assets/images/models/Lumixai_Image_07800544022295896.jpg?w=40&h=40&fit=crop&crop=center" alt="Anime" class="model-preview-image">
+                        <span>Cinematic Kino</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="setting-group">
+                <label>
+                    <i class="fas fa-magic"></i>
+                    Prompt Enhance
+                </label>
+                <div class="setting-select dropdown-trigger" data-dropdown="mobile-enhance-dropdown">
+                    <span>Auto</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="dropdown-menu" id="mobile-enhance-dropdown">
+                    <div class="dropdown-item" data-value="auto">Auto</div>
+                    <div class="dropdown-item" data-value="off">Off</div>
+                    <div class="dropdown-item" data-value="creative">Creative</div>
+                    <div class="dropdown-item" data-value="precise">Precise</div>
+                </div>
+            </div>
+            
+            <div class="setting-group">
+                <label>
+                    <i class="fas fa-palette"></i>
+                    Style
+                </label>
+                <div class="setting-select dropdown-trigger" data-dropdown="mobile-style-dropdown">
+                    <span>Dynamic</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="dropdown-menu" id="mobile-style-dropdown">
+                    <div class="dropdown-item" data-value="dynamic">
+                        <div class="style-preview dynamic"></div>
+                        <span>Dynamic</span>
+                    </div>
+                    <div class="dropdown-item" data-value="cinematic">
+                        <div class="style-preview cinematic"></div>
+                        <span>Cinematic</span>
+                    </div>
+                    <div class="dropdown-item" data-value="photography">
+                        <div class="style-preview photography"></div>
+                        <span>Photography</span>
+                    </div>
+                    <div class="dropdown-item" data-value="artistic">
+                        <div class="style-preview artistic"></div>
+                        <span>Artistic</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="setting-group">
+                <label>Image Dimensions</label>
+                <div class="aspect-ratio-grid">
+                    <button class="aspect-btn">
+                        <div class="aspect-icon portrait"></div>
+                        <span>2:3</span>
+                    </button>
+                    <button class="aspect-btn active">
+                        <div class="aspect-icon square"></div>
+                        <span>1:1</span>
+                    </button>
+                    <button class="aspect-btn">
+                        <div class="aspect-icon landscape"></div>
+                        <span>16:9</span>
+                    </button>
+                    <button class="aspect-btn">
+                        <div class="aspect-icon custom"></div>
+                        <span>Custom</span>
+                    </button>
+                </div>
+                
+                <div class="size-options">
+                    <button class="size-btn">
+                        <span>Small</span>
+                        <small>896×896</small>
+                    </button>
+                    <button class="size-btn active">
+                        <span>Medium</span>
+                        <small>1024×1024</small>
+                    </button>
+                    <button class="size-btn premium">
+                        <span>Large</span>
+                        <small>1120×1120</small>
+                        <i class="fas fa-gem"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <div class="setting-group">
+                <label>Number of Images</label>
+                <div class="number-grid">
+                    <button class="number-btn active">1</button>
+                    <button class="number-btn">2</button>
+                    <button class="number-btn">3</button>
+                    <button class="number-btn">4</button>
+                </div>
+            </div>
+            
+            <div class="setting-group">
+                <label>Add to Collection</label>
+                <div class="setting-select dropdown-trigger" data-dropdown="mobile-collection-dropdown">
+                    <span>Select Collection</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="dropdown-menu" id="mobile-collection-dropdown">
+                    <div class="dropdown-item" data-value="favorites">
+                        <i class="fas fa-heart"></i>
+                        <span>Favorites</span>
+                    </div>
+                    <div class="dropdown-item" data-value="portfolio">
+                        <i class="fas fa-briefcase"></i>
+                        <span>Portfolio</span>
+                    </div>
+                    <div class="dropdown-item" data-value="experiments">
+                        <i class="fas fa-flask"></i>
+                        <span>Experiments</span>
+                    </div>
+                    <div class="dropdown-item" data-value="new">
+                        <i class="fas fa-plus"></i>
+                        <span>Create New</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="setting-group">
+                <label>Advanced Settings</label>
+                <div class="setting-select dropdown-trigger" data-dropdown="mobile-advanced-dropdown">
+                    <span>Configure</span>
+                    <i class="fas fa-chevron-down"></i>
+                </div>
+                <div class="dropdown-menu advanced-menu" id="mobile-advanced-dropdown">
+                    <div class="advanced-setting">
+                        <label>Guidance Scale</label>
+                        <input type="range" min="1" max="20" value="7" class="slider">
+                        <span class="slider-value">7</span>
+                    </div>
+                    <div class="advanced-setting">
+                        <label>Steps</label>
+                        <input type="range" min="10" max="50" value="20" class="slider">
+                        <span class="slider-value">20</span>
+                    </div>
+                    <div class="advanced-setting">
+                        <label>Seed</label>
+                        <input type="number" placeholder="Random" class="seed-input">
+                    </div>
+                </div>
+            </div>
+            
+            <div class="setting-group">
+                <label>Private Mode</label>
+                <div class="toggle-container">
+                    <div class="toggle-switch">
+                        <input type="checkbox" id="mobile-private-mode">
+                        <label for="mobile-private-mode"></label>
+                    </div>
+                    <i class="fas fa-gem premium-icon"></i>
+                </div>
+            </div>
+            
+            <button class="reset-btn">
+                <i class="fas fa-undo"></i>
+                Reset to Defaults
+            </button>
+        </div>
+    </div>
+<!-- Models Sidebar -->
+<div class="sidebar models-sidebar mobile-only" id="models-sidebar">
+    <div class="sidebar-header">
+        <h3><strong>Models and Presets</strong></h3>
+        <button class="close-sidebar" id="close-models">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+
+    <!-- Tab Bar -->
+    <div class="tab-bar">
+        <div class="tab-item active" data-tab="models">Models</div>
+        <div class="tab-item" data-tab="legacy">Legacy Presets</div>
+        <div class="tab-indicator"></div>
+    </div>
+
+    <!-- Sidebar Contents -->
+    <div class="sidebar-content">
+        <!-- Models Section -->
+        <div class="models-section tab-content active" data-content="models">
+            <div class="section-header">
+                  <h4><i class="fa-solid fa-microchip"></i> Legacy Presets</h4>
+            </div>
+            <div class="models-grid">
+                <!-- Original Models Cards -->
+                <div class="model-card active" data-model="Lumix Velocity">
+                    <div class="model-badge">New</div>
+                    <img src="./assets/images/models/Lumixai_Image_099196907910481.jpg" alt="Lumix Velocity" class="model-image">
+                    <div class="model-content">
+                        <div class="model-name">Lumix Velocity</div>
+                        <div class="model-description">Your go-to model for vibrant, diverse imagery in HD output. Excellent prompt adherence and text rendering.</div>
+                    </div>
+                </div>
+                <div class="model-card" data-model="Lumix Precision">
+                    <div class="model-badge">New</div>
+                    <img src="./assets/images/models/Lumixai_Image_078005440222954.jpg" alt="Lumix Precision" class="model-image">
+                    <div class="model-content">
+                        <div class="model-name">Lumix Precision</div>
+                        <div class="model-description">Create immersive cinematic shots. This model is best paired with video generation.</div>
+                    </div>
+                </div>
+                <div class="model-card" data-model="Lumix Hyperreal">
+                    <div class="model-badge">New</div>
+                    <img src="./assets/images/models/Lumixai_Image_419203022402894.jpg" alt="Lumix Hyperreal" class="model-image">
+                    <div class="model-content">
+                        <div class="model-name">Lumix Hyperreal</div>
+                        <div class="model-description">A state-of-the-art model designed for photorealistic rendering and immersive detail.</div>
+                    </div>
+                </div>
+                <div class="model-card" data-model="Lumix Dream">
+                    <img src="./assets/images/models/Lumixai_Image_359380502241593.jpg" alt="Lumix Dream" class="model-image">
+                    <div class="model-content">
+                        <div class="model-name">Lumix Dream</div>
+                        <div class="model-description">Creative and artistic rendering engine, ideal for fantasy and imaginative prompts.</div>
+                    </div>
+                </div>
+                <div class="model-card" data-model="Lumix Aurora">
+                    <img src="./assets/images/models/Lumixai_Image_372459412505798.jpg" alt="Lumix Aurora" class="model-image">
+                    <div class="model-content">
+                        <div class="model-name">Lumix Aurora</div>
+                        <div class="model-description">Specialized anime & stylized model, optimized for clean line-art and vibrant shading.</div>
+                    </div>
+                </div>
+                <div class="model-card" data-model="Cinematic Kino">
+                    <img src="./assets/images/models/Lumixai_Image_07800544022295896.jpg" alt="Cinematic Kino" class="model-image">
+                    <div class="model-content">
+                        <div class="model-name">Cinematic Kino</div>
+                        <div class="model-description">Tailored for cinematic and dramatic shots, delivering depth, tone, and realism.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Legacy Presets Section (Replicated Models) -->
+        <div class="models-section tab-content" data-content="legacy">
+    <div class="section-header">
+        <h4><i class="fa fa-clock"></i> Legacy Presets</h4>
+    </div>
+    <div class="models-grid">
+        <!-- Legacy Presets Cards -->
+        <div class="model-card" data-model="Portrait Master">
+            <div class="model-badge">Portrait</div>
+            <img src="./assets/images/Presets/legacy1.jpg" alt="Portrait Master" class="model-image">
+            <div class="model-content">
+                <div class="model-name">Portrait Master</div>
+                <div class="model-description">Ideal for detailed portrait-style renders with soft lighting and refined facial details.</div>
+            </div>
+        </div>
+
+        <div class="model-card" data-model="Cinematic Vision">
+            <div class="model-badge">Cinematic</div>
+            <img src="./assets/images/Presets/legacy2.jpg" alt="Cinematic Vision" class="model-image">
+            <div class="model-content">
+                <div class="model-name">Cinematic Vision</div>
+                <div class="model-description">Perfect for dramatic, cinematic shots with high contrast and depth.</div>
+            </div>
+        </div>
+
+        <div class="model-card" data-model="Hyper Realism">
+            <div class="model-badge">Realistic</div>
+            <img src="./assets/images/Presets/legacy3.jpg" alt="Hyper Realism" class="model-image">
+            <div class="model-content">
+                <div class="model-name">Hyper Realism</div>
+                <div class="model-description">Designed for ultra-realistic images with accurate lighting, textures, and details.</div>
+            </div>
+        </div>
+
+        <div class="model-card" data-model="Anime Fantasy">
+            <div class="model-badge">Anime</div>
+            <img src="./assets/images/Presets/legacy4.jpg" alt="Anime Fantasy" class="model-image">
+            <div class="model-content">
+                <div class="model-name">Anime Fantasy</div>
+                <div class="model-description">Optimized for vibrant anime-style illustrations with clean line-art and vivid colors.</div>
+            </div>
+        </div>
+
+        <div class="model-card" data-model="Oil Painting Pro">
+            <div class="model-badge">Oil Painting</div>
+            <img src="./assets/images/Presets/legacy5.jpg" alt="Oil Painting Pro" class="model-image">
+            <div class="model-content">
+                <div class="model-name">Oil Painting Pro</div>
+                <div class="model-description">Creates classical oil painting effects with brush textures and realistic strokes.</div>
+            </div>
+        </div>
+
+        <div class="model-card" data-model="Dreamscape">
+            <div class="model-badge">Fantasy</div>
+            <img src="./assets/images/Presets/legacy6.jpg" alt="Dreamscape" class="model-image">
+            <div class="model-content">
+                <div class="model-name">Dreamscape</div>
+                <div class="model-description">Ideal for imaginative, surrealistic scenes with rich colors and ethereal lighting.</div>
+            </div>
+        </div>
+
+        <div class="model-card" data-model="Studio Classic">
+            <div class="model-badge">Portrait</div>
+            <img src="./assets/images/Presets/legacy7.jpg" alt="Studio Classic" class="model-image">
+            <div class="model-content">
+                <div class="model-name">Studio Classic</div>
+                <div class="model-description">For traditional studio-style portraits with controlled lighting and sharp detail.</div>
+            </div>
+        </div>
+    </div>
+</div>
+    </div>
+</div>
+   <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+</div>
+<!-- Toast Notification -->
+<div class="toast" id="toast">
+    <div class="toast-icon">
+        <i class="fas fa-check-circle"></i>
+    </div>
+    <div class="toast-content">
+        <div class="toast-title">Success</div>
+        <div class="toast-message">Generation started!</div>
+    </div>
+    <button class="toast-close">
+        <i class="fas fa-times"></i>
+    </button>
+</div>
+<script src="./assets/js/gen.js"></script>
+</body>
+</html>

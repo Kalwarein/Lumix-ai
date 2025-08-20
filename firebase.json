@@ -1,0 +1,21 @@
+{
+  "hosting": {
+    "public": "public",
+    "cleanUrls": true,
+    "rewrites": [
+      { "source": "/signin", "destination": "/signin.html" },
+      { "source": "/signup", "destination": "/signup.html" },
+      { "source": "/onboarding", "destination": "/onboarding.html" },
+      { "source": "/app", "destination": "/app.lumix.html" },
+      { "source": "/logout", "destination": "/Sucess-log-out.html" },
+      { "source": "/forgot-password", "destination": "/forgot-password.html" },
+      { "source": "/dashboard", "destination": "/user-dashboard.html" },
+      { "source": "/real-time-canvas", "destination": "/real-time-canvas.html" },
+      { "source": "/privacy", "destination": "/privacy.html" },
+      { "source": "/pricing", "destination": "/pricing.html" },
+      { "source": "/404", "destination": "/404.html" },
+      { "source": "/server-error", "destination": "/server.error.html" },
+    ],
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"]
+  }
+}

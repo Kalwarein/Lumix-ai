@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lumix Events 3.0</title>
+  
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+  />
+  <link rel="stylesheet" href="./assets/css/events.css" />
+</head>
+<body>
+  <style>
+    *:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Remove tap highlight color globally */
+* {
+  -webkit-tap-highlight-color: transparent !important;
+  -moz-tap-highlight-color: transparent !important;
+  -ms-tap-highlight-color: transparent !important;
+  tap-highlight-color: transparent !important;
+}
+  </style>
+  <div class="background-animation"></div>
+
+  <!-- Welcome Banner -->
+  <div class="welcome-banner" id="welcome-banner">
+    <h2><i class="fa-solid fa-bolt"></i>Events at Lumix!</h2>
+  </div>
+
+  <header>
+    <h1>Lumix Events</h1>
+    <p class="subtitle">Upcoming giveaways, model releases, and challenges</p>
+  </header>
+
+  <main class="events-trigger-container">
+
+    <!-- Event Triggers -->
+    <div class="event-trigger" data-id="1" tabindex="0">
+      <img src="./assets/images/events/img.jpg" alt="Flux Schnell Unlimited" />
+      <div class="event-trigger-info">
+        <h3>Flux Schnell Unlimited</h3>
+        <p>Unlimited fast generations for 3 days.</p>
+        <span><i class="fa-solid fa-calendar-days"></i> Sept 01-03, 2025</span>
+      </div>
+    </div>
+
+    <div class="event-trigger" data-id="2" tabindex="0">
+      <img src="./assets/images/events/img.jpg" alt="Lumix Precision Launch" />
+      <div class="event-trigger-info">
+        <h3>Lumix Precision Launch</h3>
+        <p>Our most accurate model at launch discount.</p>
+        <span><i class="fa-solid fa-calendar-days"></i> Sept 05-07, 2025</span>
+      </div>
+    </div>
+
+    <div class="event-trigger" data-id="3" tabindex="0">
+      <img src="./assets/images/events/img.jpg" alt="Free Coin Giveaway" />
+      <div class="event-trigger-info">
+        <h3>Free Coin Giveaway</h3>
+        <p>Claim free Lumix coins, limited time only.</p>
+        <span><i class="fa-solid fa-calendar-days"></i> Sept 10-12, 2025</span>
+      </div>
+    </div>
+
+    <div class="event-trigger" data-id="4" tabindex="0">
+      <img src="./assets/images/events/img.jpg" alt="MeinaMix Anime Weekend" />
+      <div class="event-trigger-info">
+        <h3>MeinaMix Anime Weekend</h3>
+        <p>Exclusive access to our anime model.</p>
+        <span><i class="fa-solid fa-calendar-days"></i> Sept 15-17, 2025</span>
+      </div>
+    </div>
+
+    <div class="event-trigger" data-id="5" tabindex="0">
+      <img src="./assets/images/events/img.jpg" alt="Realistic Vision Promo" />
+      <div class="event-trigger-info">
+        <h3>Realistic Vision Promo</h3>
+        <p>Free ultra-realistic image generation.</p>
+        <span><i class="fa-solid fa-calendar-days"></i> Sept 20-22, 2025</span>
+      </div>
+    </div>
+
+    <div class="event-trigger" data-id="6" tabindex="0">
+      <img src="./assets/images/events/img.jpg" alt="Creator Challenge" />
+      <div class="event-trigger-info">
+        <h3>Creator Challenge</h3>
+        <p>Show your skills and win rewards.</p>
+        <span><i class="fa-solid fa-calendar-days"></i> Sept 25-27, 2025</span>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- Popup Modal -->
+  <div id="event-popup" class="popup-modal hidden" role="dialog" aria-modal="true" aria-labelledby="popup-title">
+    <div class="popup-content">
+      <button id="popup-close" class="popup-close" aria-label="Close">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+      <img id="popup-img" src="./assets/images/events/img.jpg" alt="Event Image" />
+      <h3 id="popup-title"></h3>
+      <p id="popup-desc"></p>
+      <p class="date" id="popup-date"></p>
+      <div class="countdown" id="popup-countdown"></div>
+    </div>
+  </div>
+
+  <script src="./assets/js/events.js"></script>
+</body>
+</html>

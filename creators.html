@@ -1,0 +1,124 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width, initial-scale=1.0"/><title>Creator Hub | Lumix AI</title><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/><link rel="stylesheet" href="./assets/css/creator.css"/><link rel="preconnect" href="https://fonts.googleapis.com"/><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet"/><style>
+  *:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+/* Remove tap highlight color globally */
+* {-webkit-tap-highlight-color: transparent !important;-moz-tap-highlight-color: transparent !important;
+  -ms-tap-highlight-color: transparent !important;
+  tap-highlight-color: transparent !important;
+}
+</style></head><body>
+  <style>
+  /* Preloader container */
+  #lumix-preloader {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: #000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+
+  /* Circle wrapper */
+  #lumix-preloader .circle-wrapper {
+    position: relative;
+    width: 150px;
+    height: 150px;
+  }
+
+  /* Image fills circle exactly */
+  #lumix-preloader img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    position: relative;
+    z-index: 2;
+    animation: logoFade 2s ease forwards;
+    opacity: 0;
+  }
+
+  /* Spinning border is exactly on the image border */
+  #lumix-preloader .circle-wrapper::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    border-radius: 50%;
+    border: 4px solid transparent;
+    border-top-color: #ff00cc;
+    border-right-color: #8a2be2;
+    border-bottom-color: #ff00cc;
+    border-left-color: #8a2be2;
+    animation: spinRing 2.5s linear infinite, glowPulse 2s ease-in-out infinite;
+    z-index: 1;
+    box-sizing: border-box;
+  }
+
+  /* Page content hidden by default */
+  #page-content {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+  }
+  #page-content.visible {
+    display: block;
+    opacity: 1;
+  }
+
+  /* Preloader fade out */
+  #lumix-preloader.fade-out {
+    animation: preFadeOut 0.8s forwards;
+  }
+
+  /* Animations */
+  @keyframes preFadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+  }
+  @keyframes spinRing {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  @keyframes glowPulse {
+    0%, 100% { box-shadow: 0 0 20px rgba(255,0,200,0.5); }
+    50% { box-shadow: 0 0 35px rgba(138,43,226,0.8); }
+  }
+  @keyframes logoFade {
+    0% { opacity: 0; transform: scale(0.5); }
+    50% { opacity: 1; transform: scale(1.05); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+</style>
+
+<!-- Preloader -->
+<div id="lumix-preloader">
+  <div class="circle-wrapper">
+    <!-- Replace logo.png with your logo -->
+    <img src="./assets/images/logo1.png" alt="Lumix Logo">
+  </div>
+</div>
+
+<!-- Wrap all page content here -->
+<div id="page-content">
+  <!-- Your full page content -->
+  
+ </div>
+
+<script>
+  window.addEventListener("load", () => {
+    const preloader = document.getElementById("lumix-preloader");
+    const page = document.getElementById("page-content");
+
+    setTimeout(() => {
+      preloader.classList.add("fade-out");
+      page.classList.add("visible");
+
+      setTimeout(() => preloader.style.display = "none", 800);
+    }, 2500); // Duration for preloader
+  });
+</script>
+<section class="hero"><div class="content"><h1><strong>Welcome to Creators Hub with more features with personalization for you</strong></h1><p>Take your creativity to the next level with Lumix’s cutting-edge AI tools. Effortlessly generate stunning visuals, videos, and more – all in seconds.</p><a href="signup.html" class="cta-button">Join the Creator Hub </a></div><div class="hero-image"><img src="./assets/images/xyz1.jpg" alt="AI Art Preview"/></div></section><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/><section class="creative-vision-section"><div class="container"><h2>How LUMIX.Ai Empowers Creative Vision</h2><p class="intro-text">With Leonardo.Ai, you can unlock your creative potential, crafting unique AI–driven art for galleries, portfolios, digital displays, social media showcases, or personal projects.</p><div class="card-row"><div class="card"><div class="icon-bg"><i class="fas fa-paint-brush"></i></div><h3>Elevate Your Artistic Expression</h3><p>Create stunning digital designs, concept art, portraits, and illustrations tailored to your unique style.</p></div><div class="card"><div class="icon-bg"><i class="fas fa-images"></i></div><h3>Build Professional Portfolios</h3><p>Generate diverse, high-quality visuals perfect for professional portfolios showcasing your capabilities.</p></div><div class="card"><div class="icon-bg"><i class="fas fa-share-alt"></i></div><h3>Boost Social Media Presence</h3><p>Stand out online by creating captivating, scroll-stopping visuals powered by AI-enhanced design tools.</p></div><div class="card"><div class="icon-bg"><i class="fas fa-user-astronaut"></i></div><h3>Enhance Personal Projects</h3><p>Bring your ideas to life with storytelling tools, branding elements, and artistic freedom—powered by AI.</p></div><div class="card"><div class="icon-bg"><i class="fas fa-infinity"></i></div><h3>Experiment Without Limits</h3><p>Test countless creative directions with ease. Visualize and refine designs without traditional limitations.</p></div></div></div></section><section class="join-section"><div class="container"><div class="content"><h2>Join 5000+ happy users</h2><p>Experience a thriving community that loves our product. Don’t miss out on the fun and benefits!</p><div class="buttons"><button class="btn primary-btn">Join them today</button><button class="btn secondary-btn">Learn more</button></div><div class="live-users-container"><div class="live-users-counter"><span id="liveUserCount">1201</span> creators joined today</div><div id="user-burst" class="user-burst">+1 user</div></div></div><div class="profiles"><img src="https://randomuser.me/api/portraits/women/81.jpg" alt="User 1"/><img src="https://randomuser.me/api/portraits/men/42.jpg" alt="User 2"/><img src="https://randomuser.me/api/portraits/women/65.jpg" alt="User 3"/><img src="https://randomuser.me/api/portraits/men/73.jpg" alt="User 4"/><img src="https://randomuser.me/api/portraits/women/21.jpg" alt="User 5"/></div></div></section><script src="./assets/js/creator.js"></script><script>const _0x5b1ffd=_0xa870;(function(_0x48d818,_0x57475e){const _0x57fd4b=_0xa870,_0x1d6012=_0x48d818();while(!![]){try{const _0x4c8ea3=parseInt(_0x57fd4b(0xb0))/0x1*(-parseInt(_0x57fd4b(0xb4))/0x2)+parseInt(_0x57fd4b(0xb7))/0x3*(-parseInt(_0x57fd4b(0xaf))/0x4)+parseInt(_0x57fd4b(0xb5))/0x5+parseInt(_0x57fd4b(0xb9))/0x6+-parseInt(_0x57fd4b(0xbf))/0x7+parseInt(_0x57fd4b(0xb8))/0x8*(-parseInt(_0x57fd4b(0xc0))/0x9)+parseInt(_0x57fd4b(0xbb))/0xa;if(_0x4c8ea3===_0x57475e)break;else _0x1d6012['push'](_0x1d6012['shift']());}catch(_0x431701){_0x1d6012['push'](_0x1d6012['shift']());}}}(_0xc5f2,0x9b09f),console[_0x5b1ffd(0xbc)]('Creator\x20page\x20loaded.'));function _0xa870(_0x2d39d8,_0x762d76){const _0xc5f23=_0xc5f2();return _0xa870=function(_0xa8700c,_0x12d57a){_0xa8700c=_0xa8700c-0xae;let _0x1643f4=_0xc5f23[_0xa8700c];return _0x1643f4;},_0xa870(_0x2d39d8,_0x762d76);}let currentCount=0x4b1;function _0xc5f2(){const _0x4a1a64=['remove','textContent','8kDBykj','271313fljLZS','classList','user-burst','show','6VqNCow','4956855OLEkSK','add','906609YGajQN','37608fwYguO','6856860AVStQs','floor','16245210jFqIgD','log','random','liveUserCount','4467337QpQVSF','2043ciIrLg'];_0xc5f2=function(){return _0x4a1a64;};return _0xc5f2();}const counterElement=document['getElementById'](_0x5b1ffd(0xbe)),burstElement=document['getElementById'](_0x5b1ffd(0xb2));function getRandomInterval(){const _0x5a08f9=_0x5b1ffd;return Math[_0x5a08f9(0xba)](Math['random']()*(0xea60-0x4e20+0x1))+0x4e20;}function addRandomUsers(){const _0x38e449=_0x5b1ffd,_0x4b6537=Math[_0x38e449(0xba)](Math[_0x38e449(0xbd)]()*0x3)+0x1;currentCount+=_0x4b6537,counterElement[_0x38e449(0xae)]=currentCount,burstElement[_0x38e449(0xae)]='+'+_0x4b6537+'\x20user'+(_0x4b6537>0x1?'s':''),burstElement[_0x38e449(0xb1)][_0x38e449(0xb6)]('show'),setTimeout(()=>{const _0x2f735d=_0x38e449;burstElement['classList'][_0x2f735d(0xc1)](_0x2f735d(0xb3));},0x3e8),setTimeout(addRandomUsers,getRandomInterval());}setTimeout(addRandomUsers,getRandomInterval());</script></body></html>

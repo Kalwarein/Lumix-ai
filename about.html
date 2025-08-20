@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>About Lumix AI</title>
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Font Awesome -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    crossorigin="anonymous"
+  />
+
+  <link rel="stylesheet" href="./assets/css/about.css" />
+</head>
+<body>
+<!-- Lumix Preloader -->
+<div id="lumix-preloader">
+  <div class="lumix-logo">Lumix<span>AI</span></div>
+</div>
+
+  <!-- Main content -->
+  <main>
+    <section class="about-hero">
+      <h1>About Lumix AI</h1>
+      <p>
+        Lumix is where creativity meets the power of artificial intelligence.  
+        Built to empower designers, creators, and everyday users, Lumix allows anyone to  
+        <strong>turn imagination into reality</strong> with the click of a button.
+      </p>
+    </section>
+
+    <section class="about-content text-only">
+      <h2>Our Story</h2>
+      <p>
+        Lumix.INC was founded to address a problem we saw in the digital creative space:  
+        high-quality AI tools were either locked behind expensive subscriptions or required  
+        powerful devices to run. We wanted to change that.
+      </p>
+      <p>
+        Our vision is simple: <strong>AI-powered creativity should be for everyone.</strong>  
+        Whether you're an artist seeking inspiration, a business owner needing marketing visuals,  
+        or a student creating a project, Lumix provides powerful AI tools that are accessible,  
+        fast, and easy to use.
+      </p>
+      <p>
+        Over time, Lumix has evolved into a <strong>full AI creativity platform</strong> that supports  
+        various models, real-time previews, and upcoming mobile access to make creativity truly mobile.
+      </p>
+
+      <h2>About the Lumix Website</h2>
+      <p>
+        The Lumix website is more than just a landing page—it's a fully interactive  
+        platform where users can create stunning AI-generated visuals without downloads or  
+        complex setups. It features:
+      </p>
+      <ul class="features-list">
+        <li><i class="fas fa-bolt"></i> Ultra-fast AI image generation with multiple models.</li>
+        <li><i class="fas fa-paint-brush"></i> Professional creative tools accessible to beginners and experts.</li>
+        <li><i class="fas fa-images"></i> 4x4 grid previews with full-screen view and download options.</li>
+        <li><i class="fas fa-database"></i> Local storage of your creations for quick access and history tracking.</li>
+        <li><i class="fas fa-globe"></i> 100% browser-based—no installations, just instant creativity.</li>
+      </ul>
+
+      <h2>Upcoming Lumix Mobile App</h2>
+      <p>
+        Our upcoming mobile app will allow users to create and manage their AI art  
+        from anywhere. Designed for speed and convenience, it will include:
+      </p>
+      <ul class="features-list">
+        <li><i class="fas fa-mobile-alt"></i> Instant AI image generation directly from your phone.</li>
+        <li><i class="fas fa-cloud"></i> Cloud storage for cross-device access to your artwork.</li>
+        <li><i class="fas fa-wifi"></i> Offline image generation for premium users.</li>
+        <li><i class="fas fa-sync-alt"></i> Automatic updates with new AI models and features.</li>
+      </ul>
+      <p>
+        This mobile-first experience ensures that <strong>your creativity travels with you</strong>—whether  
+        you're on a bus, in a café, or working on a client project.
+      </p>
+
+      <h2>Our Mission</h2>
+      <p>
+        At Lumix.INC, our mission is to <strong>unlock the future of creativity</strong>.  
+        We believe in empowering the next generation of digital artists by giving them tools that  
+        are <strong>fast, powerful, and accessible worldwide</strong>.
+      </p>
+      <p>
+        As Lumix grows, our team is committed to continuous innovation, ensuring that  
+        <strong>AI helps everyone create, share, and inspire</strong> without limitations.
+      </p>
+
+      <a href="signup.html" class="gradient-btn">Join Lumix Early Access</a>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 Lumix.INC — All Rights Reserved.</p>
+    <p>
+      Join our <a href="https://discord.gg/yourserver" target="_blank">Lumix Discord Server</a>  
+      to share your creations and get support.
+    </p>
+  </footer>
+<script>
+  window.addEventListener("load", () => {
+    const preloader = document.getElementById("lumix-preloader");
+
+    setTimeout(() => {
+      preloader.classList.add("fade-out");
+      setTimeout(() => preloader.style.display = "none", 800);
+    }, 2500); // 2.5s intro duration
+  });
+</script>
+</body>
+</html>

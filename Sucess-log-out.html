@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Successfully Logged Out | LUMIX AI</title>
+  <style>
+    :root {
+      --bg-color-dark: #1e1e1e;
+      --text-light: #947bff;
+      --primary: #947bff;
+      --accent: #947bff;
+      --success: #947bff;
+    }
+
+    html[data-theme='dark'] {
+      background-color: var(--bg-color-dark);
+      color: var(--text-light);
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      text-align: center;
+      background-color: var(--bg-color-dark);
+      color: var(--text-light);
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Glowing background circle */
+    .glow {
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      background: var(--accent);
+      filter: blur(180px);
+      border-radius: 50%;
+      opacity: 0.15;
+      animation: float 6s ease-in-out infinite;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 0;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translate(-50%, -50%) translateY(0); }
+      50% { transform: translate(-50%, -50%) translateY(-40px); }
+    }
+
+    /* Content */
+    .content {
+      z-index: 1;
+      animation: fadeIn 1s ease forwards;
+      max-width: 320px;
+    }
+
+    h1 {
+      font-size: 2.8rem;
+      margin-bottom: 0.3rem;
+      color: var(--primary);
+      text-shadow: 0 0 10px var(--primary);
+    }
+
+    p {
+      font-size: 1.1rem;
+      margin-top: 0;
+      margin-bottom: 1.5rem;
+      color: var(--text-light);
+    }
+
+    /* Success checkmark circle with animation */
+    .success-circle {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 6px solid var(--success);
+      position: relative;
+      margin: 0 auto 1.2rem auto;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      animation: pop 0.5s ease forwards;
+      box-shadow: 0 0 15px var(--success);
+    }
+
+    /* Checkmark */
+    .success-circle::after {
+      content: '';
+      width: 25px;
+      height: 50px;
+      border: solid var(--success);
+      border-width: 0 6px 6px 0;
+      transform: rotate(45deg);
+      position: absolute;
+      bottom: 22px;
+      left: 32px;
+      animation: drawCheck 0.6s ease forwards;
+      opacity: 0;
+      animation-delay: 0.3s;
+    }
+
+    @keyframes pop {
+      0% { transform: scale(0.3); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes drawCheck {
+      from {
+        stroke-dashoffset: 25;
+        opacity: 0;
+      }
+      to {
+        stroke-dashoffset: 0;
+        opacity: 1;
+      }
+    }
+
+    /* Redirect timer */
+    #redirect {
+      font-size: 1rem;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="glow"></div>
+  <div class="content">
+    <div class="success-circle"></div>
+    <h1>Successfully Logged Out</h1>
+    <p>Hope to see you again soon!</p>
+    <p id="redirect">Redirecting in 4 seconds...</p>
+  </div>
+
+  <script>
+    // Apply saved theme from localStorage, fallback to dark
+    const theme = localStorage.getItem('theme') || 'dark';
+    document.documentElement.setAttribute('data-theme', theme);
+
+    let timeLeft = 4;
+    const redirectText = document.getElementById('redirect');
+
+    const countdown = setInterval(() => {
+      timeLeft--;
+      if (timeLeft <= 0) {
+        clearInterval(countdown);
+        window.location.href = 'index.html';
+      } else {
+        redirectText.textContent = `Redirecting in ${timeLeft} seconds...`;
+      }
+    }, 1000);
+  </script>
+</body>
+</html>

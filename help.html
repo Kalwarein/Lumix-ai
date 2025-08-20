@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Lumix AI Help Center</title>
+  <link rel="stylesheet" href="./assets/css/help.css" />
+  <link
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    rel="stylesheet"
+  />
+</head>
+<body>
+  <header>
+    <h1>Lumix AI Help Center</h1>
+    <input
+      type="search"
+      id="searchInput"
+      placeholder="Search help topics..."
+      aria-label="Search help topics"
+      autocomplete="off"
+    />
+  </header>
+
+  <nav id="categoryFilter" aria-label="Help Categories">
+    <!-- Categories buttons will be injected by JS -->
+  </nav>
+
+  <main id="faqContainer" tabindex="-1" aria-live="polite">
+    <!-- FAQ items injected here -->
+  </main>
+
+  <footer>
+    <p>&copy; 2025 Lumix AI. All rights reserved.</p>
+  </footer>
+
+  <script src="./assets/js/help.js"></script>
+</body>
+</html>

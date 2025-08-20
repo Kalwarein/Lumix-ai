@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <style>
+  *:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Remove tap highlight color globally */
+* {
+  -webkit-tap-highlight-color: transparent !important;
+  -moz-tap-highlight-color: transparent !important;
+  -ms-tap-highlight-color: transparent !important;
+  tap-highlight-color: transparent !important;
+}
+</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Create Account | Lumix</title>
+  <link rel="icon" href="assets/images/favicon.png" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="./assets/css/create.css" />
+  <style>
+      .notification {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 16px 24px;
+        border-radius: 8px;
+        color: white;
+        transform: translateX(150%);
+        transition: transform 0.3s ease-in-out;
+        z-index: 1000;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .notification.show {
+        transform: translateX(0);
+      }
+      .notification.success {
+        background-color: #34D399;
+      }
+      .notification.error {
+        background-color: #ff3300;
+      }
+      .notification i {
+        font-size: 20px;
+      }
+      .btn-loading {
+        position: relative;
+        pointer-events: none;
+        opacity: 0.8;
+        cursor: not-allowed !important;
+      }
+      .password-requirements {
+        margin-top: 8px;
+        font-size: 12px;
+      }
+      .requirement {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        color: #6B7280;
+        margin-bottom: 4px;
+      }
+      .requirement.valid {
+        color: #34D399;
+      }
+      .requirement.invalid {
+        color: #ff0000;
+      }
+      .requirement i {
+        font-size: 14px;
+      }
+      .password-input-wrapper {
+        position: relative;
+      }
+      .password-toggle {
+        position: absolute;
+        right: 16px;
+        top: 50%;
+        transform: translateY(-50%);
+        cursor: pointer;
+        color: #6B7280;
+      }
+      .password-strength-indicator {
+        height: 4px;
+        background: #E5E7EB;
+        margin-top: 8px;
+        border-radius: 2px;
+        overflow: hidden;
+      }
+      .strength-bar {
+        height: 100%;
+        width: 0;
+        transition: width 0.3s ease, background-color 0.3s ease;
+      }
+      .strength-bar.weak { width: 33.33%; background-color: #EF4444; }
+      .strength-bar.medium { width: 66.66%; background-color: #FBBF24; }
+      .strength-bar.strong { width: 100%; background-color: #34D399; }
+
+      /* New Preloader Styles */
+      .preloader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        opacity: 1;
+        transition: opacity 0.5s ease-out;
+        background: rgba(0,0,0,0.35);
+        backdrop-filter: blur(8px);
+        -webkit-backdrop-filter: blur(8px);
+      }
+      
+      .preloader.hidden {
+        opacity: 0;
+        pointer-events: none;
+      }
+      
+      .preloader img {
+        width: 120px;
+        height: auto;
+        animation: spin 1.2s linear infinite;
+      }
+      
+      @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+      }
+
+      .button-spinner {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        width: 32px;
+        height: 32px;
+        z-index: 2;
+        pointer-events: none;
+      }
+      .button-spinner img {
+        width: 32px;
+        height: 32px;
+        object-fit: contain;
+        animation: spin 1.2s linear infinite;
+      }
+  </style>
+</head>
+<body>
+
+  <!-- Notification -->
+  <div id="notification" class="notification" role="alert">
+    <i class="fas"></i>
+    <span id="notification-message"></span>
+  </div>
+
+  <div class="container">
+    <div class="form-box">
+      <div class="icon-header">
+        <i class="fa-solid fa-sparkles"></i>
+      </div>
+      <h2>Create Account</h2>
+      <p>Sign up to get started</p>
+
+      <form id="signup-form">
+        <div class="input-group">
+          <input type="text" id="displayName" name="displayName" required />
+          <label for="displayName">Full Name</label>
+        </div>
+        <div class="input-group">
+          <input type="text" id="email" name="email" required />
+          <label for="email">Email</label>
+        </div>
+        <div class="input-group password-input-wrapper">
+          <input type="password" id="password" name="password" required />
+          <label for="password">Password</label>
+          <span class="password-toggle" role="button" tabindex="0" aria-label="Toggle password visibility">
+            <i class="fa fa-eye"></i>
+          </span>
+
+          <!-- Password Strength Bar -->
+          <div class="password-strength-indicator">
+            <div class="strength-bar"></div>
+          </div>
+
+          <!-- Password Requirements -->
+          <div class="password-requirements">
+            <div class="requirement" data-requirement="length">
+              <i class="fas fa-times-circle"></i>
+              At least 10 characters
+            </div>
+            <div class="requirement" data-requirement="uppercase">
+              <i class="fas fa-times-circle"></i>
+              At least 1 uppercase letter
+            </div>
+            <div class="requirement" data-requirement="lowercase">
+              <i class="fas fa-times-circle"></i>
+              At least 1 lowercase letter
+            </div>
+            <div class="requirement" data-requirement="number">
+              <i class="fas fa-times-circle"></i>
+              At least 1 number
+            </div>
+            <div class="requirement" data-requirement="special">
+              <i class="fas fa-times-circle"></i>
+              At least 1 special character
+            </div>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-gradient" id="create-account-btn">Sign Up</button>
+      </form>
+
+      <div class="divider">or</div>
+
+      <button class="google-btn" id="google-signin">
+        <i class="fab fa-google"></i> Continue with Google
+      </button>
+      
+    </div>
+  </div>
+
+  <!-- Firebase Scripts -->
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-analytics-compat.js"></script>
+  <script src="assets/js/firebase-init.js" type="module"></script>
+
+  <script type="module">
+    import { auth, db, rateLimiter } from './assets/js/firebase-init.js';
+
+    const notification = document.getElementById('notification');
+    const notificationMessage = document.getElementById('notification-message');
+    const passwordInput = document.getElementById('password');
+    const togglePasswordBtn = document.querySelector('.password-toggle');
+    const createAccountBtn = document.getElementById('create-account-btn');
+    const googleBtn = document.getElementById('google-signin');
+
+    const requirements = {
+      length: password => password.length >= 10,
+      uppercase: password => /[A-Z]/.test(password),
+      lowercase: password => /[a-z]/.test(password),
+      number: password => /[0-9]/.test(password),
+      special: password => /[!@#$%^&*(),.?":{}|<>]/.test(password)
+    };
+
+    function showNotification(message, type, duration = 3000) {
+      const icon = notification.querySelector('i');
+      notificationMessage.textContent = message;
+      notification.classList.remove('success', 'error');
+      notification.classList.add(type);
+      icon.classList.remove('fa-check-circle', 'fa-times-circle');
+      icon.classList.add(type === 'success' ? 'fa-check-circle' : 'fa-times-circle');
+      notification.classList.add('show');
+      setTimeout(() => {
+        notification.classList.remove('show');
+      }, duration);
+    }
+
+    function updatePasswordStrength(password) {
+      const strengthBar = document.querySelector('.strength-bar');
+      const validCount = Object.values(requirements).filter(fn => fn(password)).length;
+      strengthBar.classList.remove('weak', 'medium', 'strong');
+      if (validCount <= 2) strengthBar.classList.add('weak');
+      else if (validCount <= 4) strengthBar.classList.add('medium');
+      else strengthBar.classList.add('strong');
+    }
+
+    function updateRequirements(password) {
+      Object.entries(requirements).forEach(([key, validate]) => {
+        const el = document.querySelector(`[data-requirement="${key}"]`);
+        const valid = validate(password);
+        el.classList.remove('valid', 'invalid');
+        el.classList.add(valid ? 'valid' : 'invalid');
+        const icon = el.querySelector('i');
+        icon.classList.remove('fa-check-circle', 'fa-times-circle');
+        icon.classList.add(valid ? 'fa-check-circle' : 'fa-times-circle');
+      });
+    }
+
+    togglePasswordBtn.addEventListener('click', () => {
+      const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+      passwordInput.setAttribute('type', type);
+      togglePasswordBtn.querySelector('i').classList.toggle('fa-eye');
+      togglePasswordBtn.querySelector('i').classList.toggle('fa-eye-slash');
+    });
+
+    passwordInput.addEventListener('input', () => {
+      const pwd = passwordInput.value;
+      updatePasswordStrength(pwd);
+      updateRequirements(pwd);
+    });
+
+    function showButtonSpinner(btn) {
+      if (btn.querySelector('.button-spinner')) return;
+      btn.classList.add('btn-loading');
+      btn.disabled = true;
+      const spinner = document.createElement('span');
+      spinner.className = 'button-spinner';
+      spinner.innerHTML = `<img src="assets/images/preloader-lumix.png" alt="Loading" />`;
+      btn.appendChild(spinner);
+    }
+
+    function hideButtonSpinner(btn) {
+      btn.classList.remove('btn-loading');
+      btn.disabled = false;
+      const spinner = btn.querySelector('.button-spinner');
+      if (spinner) spinner.remove();
+    }
+
+    document.getElementById('signup-form').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      showButtonSpinner(createAccountBtn);
+
+      const email = document.getElementById('email').value.trim();
+      const password = passwordInput.value;
+      const displayName = document.getElementById('displayName').value.trim();
+
+      if (!displayName || !email || !password) {
+        showNotification("All fields are required.", "error");
+        hideButtonSpinner(createAccountBtn);
+        return;
+      }
+
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        showNotification("Invalid email address.", "error");
+        hideButtonSpinner(createAccountBtn);
+        return;
+      }
+
+      const isPasswordValid = Object.values(requirements).every(fn => fn(password));
+      if (!isPasswordValid) {
+        showNotification("Password does not meet all requirements.", "error");
+        hideButtonSpinner(createAccountBtn);
+        return;
+      }
+
+      try {
+        rateLimiter.checkLimit('signup');
+        const userCredential = await auth.createUserWithEmailAndPassword(email, password);
+        const uid = userCredential.user.uid;
+        const uniqueToken = Math.random().toString(36).slice(2) + Date.now().toString(36);
+
+        await db.collection('users').doc(uid).set({
+          email,
+          displayName,
+          createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+          lastLogin: firebase.firestore.FieldValue.serverTimestamp(),
+          emailVerified: false,
+          authProvider: 'email',
+          profileCompleted: false,
+          dashboardToken: uniqueToken
+        });
+
+        showNotification("Account created successfully!", "success");
+        setTimeout(() => {
+          window.location.href = 'onboarding.html';
+        }, 3000);
+
+      } catch (error) {
+        let msg = error.message;
+        if (error.code === 'auth/email-already-in-use') {
+          msg = 'Email already in use. Use another.';
+        } else if (error.code === 'auth/weak-password') {
+          msg = 'Weak password. Please strengthen it.';
+        }
+        showNotification(msg, "error");
+      }
+
+      hideButtonSpinner(createAccountBtn);
+    });
+
+    googleBtn.addEventListener('click', async () => {
+      showButtonSpinner(googleBtn);
+      try {
+        rateLimiter.checkLimit('google_signup');
+        const provider = new firebase.auth.GoogleAuthProvider();
+        const result = await auth.signInWithPopup(provider);
+
+        const uniqueToken = Math.random().toString(36).slice(2) + Date.now().toString(36);
+
+        await db.collection('users').doc(result.user.uid).set({
+          email: result.user.email,
+          displayName: result.user.displayName,
+          photoURL: result.user.photoURL,
+          emailVerified: result.user.emailVerified,
+          createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+          lastLogin: firebase.firestore.FieldValue.serverTimestamp(),
+          authProvider: 'google',
+          profileCompleted: result.additionalUserInfo.isNewUser ? false : true,
+          dashboardToken: uniqueToken
+        }, { merge: true });
+
+        showNotification('Google Sign In successful!', 'success');
+        setTimeout(() => {
+          if (result.additionalUserInfo.isNewUser) {
+            window.location.href = 'onboarding.html';
+          } else {
+            window.location.href = 'signin.html';
+          }
+        }, 2000);
+
+      } catch (error) {
+        let msg = error.message;
+        if (error.code === 'auth/popup-closed-by-user') {
+          msg = 'Popup closed. Try again.';
+        }
+        showNotification(msg, 'error');
+      }
+      hideButtonSpinner(googleBtn);
+    });
+
+    auth.onAuthStateChanged(async (user) => {
+      if (user) {
+        const doc = await db.collection('users').doc(user.uid).get();
+        const data = doc.data();
+        if (data?.authProvider === 'google' && data?.profileCompleted) {
+          window.location.href = 'app.lumix.html';
+        } else {
+          window.location.href = 'onboarding.html';
+        }
+      }
+    });
+  </script>
+
+  <script>
+    // Preloader
+    window.addEventListener('load', function () {
+      setTimeout(() => {
+        document.getElementById('preloader').classList.add('hidden');
+      }, 2000);
+    });
+  </script>
+
+</body>
+</html>

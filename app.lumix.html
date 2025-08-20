@@ -1,0 +1,2900 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <style>
+  *:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Remove tap highlight color globally */
+* {
+  -webkit-tap-highlight-color: transparent !important;
+  -moz-tap-highlight-color: transparent !important;
+  -ms-tap-highlight-color: transparent !important;
+  tap-highlight-color: transparent !important;
+}
+</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumix ai</title>
+    <link rel="icon" href="assets/images/favicon.png" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./assets/css/lumix-scripts.css">
+    <!-- Firebase SDKs and config -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+    <script src="assets/js/mmbool-pr.js"></script>
+</head>
+<body>
+<div id="preloader">
+<div id="loader-text"><strong>Please wait all system's Starting Up.</strong></div>
+  <div class="loading-bar-container">
+    <div class="loading-bar" id="loading-bar"></div>
+  </div>
+</div>
+    <div class="app-container">
+       
+        <!-- Mobile Sidebar Toggle -->
+        <button id="sidebar-toggle" class="sidebar-toggle">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <!-- Sidebar -->
+        <aside class="sidebar" id="sidebar">
+            <!-- Logo -->             
+            <div class="logo">
+                <div class="logo-icon">L</div>
+                <span class="logo-text"> ||  Lumix <span class="accent">AI</span></span>
+            </div>
+
+        <!-- User Profile -->
+<div class="user-profile" onclick="toggleUserDropdown()" tabindex="0">
+  <img src="app.lumix.html" alt="Profile" class="user-avatar" id="headerUserAvatar">
+  <span class="user-name" id="headerUserName">...</span>
+  <i class="fas fa-chevron-down"></i>
+
+  <!-- Dropdown Menu -->
+  <div id="userDropdownMenu" class="user-dropdown hidden">
+    <a href="profile.html">View Profile</a>
+    <a href="#">Settings</a>
+    <a href="#" id="logoutBtn">Logout</a>
+  </div>
+</div>
+
+            <!-- Credits -->
+            <div class="credits">
+                <div class="tokens">
+                    <i class="fas fa-bolt"></i>
+                    <span>150</span>
+                </div>
+                <a href="pricing.html"><button class="upgrade-btn">Upgrade</button></a>
+            </div>
+
+            <!-- Navigation -->
+            <nav class="nav-menu">
+                <a href="libary.html" class="nav-item">
+                    <i class="fas fa-th-large"></i>
+                    <span>Library</span>
+                </a>
+
+                <!-- AI Tools Section -->
+                <div class="section-title">AI Tools</div>
+                
+                <a href="generate-images.html" class="nav-item">
+                    <i class="fas fa-image"></i>
+                    <span>Image</span>
+                </a>
+                <a href="404.html" class="nav-item">
+                    <i class="fas fa-video"></i>
+                    <span>Video</span>
+                    <span class="badge new-badge">New</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="fas fa-layer-group"></i>
+                    <span>Flow State</span>
+                </a>
+                <a href="real-time-canvas.html" class="nav-item">
+                    <i class="fas fa-paint-brush"></i>
+                    <span>Realtime Canvas</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="fas fa-microchip"></i>
+                    <span>Realtime Generation</span>
+                </a>
+                <a href="canvas-editor.html" class="nav-item">
+                    <i class="fas fa-th"></i>
+                    <span>Canvas Editor</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="fas fa-expand"></i>
+                    <span>Universal Upscaler</span>
+                </a>
+
+                <!-- Advanced Section -->
+                <div class="section-title">Advanced</div>
+                
+                <a href="models.html" class="nav-item">
+                    <i class="fas fa-book"></i>
+                    <span>Models & Training</span>
+                </a>
+                <a href="#" class="nav-item">
+                    <i class="fas fa-layer-group"></i>
+                    <span>Texture Generation</span>
+                    <span class="badge alpha-badge">Alpha</span>
+                </a>
+
+                <!-- Bottom Links -->
+                <div class="bottom-links">
+                    <a href="changelog.html" class="nav-item">
+                        <i class="fas fa-arrow-right"></i>
+                        <span>What's New</span>
+                    </a>
+                    <a href="pricing.html" class="nav-item">
+                        <i class="fas fa-star"></i>
+                        <span>Premium Plans</span>
+                    </a>
+                    <a href="api.html" class="nav-item">
+                        <i class="fas fa-microchip"></i>
+                        <span>API Access</span>
+                    </a>                  
+                    <a href="help.html" class="nav-item">
+                        <i class="fas fa-question-circle"></i>
+                        <span>FAQ & Help</span>
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Hero Banner -->
+            <div class="hero-banner">
+                <div class="hero-content">
+                    <h1>Experience <span class="accent"><strong>The Flow Sate</strong></span></h1>
+                    <p>Only 1 token per image starting March 2025</p>
+                    <button class="cta-button">Try Flow State</button>
+                </div>
+            </div>
+
+            <!-- Tools Bar -->
+            <div class="tools-bar" id="tools-bar">
+                <a href="real-time-canvas.html" class="tool-item">
+                    <i class="fas fa-paint-brush"></i>
+                    <span>Realtime Canvas</span>
+                </a>
+                <a href="/flow-state" class="tool-item">
+                    <i class="fas fa-layer-group"></i>
+                    <span>Flow State</span>
+                </a>
+                <a href="/video" class="tool-item">
+                    <i class="fas fa-video"></i>
+                    <span>Video</span>
+                </a>
+                <a href="generate-images.html" class="tool-item">
+                    <i class="fas fa-image"></i>
+                    <span>Text to Image</span>
+                </a>
+                <a href="/upscaler" class="tool-item">
+                    <i class="fas fa-expand"></i>
+                    <span>Upscaler</span>
+                </a>
+                <a href="/canvas-editor" class="tool-item">
+                    <i class="fas fa-th"></i>
+                    <span>Canvas Editor</span>
+                </a>
+                <a href="#" class="tool-item" id="more-tools-btn">
+                    <i class="fas fa-ellipsis-h"></i>
+                    <span>More</span>
+                </a>
+                <!-- Hidden tools (will be shown when More is clicked) -->
+                <a href="./Chatbot.html" class="tool-item hidden-tool">
+                    <i class="fas fa-font"></i>
+                    <span>Lumix Writer</span>
+                </a>
+                <a href="/3d-models" class="tool-item hidden-tool">
+                    <i class="fas fa-cube"></i>
+                    <span>3D Models</span>
+                </a>
+            </div>
+
+            <!-- Featured Guides -->
+            <section class="featured-guides">
+                <h2><span class="accent">Featured</span> Guides</h2>
+                
+                <div class="guides-grid">
+                    <div class="guide-card">
+                        <div class="guide-image" style="background-image: url('https://i.imghippo.com/files/Td5539P.jpg?q=80&w=1964&auto=format&fit=crop');">
+                            <div class="guide-overlay">
+                                <span class="guide-badge upscaling">Upscaling</span>
+                                <h3>YOUR IMAGES WITH LUMIX.AI</h3>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="guide-card">
+                        <div class="guide-image" style="background-image: url('https://i.imghippo.com/files/WRr6836XU.jpg?q=80&w=1974&auto=format&fit=crop');">
+                            <div class="guide-overlay">
+                                <span class="guide-badge how-to">How to Use</span>
+                                <h3>STYLE REFERENCE</h3>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="guide-card">
+                        <div class="guide-image" style="background-image: url('https://i.imghippo.com/files/xZdD8150YI.jpg?q=80&w=2070&auto=format&fit=crop');">
+                            <div class="guide-overlay">
+                                <span class="guide-badge creating">Creating</span>
+                                <h3>CONSISTENT CHARACTERS</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Community Creations -->
+            <section class="community-creations">
+                <h2><span class="accent">Community</span> Creations</h2>
+                
+                <!-- Filters -->
+                <div class="filters-row">
+                    <button class="filter-btn active" data-filter="trending">
+                        <i class="fas fa-comment"></i>
+                        Trending
+                        <i class="fas fa-chevron-down"></i>
+                    </button>
+                    
+                    <button class="filter-btn" data-filter="all">
+                        <i class="fas fa-th-large"></i>
+                        All
+                    </button>
+                    
+                    <button class="filter-btn" data-filter="upscaled">
+                        <i class="fas fa-expand"></i>
+                        Upscaled
+                    </button>
+                    
+                    <button class="filter-btn" data-filter="video">
+                        <i class="fas fa-video"></i>
+                        Video
+                    </button>
+                </div>
+
+                <!-- Category Filters -->
+                <div class="category-filters">
+                    <button class="filter-btn active" data-category="all">
+                        <i class="fas fa-th-large"></i>
+                        All
+                    </button>
+                    
+                    <button class="filter-btn" data-category="photography">
+                        <i class="fas fa-camera"></i>
+                        Photography
+                    </button>
+                    
+                    <button class="filter-btn" data-category="animals">
+                        <i class="fas fa-paw"></i>
+                        Animals
+                    </button>
+                    
+                    <button class="filter-btn" data-category="anime">
+                        <i class="fas fa-paint-brush"></i>
+                        Anime
+                    </button>
+                    
+                    <button class="filter-btn" data-category="architecture">
+                        <i class="fas fa-building"></i>
+                        Architecture
+                    </button>
+                    
+                    <button class="filter-btn" data-category="character">
+                        <i class="fas fa-user"></i>
+                        Character
+                    </button>
+                    
+                    <button class="filter-btn" data-category="food">
+                        <i class="fas fa-utensils"></i>
+                        Food
+                    </button>
+                    
+                    <button class="filter-btn more-btn">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+
+                <!-- Image Gallery with HTML image tags -->
+                <div class="gallery-grid" id="gallery-grid">
+
+
+<!-----------------------------–--------------------------->
+                 <!-- Photography Category -
+  <!-- You can replace these URLs with your own images -->
+                    <div class="gallery-item" data-category="photography" data-filter="trending">
+                        <img src="./gallery/photography-1.jpg" alt="AI generated photography">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="photography" data-filter="trending">
+                        <img src="./gallery/photography-2.jpg" alt="AI generated photography">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="gallery-item" data-category="photography" data-filter="trending">
+                        <img src="./gallery/photography-3.jpg" alt="AI generated photography">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="photography" data-filter="trending">
+                        <img src="./gallery/photography-4.jpg" alt="AI generated photography">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="photography" data-filter="trending">
+                        <img src="./gallery/photography-5.jpg" alt="AI generated photography">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="gallery-item" data-category="photography" data-filter="trending">
+                        <img src="./gallery/photography-6.jpg" alt="AI generated photography">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="photography" data-filter="trending">
+                      <img src="./gallery/photography-7.jpg" alt="AI generated photography">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="photography" data-filter="trending">
+                        <img src="./gallery/photography-8.jpg" alt="AI generated photography">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="gallery-item" data-category="photography" data-filter="trending">
+                      <img src="./gallery/photography-9.jpg" alt="AI generated photography">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="photography" data-filter="trending">
+                      <img src="./gallery/photography-10.jpg" alt="AI generated photography">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="photography" data-filter="trending">
+                      <img src="./gallery/photography-11.jpg" alt="AI generated photography">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>                    
+                
+                <div class="gallery-item" data-category="photography" data-filter="trending">
+                      <img src="./gallery/photography-12.jpg" alt="AI generated photography">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>   
+                    
+                    <div class="gallery-item" data-category="photography" data-filter="trending">
+                      <img src="./gallery/photography-13.jpg" alt="AI generated photography">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="photography" data-filter="trending">
+                      <img src="./gallery/photography-14.jpg" alt="AI generated photography">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div> 
+                    
+                    <div class="gallery-item" data-category="photography" data-filter="trending">
+                      <img src="./gallery/photography-15.jpg" alt="AI generated photography">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="photography" data-filter="trending">
+                      <img src="./gallery/photography-16.jpg" alt="AI generated photography">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="photography" data-filter="trending">
+                      <img src="./gallery/photography-17.jpg" alt="AI generated photography">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="photography" data-filter="trending">
+                        <img src="./gallery/photography-18.jpg" alt="AI generated photography">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="photography" data-filter="trending">
+                      <img src="./gallery/photography-19.jpg" alt="AI generated photography">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                  
+                  <div class="gallery-item" data-category="photography" data-filter="trending">
+                      <img src="./gallery/photography-20.jpg" alt="AI generated photography">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                  
+                  
+                    <div class="gallery-item" data-category="photography" data-filter="all">
+                      <img src="./gallery/photography-21.jpg" alt="AI generated photography">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="gallery-item" data-category="photography" data-filter="all">
+                      <img src="./gallery/photography-22.jpg" alt="AI generated photography">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="gallery-item" data-category="photography" data-filter="all">
+                      <img src="./gallery/photography-23.jpg" alt="AI generated photography">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="photography" data-filter="all">
+                      <img src="./gallery/photography-24.jpg" alt="AI generated photography">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="photography" data-filter="all">
+                      <img src="./gallery/photography-25.jpg" alt="AI generated photography">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="gallery-item" data-category="photography" data-filter="all">
+                      <img src="./gallery/photography-26.jpg" alt="AI generated photography">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="photography" data-filter="all">
+                      <img src="./gallery/photography-27.jpg" alt="AI generated photography">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                  <div class="gallery-item" data-category="photography" data-filter="all">
+                      <img src="./gallery/photography-28.jpg" alt="AI generated photography">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="gallery-item" data-category="photography" data-filter="all">
+                      <img src="./gallery/photography-29.jpg" alt="AI generated photography">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="photography" data-filter="all">
+                      <img src="./gallery/photography-30.jpg" alt="AI generated photography">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                                        
+                   <div class="gallery-item" data-category="photography" data-filter="upscaled">
+                      <img src="./gallery/photography-31.jpg" alt="AI generated photography">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="photography" data-filter="upscaled">
+                      <img src="./gallery/photography-32.jpg" alt="AI generated photography">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="photography" data-filter="upscaled">
+                      <img src="./gallery/photography-33.jpg" alt="AI generated photography">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+<div class="gallery-item" data-category="photography" data-filter="upscaled">
+                      <img src="./gallery/photography-34.jpg" alt="AI generated photography">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="photography" data-filter="upscaled">
+                        <img src="./gallery/photography-35.jpg" alt="AI generated photography">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="photography" data-filter="upscaled">
+                        <img src="./gallery/photography-36.jpg" alt="AI generated photography">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="photography" data-filter="upscaled">
+                        <img src="./gallery/photography-37.jpg" alt="AI generated photography">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="photography" data-filter="upscaled">
+                    <img src="./gallery/photography-38.jpg" alt="AI generated photography">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="photography" data-filter="upscaled">
+                        <img src="./gallery/photography-39.jpg" alt="AI generated photography">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                   <!-- Photography Gallery Items from photography-40 to photography-60 -->
+<div class="gallery-item" data-category="photography" data-filter="trending">
+    <img src="./gallery/photography-40.jpg" alt="AI generated photography">
+    <div class="gallery-overlay">
+        <div class="gallery-actions">
+            <button class="gallery-action like-action">
+                <i class="far fa-heart"></i>
+            </button>
+            <button class="gallery-action download-action">
+                <i class="fas fa-download"></i>
+            </button>
+        </div>
+    </div>
+</div>
+<div class="gallery-item" data-category="photography" data-filter="trending">
+    <img src="./gallery/photography-41.jpg" alt="AI generated photography">
+    <div class="gallery-overlay">
+        <div class="gallery-actions">
+            <button class="gallery-action like-action">
+                <i class="far fa-heart"></i>
+            </button>
+            <button class="gallery-action download-action">
+                <i class="fas fa-download"></i>
+            </button>
+        </div>
+    </div>
+</div>
+<div class="gallery-item" data-category="photography" data-filter="trending">
+    <img src="./gallery/photography-42.jpg" alt="AI generated photography">
+    <div class="gallery-overlay">
+        <div class="gallery-actions">
+            <button class="gallery-action like-action">
+                <i class="far fa-heart"></i>
+            </button>
+            <button class="gallery-action download-action">
+                <i class="fas fa-download"></i>
+            </button>
+        </div>
+    </div>
+</div>
+<div class="gallery-item" data-category="photography" data-filter="trending">
+    <img src="./gallery/photography-43.jpg" alt="AI generated photography">
+    <div class="gallery-overlay">
+        <div class="gallery-actions">
+            <button class="gallery-action like-action">
+                <i class="far fa-heart"></i>
+            </button>
+            <button class="gallery-action download-action">
+                <i class="fas fa-download"></i>
+            </button>
+        </div>
+    </div>
+</div>
+<div class="gallery-item" data-category="photography" data-filter="trending">
+    <img src="./gallery/photography-44.jpg" alt="AI generated photography">
+    <div class="gallery-overlay">
+        <div class="gallery-actions">
+            <button class="gallery-action like-action">
+                <i class="far fa-heart"></i>
+            </button>
+            <button class="gallery-action download-action">
+                <i class="fas fa-download"></i>
+            </button>
+        </div>
+    </div>
+</div>
+<div class="gallery-item" data-category="photography" data-filter="trending">
+    <img src="./gallery/photography-45.jpg" alt="AI generated photography">
+    <div class="gallery-overlay">
+        <div class="gallery-actions">
+            <button class="gallery-action like-action">
+                <i class="far fa-heart"></i>
+            </button>
+            <button class="gallery-action download-action">
+                <i class="fas fa-download"></i>
+            </button>
+        </div>
+    </div>
+</div>
+<div class="gallery-item" data-category="photography" data-filter="trending">
+    <img src="./gallery/photography-46.jpg" alt="AI generated photography">
+    <div class="gallery-overlay">
+        <div class="gallery-actions">
+            <button class="gallery-action like-action">
+                <i class="far fa-heart"></i>
+            </button>
+            <button class="gallery-action download-action">
+                <i class="fas fa-download"></i>
+            </button>
+        </div>
+    </div>
+</div>
+<div class="gallery-item" data-category="photography" data-filter="trending">
+    <img src="./gallery/photography-47.jpg" alt="AI generated photography">
+    <div class="gallery-overlay">
+        <div class="gallery-actions">
+            <button class="gallery-action like-action">
+                <i class="far fa-heart"></i>
+            </button>
+            <button class="gallery-action download-action">
+                <i class="fas fa-download"></i>
+            </button>
+        </div>
+    </div>
+</div>
+<div class="gallery-item" data-category="photography" data-filter="trending">
+    <img src="./gallery/photography-48.jpg" alt="AI generated photography">
+    <div class="gallery-overlay">
+        <div class="gallery-actions">
+            <button class="gallery-action like-action">
+                <i class="far fa-heart"></i>
+            </button>
+            <button class="gallery-action download-action">
+                <i class="fas fa-download"></i>
+            </button>
+        </div>
+    </div>
+</div>
+<div class="gallery-item" data-category="photography" data-filter="trending">
+    <img src="./gallery/photography-49.jpg" alt="AI generated photography">
+    <div class="gallery-overlay">
+        <div class="gallery-actions">
+            <button class="gallery-action like-action">
+                <i class="far fa-heart"></i>
+            </button>
+            <button class="gallery-action download-action">
+                <i class="fas fa-download"></i>
+            </button>
+        </div>
+    </div>
+</div>
+<div class="gallery-item" data-category="photography" data-filter="trending">
+    <img src="./gallery/photography-50.jpg" alt="AI generated photography">
+    <div class="gallery-overlay">
+        <div class="gallery-actions">
+            <button class="gallery-action like-action">
+                <i class="far fa-heart"></i>
+            </button>
+            <button class="gallery-action download-action">
+                <i class="fas fa-download"></i>
+            </button>
+        </div>
+    </div>
+</div>
+<div class="gallery-item" data-category="photography" data-filter="trending">
+    <img src="./gallery/photography-51.jpg" alt="AI generated photography">
+    <div class="gallery-overlay">
+        <div class="gallery-actions">
+            <button class="gallery-action like-action">
+                <i class="far fa-heart"></i>
+            </button>
+            <button class="gallery-action download-action">
+                <i class="fas fa-download"></i>
+            </button>
+        </div>
+    </div>
+</div>
+<div class="gallery-item" data-category="photography" data-filter="trending">
+    <img src="./gallery/photography-52.jpg" alt="AI generated photography">
+    <div class="gallery-overlay">
+        <div class="gallery-actions">
+            <button class="gallery-action like-action">
+                <i class="far fa-heart"></i>
+            </button>
+            <button class="gallery-action download-action">
+                <i class="fas fa-download"></i>
+            </button>
+        </div>
+    </div>
+</div>
+<div class="gallery-item" data-category="photography" data-filter="trending">
+    <img src="./gallery/photography-53.jpg" alt="AI generated photography">
+    <div class="gallery-overlay">
+        <div class="gallery-actions">
+            <button class="gallery-action like-action">
+                <i class="far fa-heart"></i>
+            </button>
+            <button class="gallery-action download-action">
+                <i class="fas fa-download"></i>
+            </button>
+        </div>
+    </div>
+</div>
+<div class="gallery-item" data-category="photography" data-filter="trending">
+    <img src="./gallery/photography-54.jpg" alt="AI generated photography">
+    <div class="gallery-overlay">
+        <div class="gallery-actions">
+            <button class="gallery-action like-action">
+                <i class="far fa-heart"></i>
+            </button>
+            <button class="gallery-action download-action">
+                <i class="fas fa-download"></i>
+            </button>
+        </div>
+    </div>
+</div>
+<div class="gallery-item" data-category="photography" data-filter="trending">
+    <img src="./gallery/photography-55.jpg" alt="AI generated photography">
+    <div class="gallery-overlay">
+        <div class="gallery-actions">
+            <button class="gallery-action like-action">
+                <i class="far fa-heart"></i>
+            </button>
+            <button class="gallery-action download-action">
+                <i class="fas fa-download"></i>
+            </button>
+        </div>
+    </div>
+</div>
+<div class="gallery-item" data-category="photography" data-filter="trending">
+    <img src="./gallery/photography-56.jpg" alt="AI generated photography">
+    <div class="gallery-overlay">
+        <div class="gallery-actions">
+            <button class="gallery-action like-action">
+                <i class="far fa-heart"></i>
+            </button>
+            <button class="gallery-action download-action">
+                <i class="fas fa-download"></i>
+            </button>
+        </div>
+    </div>
+</div>
+<div class="gallery-item" data-category="photography" data-filter="trending">
+    <img src="./gallery/photography-57.jpg" alt="AI generated photography">
+    <div class="gallery-overlay">
+        <div class="gallery-actions">
+            <button class="gallery-action like-action">
+                <i class="far fa-heart"></i>
+            </button>
+            <button class="gallery-action download-action">
+                <i class="fas fa-download"></i>
+            </button>
+        </div>
+    </div>
+</div>
+<div class="gallery-item" data-category="photography" data-filter="trending">
+    <img src="./gallery/photography-58.jpg" alt="AI generated photography">
+    <div class="gallery-overlay">
+        <div class="gallery-actions">
+            <button class="gallery-action like-action">
+                <i class="far fa-heart"></i>
+            </button>
+            <button class="gallery-action download-action">
+                <i class="fas fa-download"></i>
+            </button>
+        </div>
+    </div>
+</div>
+<div class="gallery-item" data-category="photography" data-filter="trending">
+    <img src="./gallery/photography-59.jpg" alt="AI generated photography">
+    <div class="gallery-overlay">
+        <div class="gallery-actions">
+            <button class="gallery-action like-action">
+                <i class="far fa-heart"></i>
+            </button>
+            <button class="gallery-action download-action">
+                <i class="fas fa-download"></i>
+            </button>
+        </div>
+    </div>
+</div>
+<div class="gallery-item" data-category="photography" data-filter="trending">
+    <img src="./gallery/photography-60.jpg" alt="AI generated photography">
+    <div class="gallery-overlay">
+        <div class="gallery-actions">
+            <button class="gallery-action like-action">
+                <i class="far fa-heart"></i>
+            </button>
+            <button class="gallery-action download-action">
+                <i class="fas fa-download"></i>
+            </button>
+        </div>
+    </div>
+</div>
+                    
+<!---------------------------------------------------------->                    
+                    <!-- Animals Category -->
+                    <div class="gallery-item" data-category="animals" data-filter="trending">
+                        <img src="./gallery/animal-1.jpg" alt="AI generated animal">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="animals" data-filter="trending">
+                        <img src="./gallery/animal-2.jpg" alt="AI generated animal">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                   <div class="gallery-item" data-category="animals" data-filter="trending">
+                        <img src="./gallery/animal-3.jpg" alt="AI generated animal">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div> 
+                    
+                    <div class="gallery-item" data-category="animals" data-filter="trending">
+                        <img src="./gallery/animal-4.jpg" alt="AI generated animal">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="animals" data-filter="trending">
+                        <img src="./gallery/animal-5.jpg" alt="AI generated animal">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="animals" data-filter="trending">
+                        <img src="./gallery/animal-6.jpg" alt="AI generated animal">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="animals" data-filter="trending">
+                        <img src="./gallery/animal-7.jpg" alt="AI generated animal">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="gallery-item" data-category="animals" data-filter="trending">
+                        <img src="./gallery/animal-8.jpg" alt="AI generated animal">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="animals" data-filter="trending">
+                        <img src="./gallery/animal-9.jpg" alt="AI generated animal">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="animals" data-filter="trending">
+                        <img src="./gallery/animal-10.jpg" alt="AI generated animal">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="animals" data-filter="trending">
+                        <img src="./gallery/animal-11.jpg" alt="AI generated animal">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="animals" data-filter="trending">
+                        <img src="./gallery/animal-12.jpg" alt="AI generated animal">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="animals" data-filter="trending">
+                        <img src="./gallery/animal-13.jpg" alt="AI generated animal">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="animals" data-filter="trending">
+                        <img src="./gallery/animal-14.jpg" alt="AI generated animal">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="animals" data-filter="trending">
+                        <img src="./gallery/animal-15.jpg" alt="AI generated animal">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>                    
+                                      
+                    <div class="gallery-item" data-category="animals" data-filter="all">
+                        <img src="./gallery/animal-16.jpg" alt="AI generated animal">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="animals" data-filter="all">
+                        <img src="./gallery/animal-17.jpg" alt="AI generated animal">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="animals" data-filter="all">
+                        <img src="./gallery/animal-18.jpg" alt="AI generated animal">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="gallery-item" data-category="animals" data-filter="all">
+                        <img src="./gallery/animal-19.jpg" alt="AI generated animal">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button> class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="animals" data-filter="all">
+                        <img src="./gallery/animal-20.jpg" alt="AI generated animal">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="animals" data-filter="all">
+                        <img src="./gallery/animal-21.jpg" alt="AI generated animal">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="animals" data-filter="all">
+                        <img src="./gallery/animal-22.jpg" alt="AI generated animal">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="animals" data-filter="all">
+                        <img src="./gallery/animal-23.jpg" alt="AI generated animal">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="animals" data-filter="all">
+                        <img src="./gallery/animal-24.jpg" alt="AI generated animal">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="animals" data-filter="all">
+                        <img src="./gallery/animal-25.jpg" alt="AI generated animal">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="animals" data-filter="all">
+                        <img src="./gallery/animal-26.jpg" alt="AI generated animal">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="animals" data-filter="all">
+                        <img src="./gallery/animal-27.jpg" alt="AI generated animal">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="animals" data-filter="all">
+                        <img src="./gallery/animal-28.jpg" alt="AI generated animal">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="animals" data-filter="all">
+                        <img src="./gallery/animal-29.jpg" alt="AI generated animal">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="animals" data-filter="all">
+                        <img src="./gallery/animal-30.jpg" alt="AI generated animal">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="animals" data-filter="upscaled">
+                        <img src="./gallery/animal-31.jpg" alt="AI generated animal">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+ 
+ <div class="gallery-item" data-category="animals" data-filter="all">
+                        <img src="./gallery/animal-32.jpg" alt="AI generated animal">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+ 
+<div class="gallery-item" data-category="animals" data-filter="all">
+                        <img src="./gallery/animal-33.jpg" alt="AI generated animal">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+<div class="gallery-item" data-category="animals" data-filter="all">
+                        <img src="./gallery/animal-34.jpg" alt="AI generated animal">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+<div class="gallery-item" data-category="animals" data-filter="all">
+                        <img src="./gallery/animal-35.jpg" alt="AI generated animal">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+<div class="gallery-item" data-category="animals" data-filter="all">
+                        <img src="./gallery/animal-36.jpg" alt="AI generated animal">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+<div class="gallery-item" data-category="animals" data-filter="all">
+                        <img src="./gallery/animal-37.jpg" alt="AI generated animal">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="animals" data-filter="all">
+                        <img src="./gallery/animal-38.jpg" alt="AI generated animal">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="animals" data-filter="all">
+                        <img src="./gallery/animal-39.jpg" alt="AI generated animal">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="animals" data-filter="all">
+                        <img src="./gallery/animal-40.jpg" alt="AI generated animal">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="animals" data-filter="upscaled">
+                        <img src="./gallery/animal-41.jpg" alt="AI generated animal">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="animals" data-filter="upscaled">
+                        <img src="./gallery/animal-42.jpg" alt="AI generated animal">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="animals" data-filter="upscaled">
+                        <img src="./gallery/animal-43.jpg" alt="AI generated animal">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="animals" data-filter="upscaled">
+                        <img src="./gallery/animal-44.jpg" alt="AI generated animal">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="animals" data-filter="trending">
+                        <img src="./gallery/animal-45.jpg" alt="AI generated animal">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="animals" data-filter="trending">
+                        <img src="./gallery/animal-46.jpg" alt="AI generated animal">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="animals" data-filter="tending">
+                        <img src="./gallery/animal-47.jpg" alt="AI generated animal">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div> <!-------------------------------------------------------->                   
+                    <!-- Anime Category -->
+                    <div class="gallery-item" data-category="anime" data-filter="trending">
+                        <img src="./gallery/anime-1.jpg" alt="AI generated anime">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="anime" data-filter="trending">
+                        <img src="./gallery/anime-2.jpg" alt="AI generated anime">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="anime" data-filter="trending">
+                        <img src="./gallery/anime-3.jpg" alt="AI generated anime">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="anime" data-filter="trending">
+                        <img src="./gallery/anime-4.jpg" alt="AI generated anime">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="anime" data-filter="trending">
+                        <img src="./gallery/anime-5.jpg" alt="AI generated anime">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="gallery-item" data-category="anime" data-filter="trending">
+                        <img src="./gallery/anime-6.jpg" alt="AI generated anime">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="anime" data-filter="trending">
+                        <img src="./gallery/anime-7.jpg" alt="AI generated anime">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="anime" data-filter="trending">
+                        <img src="./gallery/anime-8.jpg" alt="AI generated anime">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="anime" data-filter="trending">
+                        <img src="./gallery/anime-9.jpg" alt="AI generated anime">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="anime" data-filter="trending">
+                        <img src="./gallery/anime-10.jpg" alt="AI generated anime">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="anime" data-filter="trending">
+                        <img src="./gallery/anime-11.jpg" alt="AI generated anime">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="anime" data-filter="trending">
+                        <img src="./gallery/anime-12.jpg" alt="AI generated anime">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="anime" data-filter="trending">
+                        <img src="./gallery/anime-13.jpg" alt="AI generated anime">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="anime" data-filter="trending">
+                        <img src="./gallery/anime-14.jpg" alt="AI generated anime">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="anime" data-filter="trending">
+                        <img src="./gallery/anime-15.jpg" alt="AI generated anime">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="anime" data-filter="trending">
+                        <img src="./gallery/anime-16.jpg" alt="AI generated anime">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="anime" data-filter="trending">
+                        <img src="./gallery/anime-17.jpg" alt="AI generated anime">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="anime" data-filter="trending">
+                        <img src="./gallery/anime-18.jpg" alt="AI generated anime">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="anime" data-filter="trending">
+                        <img src="./gallery/anime-19.jpg" alt="AI generated anime">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="anime" data-filter="trending">
+                        <img src="./gallery/anime-20.jpg" alt="AI generated anime">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="gallery-item" data-category="anime" data-filter="all">
+                        <img src="./gallery/anime-21.jpg" alt="AI generated anime">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+
+<div class="gallery-item" data-category="anime" data-filter="all">
+    <img src="./gallery/anime-22.jpg" alt="AI generated anime">
+    <div class="gallery-overlay">
+        <div class="gallery-actions">
+            <button class="gallery-action like-action">
+                <i class="far fa-heart"></i>
+            </button>
+            <button class="gallery-action download-action">
+                <i class="fas fa-download"></i>
+            </button>
+        </div>
+    </div>
+</div>
+<div class="gallery-item" data-category="anime" data-filter="all">
+    <img src="./gallery/anime-23.jpg" alt="AI generated anime">
+    <div class="gallery-overlay">
+        <div class="gallery-actions">
+            <button class="gallery-action like-action">
+                <i class="far fa-heart"></i>
+            </button>
+            <button class="gallery-action download-action">
+                <i class="fas fa-download"></i>
+            </button>
+        </div>
+    </div>
+</div>
+<div class="gallery-item" data-category="anime" data-filter="all">
+    <img src="./gallery/anime-24.jpg" alt="AI generated anime">
+    <div class="gallery-overlay">
+        <div class="gallery-actions">
+            <button class="gallery-action like-action">
+                <i class="far fa-heart"></i>
+            </button>
+            <button class="gallery-action download-action">
+                <i class="fas fa-download"></i>
+            </button>
+        </div>
+    </div>
+</div>
+<div class="gallery-item" data-category="anime" data-filter="all">
+    <img src="./gallery/anime-25.jpg" alt="AI generated anime">
+    <div class="gallery-overlay">
+        <div class="gallery-actions">
+            <button class="gallery-action like-action">
+                <i class="far fa-heart"></i>
+            </button>
+            <button class="gallery-action download-action">
+                <i class="fas fa-download"></i>
+            </button>
+        </div>
+    </div>
+</div>
+<div class="gallery-item" data-category="anime" data-filter="all">
+    <img src="./gallery/anime-26.jpg" alt="AI generated anime">
+    <div class="gallery-overlay">
+        <div class="gallery-actions">
+            <button class="gallery-action like-action">
+                <i class="far fa-heart"></i>
+            </button>
+            <button class="gallery-action download-action">
+                <i class="fas fa-download"></i>
+            </button>
+        </div>
+    </div>
+</div>
+<div class="gallery-item" data-category="anime" data-filter="all">
+    <img src="./gallery/anime-27.jpg" alt="AI generated anime">
+    <div class="gallery-overlay">
+        <div class="gallery-actions">
+            <button class="gallery-action like-action">
+                <i class="far fa-heart"></i>
+            </button>
+            <button class="gallery-action download-action">
+                <i class="fas fa-download"></i>
+            </button>
+        </div>
+    </div>
+</div>
+<div class="gallery-item" data-category="anime" data-filter="all">
+    <img src="./gallery/anime-28.jpg" alt="AI generated anime">
+    <div class="gallery-overlay">
+        <div class="gallery-actions">
+            <button class="gallery-action like-action">
+                <i class="far fa-heart"></i>
+            </button>
+            <button class="gallery-action download-action">
+                <i class="fas fa-download"></i>
+            </button>
+        </div>
+    </div>
+</div>
+<div class="gallery-item" data-category="anime" data-filter="all">
+    <img src="./gallery/anime-29.jpg" alt="AI generated anime">
+    <div class="gallery-overlay">
+        <div class="gallery-actions">
+            <button class="gallery-action like-action">
+                <i class="far fa-heart"></i>
+            </button>
+            <button class="gallery-action download-action">
+                <i class="fas fa-download"></i>
+            </button>
+        </div>
+    </div>
+</div>
+<div class="gallery-item" data-category="anime" data-filter="all">
+    <img src="./gallery/anime-30.jpg" alt="AI generated anime">
+    <div class="gallery-overlay">
+        <div class="gallery-actions">
+            <button class="gallery-action like-action">
+                <i class="far fa-heart"></i>
+            </button>
+            <button class="gallery-action download-action">
+                <i class="fas fa-download"></i>
+            </button>
+        </div>
+    </div>
+</div>
+<div class="gallery-item" data-category="anime" data-filter="all">
+    <img src="./gallery/anime-31.jpg" alt="AI generated anime">
+    <div class="gallery-overlay">
+        <div class="gallery-actions">
+            <button class="gallery-action like-action">
+                <i class="far fa-heart"></i>
+            </button>
+            <button class="gallery-action download-action">
+                <i class="fas fa-download"></i>
+            </button>
+        </div>
+    </div>
+</div>
+<div class="gallery-item" data-category="anime" data-filter="all">
+    <img src="./gallery/anime-32.jpg" alt="AI generated anime">
+    <div class="gallery-overlay">
+        <div class="gallery-actions">
+            <button class="gallery-action like-action">
+                <i class="far fa-heart"></i>
+            </button>
+            <button class="gallery-action download-action">
+                <i class="fas fa-download"></i>
+            </button>
+        </div>
+    </div>
+</div>
+<div class="gallery-item" data-category="anime" data-filter="all">
+    <img src="./gallery/anime-33.jpg" alt="AI generated anime">
+    <div class="gallery-overlay">
+        <div class="gallery-actions">
+            <button class="gallery-action like-action">
+                <i class="far fa-heart"></i>
+            </button>
+            <button class="gallery-action download-action">
+                <i class="fas fa-download"></i>
+            </button>
+        </div>
+    </div>
+</div>
+<div class="gallery-item" data-category="anime" data-filter="all">
+    <img src="./gallery/anime-34.jpg" alt="AI generated anime">
+    <div class="gallery-overlay">
+        <div class="gallery-actions">
+            <button class="gallery-action like-action">
+                <i class="far fa-heart"></i>
+            </button>
+            <button class="gallery-action download-action">
+                <i class="fas fa-download"></i>
+            </button>
+        </div>
+    </div>
+</div>
+<div class="gallery-item" data-category="anime" data-filter="trending">
+    <img src="./gallery/anime-35.jpg" alt="AI generated anime">
+    <div class="gallery-overlay">
+        <div class="gallery-actions">
+            <button class="gallery-action like-action">
+                <i class="far fa-heart"></i>
+            </button>
+            <button class="gallery-action download-action">
+                <i class="fas fa-download"></i>
+            </button>
+        </div>
+    </div>
+</div>
+<div class="gallery-item" data-category="anime" data-filter="trending">
+    <img src="./gallery/anime-36.jpg" alt="AI generated anime">
+    <div class="gallery-overlay">
+        <div class="gallery-actions">
+            <button class="gallery-action like-action">
+                <i class="far fa-heart"></i>
+            </button>
+            <button class="gallery-action download-action">
+                <i class="fas fa-download"></i>
+            </button>
+        </div>
+    </div>
+</div>
+<div class="gallery-item" data-category="anime" data-filter="trending">
+    <img src="./gallery/anime-37.jpg" alt="AI generated anime">
+    <div class="gallery-overlay">
+        <div class="gallery-actions">
+            <button class="gallery-action like-action">
+                <i class="far fa-heart"></i>
+            </button>
+            <button class="gallery-action download-action">
+                <i class="fas fa-download"></i>
+            </button>
+        </div>
+    </div>
+</div>
+<div class="gallery-item" data-category="anime" data-filter="trending">
+    <img src="./gallery/anime-38.jpg" alt="AI generated anime">
+    <div class="gallery-overlay">
+        <div class="gallery-actions">
+            <button class="gallery-action like-action">
+                <i class="far fa-heart"></i>
+            </button>
+            <button class="gallery-action download-action">
+                <i class="fas fa-download"></i>
+            </button>
+        </div>
+    </div>
+</div>
+<div class="gallery-item" data-category="anime" data-filter="trending">
+    <img src="./gallery/anime-39.jpg" alt="AI generated anime">
+    <div class="gallery-overlay">
+        <div class="gallery-actions">
+            <button class="gallery-action like-action">
+                <i class="far fa-heart"></i>
+            </button>
+            <button class="gallery-action download-action">
+                <i class="fas fa-download"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+                    
+                    <div class="gallery-item" data-category="anime" data-filter="trending">
+                        <img src="./gallery/anime-40.jpg" alt="AI generated anime">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+
+<!---------------------------------------------------------->                    
+                    <!-- Architecture Category -->
+                    <div class="gallery-item" data-category="architecture" data-filter="trending">
+                        <img src="./gallery/art-1.jpg" alt="AI generated architecture">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="architecture" data-filter="trending">
+                        <img src="./gallery/art-2.jpg" alt="AI generated architecture">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="architecture" data-filter="trending">
+                        <img src="./gallery/art-3.jpg" alt="AI generated architecture">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="architecture" data-filter="trending">
+                        <img src="./gallery/art-4.jpg" alt="AI generated architecture">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="architecture" data-filter="trending">
+                        <img src="./gallery/art-5.jpg" alt="AI generated architecture">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="architecture" data-filter="trending">
+                        <img src="./gallery/art-6.jpg" alt="AI generated architecture">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="gallery-item" data-category="architecture" data-filter="trending">
+                        <img src="./gallery/art-7.jpg" alt="AI generated architecture">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="architecture" data-filter="trending">
+                        <img src="./gallery/art-8.jpg" alt="AI generated architecture">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="architecture" data-filter="trending">
+                        <img src="./gallery/art-9.jpg" alt="AI generated architecture">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="architecture" data-filter="trending">
+                        <img src="./gallery/art-10.jpg" alt="AI generated architecture">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="architecture" data-filter="trending">
+                        <img src="./gallery/art-11.jpg" alt="AI generated architecture">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="architecture" data-filter="trending">
+                        <img src="./gallery/art-12.jpg" alt="AI generated architecture">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="architecture" data-filter="trending">
+                        <img src="./gallery/art-13.jpg" alt="AI generated architecture">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="architecture" data-filter="trending">
+                        <img src="./gallery/art-14.jpg" alt="AI generated architecture">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="architecture" data-filter="trending">
+                        <img src="./gallery/art-15.jpg" alt="AI generated architecture">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="architecture" data-filter="trending">
+                        <img src="./gallery/art-16.jpg" alt="AI generated architecture">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="architecture" data-filter="trending">
+                        <img src="./gallery/art-17.jpg" alt="AI generated architecture">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="architecture" data-filter="trending">
+                        <img src="./gallery/art-18.jpg" alt="AI generated architecture">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="architecture" data-filter="trending">
+                        <img src="./gallery/art-19.jpg" alt="AI generated architecture">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="architecture" data-filter="trending">
+                        <img src="./gallery/art-20.jpg" alt="AI generated architecture">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="gallery-item" data-category="architecture" data-filter="all">
+                        <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=1964&auto=format&fit=crop" alt="AI generated architecture">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="architecture" data-filter="upscaled">
+                        <img src="https://images.unsplash.com/photo-1620121692029-d088224ddc74?q=80&w=1932&auto=format&fit=crop" alt="AI generated architecture">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+<!--------------------------------------------------------->                    
+                    <!-- Character Category -->
+                    <div class="gallery-item" data-category="character" data-filter="trending">
+                        <img src="https://images.unsplash.com/photo-1618172193622-ae2d025f4032?q=80&w=1964&auto=format&fit=crop" alt="AI generated character">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="character" data-filter="all">
+                        <img src="https://images.unsplash.com/photo-1618172193763-c511deb635ca?q=80&w=1964&auto=format&fit=crop" alt="AI generated character">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="character" data-filter="video">
+                        <img src="https://images.unsplash.com/photo-1618172193622-ae2d025f4032?q=80&w=1964&auto=format&fit=crop" alt="AI generated character">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+<!---------------------------------------------------------->                    
+                    <!-- Food Category -->
+                    <div class="gallery-item" data-category="food" data-filter="trending">
+                        <img src="https://images.unsplash.com/photo-1614729375293-d8a9f4a08279?q=80&w=1974&auto=format&fit=crop" alt="AI generated food">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="food" data-filter="all">
+                        <img src="https://images.unsplash.com/photo-1618172193763-c511deb635ca?q=80&w=1964&auto=format&fit=crop" alt="AI generated food">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="gallery-item" data-category="food" data-filter="upscaled">
+                        <img src="https://images.unsplash.com/photo-1618172193622-ae2d025f4032?q=80&w=1964&auto=format&fit=crop" alt="AI generated food">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+
+<!------------------------------------------------------––-->                    
+                    <!-- Add more images here for each category -->
+                    <!-- This is a template for adding your own images -->
+                    <!-- 
+                    <div class="gallery-item" data-category="CATEGORY_NAME" data-filter="FILTER_TYPE">
+                        <img src="YOUR_IMAGE_URL" alt="AI generated image">
+                        <div class="gallery-overlay">
+                            <div class="gallery-actions">
+                                <button class="gallery-action like-action">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                                <button class="gallery-action download-action">
+                                    <i class="fas fa-download"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    -->
+                    
+                    <!-- You can add up to 70 images following the template above -->
+                </div>
+                
+                <!-- Add Image Button -->
+                <div class="add-image-container">
+                    <button id="add-image-btn" class="add-image-btn">
+                        <i class="fas fa-plus"></i>
+                        Add Your Own Image
+                    </button>
+                </div>
+            </section>
+
+            <!-- Footer -->
+            <footer class="footer">
+                <div class="footer-links">
+                    <a href="#">Terms</a>
+                    <a href="#">DMCA</a>
+                    <a href="#">Affiliates</a>
+                </div>
+                
+                <div class="social-links">
+                    <a href="#" class="social-icon"><i class="fab fa-discord"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-reddit"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-facebook"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-apple"></i></a>
+                    <a href="#" class="social-icon"><i class="fab fa-google-play"></i></a>
+                </div>
+            </footer>
+        </main>
+    </div>
+
+    <!-- Image Popup Modal -->
+    <div id="image-modal" class="image-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <img id="modal-image" src="/placeholder.svg" alt="Enlarged image">
+            <div class="modal-actions">
+                <button class="modal-btn like-btn">
+                    <i class="far fa-heart"></i>
+                    <span>Like</span>
+                </button>
+                <button class="modal-btn download-btn">
+                    <i class="fas fa-download"></i>
+                    <span>Download</span>
+                </button>
+                <button class="modal-btn share-btn">
+                    <i class="fas fa-share-alt"></i>
+                    <span>Share</span>
+                </button>
+                <button class="modal-btn save-btn">
+                    <i class="fas fa-bookmark"></i>
+                    <span>Save</span>
+                </button>
+            </div>
+            <div class="modal-info">
+                <div class="creator-info">
+                    <div class="creator-avatar">AI</div>
+                    <div class="creator-details">
+                        <div class="creator-name">AI Artist</div>
+                        <div class="creation-date">Created on May 21, 2025</div>
+                    </div>
+                </div>
+                <div class="image-stats">
+                    <div class="stat-item">
+                        <i class="fas fa-eye"></i>
+                        <span>1.2k</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-heart"></i>
+                        <span>342</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-download"></i>
+                        <span>89</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Add Image Modal -->
+    <div id="add-image-modal" class="modal">
+        <div class="modal-content add-image-modal-content">
+            <span class="close-modal">&times;</span>
+            <h2>Add Your Own Image</h2>
+            <form id="add-image-form">
+                <div class="form-group">
+                    <label for="image-url">Image URL</label>
+                    <input type="text" id="image-url" placeholder="https://example.com/your-image.jpg" required>
+                </div>
+                <div class="form-group">
+                    <label for="image-category">Category</label>
+                    <select id="image-category" required>
+                        <option value="photography">Photography</option>
+                        <option value="animals">Animals</option>
+                        <option value="anime">Anime</option>
+                        <option value="architecture">Architecture</option>
+                        <option value="character">Character</option>
+                        <option value="food">Food</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="image-filter">Filter</label>
+                    <select id="image-filter" required>
+                        <option value="trending">Trending</option>
+                        <option value="all">All</option>
+                        <option value="upscaled">Upscaled</option>
+                        <option value="video">Video</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="image-alt">Alt Text</label>
+                    <input type="text" id="image-alt" placeholder="Description of your image">
+                </div>
+                <div class="form-group">
+                    <label for="image-upload">Or Upload Image</label>
+                    <input type="file" id="image-upload" accept="image/*">
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="submit-btn">Add Image</button>
+                </div>
+            </form>
+        </div>
+    </div>
+<script src="./assets/js/app.lumix.js"></script>
+<script src="./assets/js/lumix-styles.js"></script>
+</body>
+</html>

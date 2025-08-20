@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Terms & Conditions - Lumix AI</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="./assets/css/terms.css" />
+</head>
+<body>
+  <header class="header">
+    <a href="index.html" class="back-button">
+      <i class="fas fa-arrow-left"></i>
+    </a>
+    <h1>Getting Started with Lumix API</h1>
+    <div class="menu-button" onclick="toggleMenu()">
+      <i class="fas fa-ellipsis-v"></i>
+    </div>
+    <nav id="nav-menu">
+      <a href="index.html"><i class="fas fa-home"></i> Home</a>
+      <a href="privacy.html"><i class="fas fa-shield-alt"></i> Privacy</a>
+      <a href="support.html"><i class="fas fa-life-ring"></i> Support</a>
+    </nav>
+  </header>
+
+  <main id="terms-section">
+    <section class="terms">
+      <!-- 10 Proper Legal Paragraphs -->
+
+<section class="content-section">
+  <h2>Getting Started with Lumix API</h2>
+
+  <p>Welcome to Lumix API — your gateway to integrating advanced AI image generation into your applications. This guide will walk you through everything you need to know to get started, including setup, best practices, and helpful tips for maximizing your results. Whether you’re a developer, a designer, or just someone exploring creative possibilities, Lumix offers powerful tools to enhance your workflow.</p>
+
+  <p>To begin, create an account on our Developer Portal and retrieve your unique API key. This key is essential for authenticating all requests you send to our servers. Treat this key like a password — never share it publicly or expose it in client-side code. If compromised, you can regenerate it instantly from your dashboard.</p>
+
+  <p>Our API documentation contains all the technical details you’ll need. You’ll find sample requests, supported parameters, and examples for different use cases. The API supports customizable prompts, resolution settings, model selections, and more — giving you full creative control over your outputs.</p>
+  <p>Requests to the Lumix API are made using standard HTTP methods, typically a POST request to our /generate-image endpoint. Simply include your API key in the headers and provide the required parameters in the body. Responses are fast and return image links you can easily integrate or display in your project.</p>
+
+  <p>Please be aware of usage limits and rate restrictions. These are designed to ensure fair access and consistent performance for all users. Details about rate limits and quotas can be found in the docs, and if you need higher limits, you can always apply for a plan upgrade or reach out to support.</p>
+
+  <p>Security is important to us. Never attempt to reverse engineer, tamper with, or overload our API systems. Any misuse of the platform may result in immediate suspension or legal action. We reserve the right to monitor activity and ensure compliance with our API usage policy.</p>
+
+  <p>We're constantly improving Lumix API with new features and performance enhancements. By using our service, you're contributing to the growth of AI-driven creativity. We appreciate your feedback and encourage you to share your experiences or suggestions for new features.</p>
+[8/19, 8:33 AM] Chatgpt: <p>Need help? Visit our Help Center, join our Discord community, or contact us via email. Our team is always ready to assist you with onboarding, integration, or troubleshooting questions.</p>
+
+  <p>Thank you for choosing Lumix API. We look forward to seeing what you’ll build!</p>
+</section>
+
+
+      <a href="api-docs.html" class="accept-btn">
+        <i class="fas fa-check-circle"></i> Accept and Continue
+      </a>
+    </section>
+  </main>
+<script>
+  function toggleMenu() {
+      document.getElementById('nav-menu').classList.toggle('show');
+    }
+
+</script>
+</body>
+</html>

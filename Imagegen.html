@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumix - Image Generator</title>
+    <link rel="stylesheet" href="./assets/css/8945428649404846.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="sidebar-top-controls">
+                <button id="settingsBtn" class="action-btn settings-btn" title="Advanced Settings"><i class="fas fa-cog"></i></button>
+                <button id="modelSelectBtn" class="tool-btn model-selector-btn">
+                    <span id="currentModelDisplay">Flux AI</span> <i class="fas fa-caret-down"></i>
+                </button>
+                <input type="hidden" id="selectedModel" value="flux">
+            </div>
+
+            <div class="sidebar-section prompt-section">
+                <div class="prompt-input-group">
+                    <i class="fas fa-image prompt-icon"></i>
+                    <div class="textarea-wrapper" data-replicated-value="">
+                        <textarea id="promptInput" placeholder="Type a prompt ..."></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-actions">
+                <div class="generation-controls">
+                    <button id="sparkleBtn" class="action-btn sparkle-btn"><i class="fas fa-magic"></i></button>
+                    <button id="generateBtn" class="primary-btn create-btn">
+                        Create <span class="cost-display"><i class="fas fa-coins"></i> 40</span>
+                    </button>
+                </div>
+                <div class="output-actions">
+                    <button id="downloadBtn" class="action-btn download-btn"><i class="fas fa-download"></i> Download</button>
+                    <button id="shareBtn" class="action-btn share-btn"><i class="fas fa-share-alt"></i> Share</button>
+                </div>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <div class="card ai-output-card">
+                <h3>Generated Artwork</h3>
+                <div id="loadingIndicator" class="loading-indicator hidden">
+                    <div class="spinner"></div>
+                    <p>Crafting your masterpiece...</p>
+                </div>
+                <img id="generatedImage" src="" alt="AI generated image will appear here." class="hidden">
+                <div id="errorFeedback" class="error-feedback hidden"></div>
+                <div class="info-message no-image-message">Your stunning AI artwork will be displayed here.</div>
+            </div>
+        </main>
+    </div>
+
+    <div id="settingsSidebar" class="settings-sidebar hidden">
+        <div class="settings-header">
+            <h3>Advanced Generation Settings</h3>
+            <button id="closeSettingsBtn" class="close-btn"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="settings-content custom-scrollbar">
+            <div class="settings-section">
+                <h4>Image Style</h4>
+                <div class="style-options-grid">
+                    <button class="style-option-btn" data-style="photorealistic">Photorealistic</button>
+                    <button class="style-option-btn" data-style="anime">Anime</button>
+                    <button class="style-option-btn" data-style="cartoon">Cartoon</button>
+                    <button class="style-option-btn" data-style="digital art">Digital Art</button>
+                    <button class="style-option-btn" data-style="oil painting">Oil Painting</button>
+                    <button class="style-option-btn" data-style="watercolor">Watercolor</button>
+                    <button class="style-option-btn" data-style="3d render">3D Render</button>
+                    <button class="style-option-btn" data-style="fantasy art">Fantasy Art</button>
+                    <button class="style-option-btn" data-style="sci-fi">Sci-Fi</button>
+                    <button class="style-option-btn" data-style="pixel art">Pixel Art</button>
+                    <button class="style-option-btn" data-style="sketch">Sketch</button>
+                    <button class="style-option-btn" data-style="abstract">Abstract</button>
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <h4>Aspect Ratio</h4>
+                <div class="aspect-ratio-options">
+                    <button class="aspect-ratio-btn" data-ratio="1:1">1:1 (Square)</button>
+                    <button class="aspect-ratio-btn" data-ratio="16:9">16:9 (Landscape)</button>
+                    <button class="aspect-ratio-btn" data-ratio="9:16">9:16 (Portrait)</button>
+                    <button class="aspect-ratio-btn" data-ratio="4:3">4:3 (Classic)</button>
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <h4>Negative Prompt</h4>
+                <div class="textarea-wrapper" data-replicated-value="">
+                    <textarea id="negativePromptInput" placeholder="Elements to avoid (e.g., 'blurry, deformed, text, watermark')"></textarea>
+                </div>
+            </div>
+
+            <div class="settings-section">
+                <h4>Advanced Control</h4>
+                <div class="tool-group">
+                    <label for="guidanceScale">Guidance Scale: <span id="guidanceScaleValue">7</span></label>
+                    <input type="range" id="guidanceScale" min="1" max="20" step="1" value="7">
+                </div>
+                <div class="tool-group">
+                    <label for="creativityStrength">Creativity Strength: <span id="creativityStrengthValue">0.7</span></label>
+                    <input type="range" id="creativityStrength" min="0" max="1" step="0.05" value="0.7">
+                </div>
+                <div class="tool-group">
+                    <label for="seedInput">Seed (for reproducibility):</label>
+                    <input type="number" id="seedInput" placeholder="Leave empty for random" min="0">
+                </div>
+            </div>
+
+            <div class="settings-footer">
+                <button id="applySettingsBtn" class="primary-btn apply-settings-btn">Apply Settings</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="modelModal" class="modal hidden">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Select AI Model</h3>
+                <button id="closeModelModalBtn" class="close-btn"><i class="fas fa-times"></i></button>
+            </div>
+            <div class="model-options-grid custom-scrollbar">
+                <button class="model-option-btn" data-model="flux" data-display-name="Flux AI">Flux AI <span class="badge">Fast</span></button>
+                <button class="model-option-btn" data-model="stable-diffusion" data-display-name="Stable Diffusion">Stable Diffusion <span class="badge">Versatile</span></button>
+                <button class="model-option-btn" data-model="dall-e" data-display-name="DALL-E 3">DALL-E 3 <span class="badge">Premium</span></button>
+                <button class="model-option-btn" data-model="midjourney" data-display-name="Midjourney (Simulated)">Midjourney (Simulated) <span class="badge">Artistic</span></button>
+                <button class="model-option-btn" data-model="dreamshaper" data-display-name="DreamShaper XL">DreamShaper XL <span class="badge">Detail</span></button>
+                <button class="model-option-btn" data-model="animagine" data-display-name="Animagine XL">Animagine XL <span class="badge">Anime</span></button>
+                <button class="model-option-btn" data-model="sdxl-lightning" data-display-name="SDXL Lightning">SDXL Lightning <span class="badge">Speed</span></button>
+                <button class="model-option-btn" data-model="realistic-vision" data-display-name="Realistic Vision">Realistic Vision <span class="badge">Realism</span></button>
+                <button class="model-option-btn" data-model="controlnet" data-display-name="ControlNet (Advanced)">ControlNet (Advanced) <span class="badge">Control</span></button>
+                <button class="model-option-btn" data-model="vivid-ai" data-display-name="Vivid AI">Vivid AI <span class="badge">Experimental</span></button>
+                <button class="model-option-btn" data-model="photogenic-v2" data-display-name="Photogenic V2">Photogenic V2 <span class="badge">Pro</span></button>
+                <button class="model-option-btn" data-model="cinematic-diffusion" data-display-name="Cinematic Diffusion">Cinematic Diffusion <span class="badge">Film</span></button>
+            </div>
+        </div>
+    </div>
+
+    <script src="./assets/js/74664857757.js"></script>
+</body>
+</html>

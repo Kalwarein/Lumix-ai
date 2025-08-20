@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Lumix Library</title>
+
+<!-- Font Awesome CDN -->
+<link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+/>
+
+<style>
+  *:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Remove tap highlight color globally */
+* {
+  -webkit-tap-highlight-color: transparent !important;
+  -moz-tap-highlight-color: transparent !important;
+  -ms-tap-highlight-color: transparent !important;
+  tap-highlight-color: transparent !important;
+}
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #000;
+    color: #eee;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  header {
+    position: sticky;
+    top: 0;
+    background: #000;
+    padding: 1rem 2rem;
+    z-index: 1000;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    border-bottom: 2px solid #e84df3;
+  }
+  header h1 {
+    font-weight: 700;
+    font-size: 1.6rem;
+    color: #e84df3;
+    margin: 0;
+    user-select: none;
+  }
+  .controls {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  input[type="search"] {
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border-radius: 20px;
+    border: none;
+    outline: none;
+    background: #2a2a3d;
+    color: #ddd;
+    width: 200px;
+    transition: background-color 0.3s;
+  }
+  input[type="search"]:focus {
+    background-color: #3c3c5a;
+  }
+  select {
+    padding: 0.4rem 0.8rem;
+    border-radius: 8px;
+    border: none;
+    background: #2a2a3d;
+    color: #ddd;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  main {
+    flex-grow: 1;
+    padding: 1rem 2rem;
+    background: #121217;
+  }
+  /* Grid with 4 columns */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    max-width: 1200px;
+    margin: auto;
+  }
+  .card {
+    display: flex;
+    flex-direction: column;
+    border-radius: 12px;
+    background: #000;
+    box-shadow: 0 0 12px rgba(123, 92, 255, 0.3);
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+    user-select: none;
+  }
+  .card:hover,
+  .card:focus {
+    transform: scale(1.04);
+    outline: none;
+  }
+  .card img {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    display: block;
+    border-bottom: 1px solid #444466;
+  }
+  .overlay {
+    position: relative;
+    padding: 0.6rem 1rem;
+    color: white;
+    font-weight: 600;
+    font-size: 1rem;
+    background: linear-gradient(to right, #e84df3, #7b5cff);
+  }
+  .likes {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.4rem 1rem;
+    color: #ff7b7b;
+    font-weight: 600;
+    background: #1a1a2e;
+    font-size: 1rem;
+  }
+  .likes i {
+    color: #e84df3;
+  }
+  /* Modal */
+  .modal {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.9);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    padding: 1rem;
+    flex-direction: column;
+  }
+  .modal.active {
+    display: flex;
+  }
+  .modal img {
+    max-width: 90vw;
+    max-height: 70vh;
+    border-radius: 12px;
+    box-shadow: 0 0 30px #7b5cffcc;
+    margin-bottom: 1rem;
+  }
+  .modal .close-btn {
+    position: absolute;
+    top: 1.5rem;
+    right: 2rem;
+    font-size: 2.5rem;
+    color: #7b5cff;
+    cursor: pointer;
+    user-select: none;
+    background: transparent;
+    border: none;
+  }
+  .modal-actions {
+    display: flex;
+    gap: 1rem;
+  }
+  .modal-actions button {
+    background: #7b5cff;
+    border: none;
+    color: white;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: background-color 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .modal-actions button:hover {
+    background: #a078ff;
+  }
+  .favorite-btn.favorited {
+    color: #ff7b7b;
+    text-shadow: 0 0 5px #ff4b4b;
+  }
+  /* Notification */
+  #notification {
+    position: fixed;
+    bottom: 1rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #7b5cffdd;
+    color: white;
+    padding: 0.8rem 1.5rem;
+    border-radius: 30px;
+    font-weight: 600;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 3000;
+  }
+  #notification.show {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  @media (max-width: 900px) {
+    .grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+    input[type="search"] {
+      width: 100%;
+    }
+  }
+  @media (max-width: 500px) {
+    .grid {
+      grid-template-columns: 2fr;
+    }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Lumix Library</h1>
+  <div class="controls" role="search">
+    <input type="search" id="search" placeholder="Search images..." aria-label="Search images" />
+    <select id="sort" aria-label="Sort images">
+      <option value="newest">Sort by: Newest</option>
+      <option value="oldest">Sort by: Oldest</option>
+      <option value="favorites">Favorites</option>
+    </select>
+  </div>
+</header>
+
+<main>
+  <div class="grid" id="imageGrid" aria-live="polite" aria-relevant="additions removals"></div>
+</main>
+
+<!-- Image Modal -->
+<div class="modal" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" tabindex="-1">
+  <button class="close-btn" aria-label="Close preview">&times;</button>
+  <img id="modalImage" alt="Image preview" />
+  <div class="modal-actions">
+    <button id="modalDownloadBtn"><i class="fa-solid fa-download"></i> Download</button>
+    <button id="modalFavBtn" class="favorite-btn" title="Add to favorites"><i class="fa-regular fa-heart"></i> Favorite</button>
+  </div>
+</div>
+
+<!-- Notification -->
+<div id="notification" role="alert" aria-live="assertive"></div>
+
+<script>
+  (() => {
+    const images = [
+      {
+        id: 'img1',
+        url: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=800&q=80',
+        title: 'Misty Forest',
+        prompt: 'A misty forest in early morning light',
+        date: '2025-08-01',
+        likes: 12,
+      },
+      {
+        id: 'img2',
+        url: 'https://images.unsplash.com/photo-1468071174046-657d9d351a40?auto=format&fit=crop&w=800&q=80',
+        title: 'Snowy Mountain',
+        prompt: 'Snow covered mountain peak with blue sky',
+        date: '2025-07-22',
+        likes: 8,
+      },
+      {
+        id: 'img3',
+        url: 'https://images.unsplash.com/photo-1465101162946-4377e57745c3?auto=format&fit=crop&w=800&q=80',
+        title: 'Calm Lake',
+        prompt: 'Still lake reflecting mountains at sunset',
+        date: '2025-07-30',
+        likes: 15,
+      },
+      {
+        id: 'img4',
+        url: 'https://images.unsplash.com/photo-1519681393784-d120267933ba?auto=format&fit=crop&w=800&q=80',
+        title: 'Desert Dunes',
+        prompt: 'Golden desert dunes with a dramatic sky',
+        date: '2025-07-15',
+        likes: 7,
+      },
+      {
+        id: 'img5',
+        url: 'https://images.unsplash.com/photo-1500534623283-312aade485b7?auto=format&fit=crop&w=800&q=80',
+        title: 'Ocean Cliff',
+        prompt: 'Ocean waves crashing against cliff rocks',
+        date: '2025-08-03',
+        likes: 20,
+      },
+      {
+        id: 'img6',
+        url: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80',
+        title: 'City Skyline',
+        prompt: 'City skyline at dusk with colorful sky',
+        date: '2025-07-28',
+        likes: 11,
+      },
+      {
+        id: 'img7',
+        url: 'https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=800&q=80',
+        title: 'Flower Field',
+        prompt: 'Field full of vibrant flowers under sun',
+        date: '2025-07-20',
+        likes: 9,
+      },
+      {
+        id: 'img8',
+        url: 'https://images.unsplash.com/photo-1494522224593-7b22916b1130?auto=format&fit=crop&w=800&q=80',
+        title: 'Night Stars',
+        prompt: 'Clear night sky with shining stars',
+        date: '2025-07-25',
+        likes: 17,
+      },
+      {
+        id: 'img9',
+        url: 'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=80',
+        title: 'Rainforest',
+        prompt: 'Dense rainforest with sun rays',
+        date: '2025-08-05',
+        likes: 10,
+      },
+      {
+        id: 'img10',
+        url: 'https://images.unsplash.com/photo-1486308510493-cb62345b40d1?auto=format&fit=crop&w=800&q=80',
+        title: 'Sunset Beach',
+        prompt: 'Sun setting over a calm beach',
+        date: '2025-07-18',
+        likes: 14,
+      },
+      {
+        id: 'img11',
+        url: 'https://images.unsplash.com/photo-1499346030926-9a72daac6c63?auto=format&fit=crop&w=800&q=80',
+        title: 'Autumn Leaves',
+        prompt: 'Trees with colorful autumn leaves',
+        date: '2025-07-21',
+        likes: 13,
+      },
+      {
+        id: 'img12',
+        url: 'https://images.unsplash.com/photo-1503264116251-35a269479413?auto=format&fit=crop&w=800&q=80',
+        title: 'Winter Morning',
+        prompt: 'Frosty winter morning with bare trees',
+        date: '2025-07-23',
+        likes: 5,
+      },
+      {
+        id: 'img13',
+        url: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=800&q=80',
+        title: 'Extra Image',
+        prompt: 'Extra image for testing',
+        date: '2025-08-06',
+        likes: 3,
+      },
+    ];
+
+    const imageGrid = document.getElementById('imageGrid');
+    const searchInput = document.getElementById('search');
+    const sortSelect = document.getElementById('sort');
+    const modal = document.getElementById('modal');
+    const modalImage = document.getElementById('modalImage');
+    const closeModalBtn = modal.querySelector('.close-btn');
+    const notification = document.getElementById('notification');
+
+    const modalDownloadBtn = document.getElementById('modalDownloadBtn');
+    const modalFavBtn = document.getElementById('modalFavBtn');
+
+    let favorites = JSON.parse(localStorage.getItem('lumixFavorites') || '[]');
+    let filteredImages = [...images];
+    let currentModalImageId = null;
+
+    function showNotification(text) {
+      notification.textContent = text;
+      notification.classList.add('show');
+      setTimeout(() => notification.classList.remove('show'), 2500);
+    }
+
+    function renderImages(imgs) {
+      imageGrid.innerHTML = '';
+
+      if (imgs.length === 0) {
+        imageGrid.innerHTML = `<p style="color:#bbb; font-style: italic;">No images found.</p>`;
+        return;
+      }
+
+      imgs.forEach(({id, url, title, prompt, date, likes}) => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('aria-label', `${title}: ${prompt}`);
+
+        const imgEl = document.createElement('img');
+        imgEl.src = url;
+        imgEl.alt = title;
+        imgEl.loading = 'lazy';
+
+        const overlay = document.createElement('div');
+        overlay.className = 'overlay';
+        overlay.textContent = title;
+
+        const likesDiv = document.createElement('div');
+        likesDiv.className = 'likes';
+        likesDiv.innerHTML = `<i class="fa-solid fa-heart"></i> <span>${likes}</span>`;
+
+        card.appendChild(imgEl);
+        card.appendChild(overlay);
+        card.appendChild(likesDiv);
+
+        card.addEventListener('click', () => openModal(id));
+        card.addEventListener('keydown', e => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            openModal(id);
+          }
+        });
+
+        imageGrid.appendChild(card);
+      });
+    }
+
+    function downloadImageByUrl(url) {
+      fetch(url)
+        .then(res => res.blob())
+        .then(blob => {
+          const a = document.createElement('a');
+          const randomStr = Math.random().toString(36).slice(2, 10);
+          a.download = `lumix_${randomStr}.jpg`;
+          a.href = URL.createObjectURL(blob);
+          document.body.appendChild(a);
+          a.click();
+          a.remove();
+          showNotification('Image downloaded!');
+        })
+        .catch(() => showNotification('Failed to download.'));
+    }
+
+    function toggleFavorite(id) {
+      const index = favorites.indexOf(id);
+      if (index === -1) {
+        favorites.push(id);
+        showNotification('Added to favorites');
+      } else {
+        favorites.splice(index, 1);
+        showNotification('Removed from favorites');
+      }
+      localStorage.setItem('lumixFavorites', JSON.stringify(favorites));
+      updateModalFavoriteBtn();
+      if (sortSelect.value === 'favorites') {
+        applyFiltersAndSort();
+      }
+    }
+
+    function openModal(id) {
+      currentModalImageId = id;
+      const image = images.find(i => i.id === id);
+      if (!image) return;
+      modalImage.src = image.url;
+      modalImage.alt = image.title;
+      updateModalFavoriteBtn();
+      modal.classList.add('active');
+      modal.focus();
+    }
+
+    function closeModal() {
+      modal.classList.remove('active');
+      modalImage.src = '';
+      currentModalImageId = null;
+    }
+
+    function updateModalFavoriteBtn() {
+      if (currentModalImageId === null) return;
+      const isFav = favorites.includes(currentModalImageId);
+      modalFavBtn.innerHTML = isFav 
+        ? '<i class="fa-solid fa-heart"></i> Favorited' 
+        : '<i class="fa-regular fa-heart"></i> Favorite';
+      if (isFav) {
+        modalFavBtn.classList.add('favorited');
+      } else {
+        modalFavBtn.classList.remove('favorited');
+      }
+    }
+
+    function applyFiltersAndSort() {
+      const searchTerm = searchInput.value.toLowerCase();
+      let filtered = images.filter(img => 
+        img.title.toLowerCase().includes(searchTerm) || 
+        img.prompt.toLowerCase().includes(searchTerm)
+      );
+
+      const sort = sortSelect.value;
+      if (sort === 'oldest') {
+        filtered.sort((a,b) => new Date(a.date) - new Date(b.date));
+      } else if (sort === 'favorites') {
+        filtered = filtered.filter(img => favorites.includes(img.id));
+      }
+
+      // Limit to 12 images (3 rows × 4 columns)
+      filteredImages = filtered.slice(0, 12);
+      renderImages(filteredImages);
+    }
+
+    // Event listeners
+    searchInput.addEventListener('input', applyFiltersAndSort);
+    sortSelect.addEventListener('change', applyFiltersAndSort);
+
+    closeModalBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', e => {
+      if (e.target === modal) closeModal();
+    });
+    window.addEventListener('keydown', e => {
+      if (e.key === 'Escape' && modal.classList.contains('active')) {
+        closeModal();
+      }
+    });
+
+    modalDownloadBtn.addEventListener('click', () => {
+      if (!currentModalImageId) return;
+      const image = images.find(i => i.id === currentModalImageId);
+      if (image) downloadImageByUrl(image.url);
+    });
+
+    modalFavBtn.addEventListener('click', () => {
+      if (!currentModalImageId) return;
+      toggleFavorite(currentModalImageId);
+    });
+
+    // Initialize gallery
+    applyFiltersAndSort();
+  })();
+</script>
+
+</body>
+</html>

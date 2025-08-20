@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lumix Canvas Workspace</title>
+    <link rel="stylesheet" href="./assets/css/rm.css">
+    <link rel="stylesheet" href="./assets/css/lumix-scripts.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+  *:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+/* Remove tap highlight color globally */
+* {
+  -webkit-tap-highlight-color: transparent !important;
+  -moz-tap-highlight-color: transparent !important;
+  -ms-tap-highlight-color: transparent !important;
+  tap-highlight-color: transparent !important;
+}
+</style>
+</head>
+<body>
+      <style>
+  /* Preloader container */
+  #lumix-preloader {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+  }
+
+  /* Circle wrapper */
+  #lumix-preloader .circle-wrapper {
+    position: relative;
+    width: 150px;
+    height: 150px;
+  }
+
+  /* Image fills circle exactly */
+  #lumix-preloader img {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    position: relative;
+    z-index: 2;
+    animation: logoFade 2s ease forwards;
+    opacity: 0;
+  }
+
+  /* Spinning border is exactly on the image border */
+  #lumix-preloader .circle-wrapper::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    border-radius: 50%;
+    border: 4px solid transparent;
+    border-top-color: #ff00cc;
+    border-right-color: #8a2be2;
+    border-bottom-color: #ff00cc;
+    border-left-color: #8a2be2;
+    animation: spinRing 2.5s linear infinite, glowPulse 2s ease-in-out infinite;
+    z-index: 1;
+    box-sizing: border-box;
+  }
+
+  /* Page content hidden by default */
+  #page-content {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.8s ease;
+  }
+  #page-content.visible {
+    display: block;
+    opacity: 1;
+  }
+
+  /* Preloader fade out */
+  #lumix-preloader.fade-out {
+    animation: preFadeOut 0.8s forwards;
+  }
+
+  /* Animations */
+  @keyframes preFadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+  }
+  @keyframes spinRing {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+  @keyframes glowPulse {
+    0%, 100% { box-shadow: 0 0 20px rgba(255,0,200,0.5); }
+    50% { box-shadow: 0 0 35px rgba(138,43,226,0.8); }
+  }
+  @keyframes logoFade {
+    0% { opacity: 0; transform: scale(0.5); }
+    50% { opacity: 1; transform: scale(1.05); }
+    100% { opacity: 1; transform: scale(1); }
+  }
+</style>
+
+<!-- Preloader -->
+<div id="lumix-preloader">
+  <div class="circle-wrapper">
+    <!-- Replace logo.png with your logo -->
+    <img src="./assets/images/logo1.png" alt="Lumix Logo">
+  </div>
+</div>
+
+<!-- Wrap all page content here -->
+<div id="page-content">
+  <!-- Your full page content -->
+  
+</div>
+
+<script>
+  window.addEventListener("load", () => {
+    const preloader = document.getElementById("lumix-preloader");
+    const page = document.getElementById("page-content");
+
+    setTimeout(() => {
+      preloader.classList.add("fade-out");
+      page.classList.add("visible");
+
+      setTimeout(() => preloader.style.display = "none", 800);
+    }, 2500); // Duration for preloader
+  });
+</script>
+
+    <!-- Top Bar -->
+    <header class="top-bar">
+        <div class="top-bar-left">
+            <div class="logo">
+                <i class="fas fa-palette"></i>
+                <span>Lumix-ai Canvas</span>
+            </div>
+            <div class="project-title">
+                <input type="text" value="Text " class="project-name-input">
+            </div>
+        </div>
+        
+        <div class="top-bar-center">
+            <div class="toolbar-actions">
+                <button class="toolbar-btn" data-action="undo" title="Undo (Ctrl+Z)">
+                    <i class="fas fa-undo"></i>
+                </button>
+                <button class="toolbar-btn" data-action="redo" title="Redo (Ctrl+Y)">
+                    <i class="fas fa-redo"></i>
+                </button>
+                <div class="toolbar-separator"></div>
+                <button class="toolbar-btn" data-action="zoom-out" title="Zoom Out">
+                    <i class="fas fa-search-minus"></i>
+                </button>
+                <span class="zoom-level">100%</span>
+                <button class="toolbar-btn" data-action="zoom-in" title="Zoom In">
+                    <i class="fas fa-search-plus"></i>
+                </button>
+                <button class="toolbar-btn" data-action="fit" title="Fit to Screen">
+                    <i class="fas fa-expand-arrows-alt"></i>
+                </button>
+                <button class="toolbar-btn" data-action="fullscreen" title="Fullscreen">
+                    <i class="fas fa-expand"></i>
+                </button>
+                <div class="toolbar-separator"></div>
+                <button class="toolbar-btn" data-action="grid" title="Toggle Grid">
+                    <i class="fas fa-th"></i>
+                </button>
+                <button class="toolbar-btn" data-action="clear" title="Clear Canvas">
+                    <i class="fas fa-trash"></i>
+                </button>
+            </div>
+        </div>
+        
+        <div class="top-bar-right">
+            <button class="save-btn">
+                <i class="fas fa-save"></i>
+                Save
+            </button>
+            <button class="export-btn">
+                <i class="fas fa-download"></i>
+                Export
+            </button>
+            <div class="user-profile">
+                <img src="./assets/images/avatar-placeholder.png" alt="Profile" class="profile-pic">
+                <div class="dropdown-menu">
+                    <div class="dropdown-item">Settings</div>
+                    <div class="dropdown-item">Account</div>
+                    <div class="dropdown-item">Sign Out</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <div class="main-container">
+        <!-- Left Sidebar -->
+        <aside class="left-sidebar">
+            <div class="tool-group">
+                <button class="tool-btn active" data-tool="brush" title="Brush (B)">
+                    <i class="fas fa-paint-brush"></i>
+                </button>
+                <button class="tool-btn" data-tool="pencil" title="Pencil (P)">
+                    <i class="fas fa-pencil-alt"></i>
+                </button>
+                <button class="tool-btn" data-tool="marker" title="Marker (M)">
+                    <i class="fas fa-marker"></i>
+                </button>
+                <button class="tool-btn" data-tool="airbrush" title="Airbrush (A)">
+                    <i class="fas fa-spray-can"></i>
+                </button>
+                <button class="tool-btn" data-tool="eraser" title="Eraser (E)">
+                    <i class="fas fa-eraser"></i>
+                </button>
+            </div>
+
+            <div class="tool-separator"></div>
+
+            <div class="tool-group">
+                <button class="tool-btn" data-tool="eyedropper" title="Eyedropper (I)">
+                    <i class="fas fa-eye-dropper"></i>
+                </button>
+                <button class="tool-btn" data-tool="hand" title="Hand Tool (H)">
+                    <i class="fas fa-hand-paper"></i>
+                </button>
+                <button class="tool-btn" data-tool="select" title="Selection (S)">
+                    <i class="fas fa-mouse-pointer"></i>
+                </button>
+            </div>
+
+            <div class="tool-separator"></div>
+
+            <div class="tool-group">
+                <button class="tool-btn" data-tool="shape" title="Shape Tool">
+                    <i class="fas fa-shapes"></i>
+                </button>
+                <button class="tool-btn" data-tool="text" title="Text (T)">
+                    <i class="fas fa-font"></i>
+                </button>
+                <button class="tool-btn" data-tool="transform" title="Transform">
+                    <i class="fas fa-arrows-alt"></i>
+                </button>
+                <button class="tool-btn" data-tool="flood-fill" title="Flood Fill (F)">
+                    <i class="fas fa-fill-drip"></i>
+                </button>
+            </div>
+
+            <div class="tool-separator"></div>
+
+            <div class="tool-group">
+                <button class="tool-btn" data-tool="upload" title="Upload Image">
+                    <i class="fas fa-upload"></i>
+                </button>
+            </div>
+
+            <div class="tool-separator"></div>
+
+            <div class="tool-group">
+                <button class="tool-btn ai-generate" data-tool="ai-generate" title="AI Generate">
+                    <i class="fas fa-robot"></i>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Canvas Area -->
+        <main class="canvas-container">
+            <div class="canvas-wrapper">
+                <!-- Multi-layer canvas system -->
+                <div class="canvas-viewport" id="canvas-viewport">
+                    <!-- Preview/Persistent Layer (Top) -->
+                    <canvas id="preview-canvas" class="canvas-layer" width="1024" height="768"></canvas>
+                    
+                    <!-- Main Drawing Canvas (Middle) -->
+                    <canvas id="main-canvas" class="canvas-layer" width="1024" height="768"></canvas>
+                    
+                    <!-- Brush Preview/Temp Layer (Bottom) -->
+                    <canvas id="temp-canvas" class="canvas-layer" width="1024" height="768"></canvas>
+                    
+                    <!-- Canvas Grid Overlay -->
+                    <div class="canvas-overlay">
+                        <div class="canvas-grid" id="canvas-grid"></div>
+                    </div>
+                    
+                    <!-- Live Cursors for Collaboration -->
+                    <div class="live-cursors" id="live-cursors"></div>
+                </div>
+                
+                <!-- Floating Toolbars -->
+                <div class="floating-toolbars">
+                    <!-- Brush Toolbar -->
+                    <div class="floating-toolbar" id="brush-toolbar" data-tool="brush">
+                        <div class="toolbar-header">
+                            <span>Brush Settings</span>
+                            <button class="toolbar-close"><i class="fas fa-times"></i></button>
+                        </div>
+                        <div class="toolbar-content">
+                            <div class="toolbar-group">
+                                <div class="color-preview" id="brush-color-preview"></div>
+                                <button class="color-picker-btn" id="brush-color-btn">
+                                    <i class="fas fa-palette"></i>
+                                </button>
+                            </div>
+                            <div class="toolbar-group">
+                                <label>Size: <span id="brush-size-display">10</span></label>
+                                <input type="range" id="brush-size-slider" min="1" max="200" value="10">
+                            </div>
+                            <div class="toolbar-group">
+                                <label>Opacity: <span id="brush-opacity-display">100</span>%</label>
+                                <input type="range" id="brush-opacity-slider" min="1" max="100" value="100">
+                            </div>
+                            <div class="toolbar-group">
+                                <label>Hardness: <span id="brush-hardness-display">80</span>%</label>
+                                <input type="range" id="brush-hardness-slider" min="0" max="100" value="80">
+                            </div>
+                            <div class="toolbar-group">
+                                <label>Texture</label>
+                                <select id="brush-texture-select">
+                                    <option value="round">Round</option>
+                                    <option value="flat">Flat</option>
+                                    <option value="splatter">Splatter</option>
+                                    <option value="textured">Textured</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pencil Toolbar -->
+                    <div class="floating-toolbar" id="pencil-toolbar" data-tool="pencil">
+                        <div class="toolbar-header">
+                            <span>Pencil Settings</span>
+                            <button class="toolbar-close"><i class="fas fa-times"></i></button>
+                        </div>
+                        <div class="toolbar-content">
+                            <div class="toolbar-group">
+                                <div class="color-preview" id="pencil-color-preview"></div>
+                                <button class="color-picker-btn" id="pencil-color-btn">
+                                    <i class="fas fa-palette"></i>
+                                </button>
+                            </div>
+                            <div class="toolbar-group">
+                                <label>Size: <span id="pencil-size-display">5</span></label>
+                                <input type="range" id="pencil-size-slider" min="1" max="50" value="5">
+                            </div>
+                            <div class="toolbar-group">
+                                <label>Opacity: <span id="pencil-opacity-display">80</span>%</label>
+                                <input type="range" id="pencil-opacity-slider" min="1" max="100" value="80">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Eraser Toolbar -->
+                    <div class="floating-toolbar" id="eraser-toolbar" data-tool="eraser">
+                        <div class="toolbar-header">
+                            <span>Eraser Settings</span>
+                            <button class="toolbar-close"><i class="fas fa-times"></i></button>
+                        </div>
+                        <div class="toolbar-content">
+                            <div class="toolbar-group">
+                                <label>Size: <span id="eraser-size-display">20</span></label>
+                                <input type="range" id="eraser-size-slider" min="5" max="100" value="20">
+                            </div>
+                            <div class="toolbar-group">
+                                <label>Opacity: <span id="eraser-opacity-display">100</span>%</label>
+                                <input type="range" id="eraser-opacity-slider" min="10" max="100" value="100">
+                            </div>
+                            <div class="toolbar-group">
+                                <label>Hardness: <span id="eraser-hardness-display">100</span>%</label>
+                                <input type="range" id="eraser-hardness-slider" min="0" max="100" value="100">
+                            </div>
+                            <div class="toolbar-group">
+                                <label>Eraser Type</label>
+                                <select id="eraser-type-select">
+                                    <option value="normal">Normal</option>
+                                    <option value="soft">Soft</option>
+                                    <option value="hard">Hard</option>
+                                    <option value="textured">Textured</option>
+                                </select>
+                            </div>
+                            <div class="toolbar-group">
+                                <label>
+                                    <input type="checkbox" id="eraser-pressure"> 
+                                    Pressure Sensitivity
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Shape Toolbar -->
+                    <div class="floating-toolbar" id="shape-toolbar" data-tool="shape">
+                        <div class="toolbar-header">
+                            <span>Shape Tool</span>
+                            <button class="toolbar-close"><i class="fas fa-times"></i></button>
+                        </div>
+                        <div class="toolbar-content">
+                            <div class="toolbar-group">
+                                <label>Shape</label>
+                                <div class="shape-selector">
+                                    <button class="shape-btn active" data-shape="rectangle">
+                                        <i class="fas fa-square"></i>
+                                    </button>
+                                    <button class="shape-btn" data-shape="circle">
+                                        <i class="fas fa-circle"></i>
+                                    </button>
+                                    <button class="shape-btn" data-shape="triangle">
+                                        <i class="fas fa-play"></i>
+                                    </button>
+                                    <button class="shape-btn" data-shape="star">
+                                        <i class="fas fa-star"></i>
+                                    </button>
+                                    <button class="shape-btn" data-shape="polygon">
+                                        <i class="fas fa-stop"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="toolbar-group">
+                                <label>Fill Color</label>
+                                <div class="color-preview" id="shape-fill-preview"></div>
+                                <button class="color-picker-btn" id="shape-fill-btn">
+                                    <i class="fas fa-palette"></i>
+                                </button>
+                            </div>
+                            <div class="toolbar-group">
+                                <label>Stroke Color</label>
+                                <div class="color-preview" id="shape-stroke-preview"></div>
+                                <button class="color-picker-btn" id="shape-stroke-btn">
+                                    <i class="fas fa-palette"></i>
+                                </button>
+                            </div>
+                            <div class="toolbar-group">
+                                <label>Stroke Size: <span id="shape-stroke-display">2</span></label>
+                                <input type="range" id="shape-stroke-slider" min="0" max="20" value="2">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Flood Fill Toolbar -->
+                    <div class="floating-toolbar" id="flood-fill-toolbar" data-tool="flood-fill">
+                        <div class="toolbar-header">
+                            <span>Flood Fill</span>
+                            <button class="toolbar-close"><i class="fas fa-times"></i></button>
+                        </div>
+                        <div class="toolbar-content">
+                            <div class="toolbar-group">
+                                <div class="color-preview" id="fill-color-preview"></div>
+                                <button class="color-picker-btn" id="fill-color-btn">
+                                    <i class="fas fa-palette"></i>
+                                </button>
+                            </div>
+                            <div class="toolbar-group">
+                                <label>Tolerance: <span id="fill-tolerance-display">32</span></label>
+                                <input type="range" id="fill-tolerance-slider" min="0" max="255" value="32">
+                            </div>
+                            <div class="toolbar-group">
+                                <label>
+                                    <input type="checkbox" id="fill-contiguous" checked> 
+                                    Contiguous Fill
+                                </label>
+                            </div>
+                            <div class="toolbar-group">
+                                <label>
+                                    <input type="checkbox" id="fill-anti-alias" checked> 
+                                    Anti-aliasing
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Transform Toolbar -->
+                    <div class="floating-toolbar" id="transform-toolbar" data-tool="transform">
+                        <div class="toolbar-header">
+                            <span>Transform</span>
+                            <button class="toolbar-close"><i class="fas fa-times"></i></button>
+                        </div>
+                        <div class="toolbar-content">
+                            <div class="toolbar-group">
+                                <button class="transform-btn" data-action="rotate-left">
+                                    <i class="fas fa-undo"></i> Rotate Left
+                                </button>
+                                <button class="transform-btn" data-action="rotate-right">
+                                    <i class="fas fa-redo"></i> Rotate Right
+                                </button>
+                            </div>
+                            <div class="toolbar-group">
+                                <button class="transform-btn" data-action="flip-horizontal">
+                                    <i class="fas fa-arrows-alt-h"></i> Flip H
+                                </button>
+                                <button class="transform-btn" data-action="flip-vertical">
+                                    <i class="fas fa-arrows-alt-v"></i> Flip V
+                                </button>
+                            </div>
+                            <div class="toolbar-group">
+                                <label>Scale: <span id="transform-scale-display">100</span>%</label>
+                                <input type="range" id="transform-scale-slider" min="10" max="300" value="100">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- AI Toolbar -->
+                    <div class="floating-toolbar" id="ai-generate-toolbar" data-tool="ai-generate">
+                        <div class="toolbar-header">
+                            <span>AI Generation</span>
+                            <button class="toolbar-close"><i class="fas fa-times"></i></button>
+                        </div>
+                        <div class="toolbar-content">
+                            <div class="toolbar-group">
+                                <label>Prompt</label>
+                                <textarea id="ai-prompt" placeholder="Describe what you want to generate..."></textarea>
+                            </div>
+                            <div class="toolbar-group">
+                                <label>Style</label>
+                                <select id="ai-style">
+                                    <option value="realistic">Realistic</option>
+                                    <option value="anime">Anime</option>
+                                    <option value="artistic">Artistic</option>
+                                    <option value="sketch">Sketch</option>
+                                </select>
+                            </div>
+                            <div class="toolbar-group">
+                                <button class="ai-generate-btn" id="ai-generate-btn">
+                                    <i class="fas fa-magic"></i> Generate
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Right Sidebar -->
+        <aside class="right-sidebar">
+            <!-- Brush Settings Panel -->
+            <div class="panel draggable" data-panel="brush">
+                <div class="panel-header">
+                    <h3>Brush Settings</h3>
+                    <div class="panel-controls">
+                        <button class="panel-collapse">
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <button class="panel-close">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="panel-content">
+                    <div class="form-group">
+                        <label>Size: <span class="value" id="brush-size-display-panel">10</span>px</label>
+                        <input type="range" class="slider" id="brush-size-panel" min="1" max="200" value="10">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Hardness: <span class="value" id="hardness-display-panel">80</span>%</label>
+                        <input type="range" class="slider" id="brush-hardness-panel" min="0" max="100" value="80">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Opacity: <span class="value" id="opacity-display-panel">100</span>%</label>
+                        <input type="range" class="slider" id="brush-opacity-panel" min="1" max="100" value="100">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Flow: <span class="value" id="flow-display-panel">100</span>%</label>
+                        <input type="range" class="slider" id="brush-flow-panel" min="1" max="100" value="100">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Brush Shape</label>
+                        <div class="brush-shapes">
+                            <div class="brush-shape active" data-shape="round">
+                                <div class="shape-preview round"></div>
+                                <span>Round</span>
+                            </div>
+                            <div class="brush-shape" data-shape="flat">
+                                <div class="shape-preview flat"></div>
+                                <span>Flat</span>
+                            </div>
+                            <div class="brush-shape" data-shape="splatter">
+                                <div class="shape-preview splatter"></div>
+                                <span>Splatter</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="pressure-sensitivity"> 
+                            Pressure Sensitivity
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Color Tools Panel -->
+            <div class="panel draggable" data-panel="color">
+                <div class="panel-header">
+                    <h3>Color</h3>
+                    <div class="panel-controls">
+                        <button class="panel-collapse">
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <button class="panel-close">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="panel-content">
+                    <div class="color-picker-section">
+                        <div class="color-wheel-container">
+                            <canvas id="color-wheel" width="150" height="150"></canvas>
+                            <div class="color-wheel-cursor"></div>
+                        </div>
+                        <div class="color-sliders">
+                            <div class="color-slider-group">
+                                <label>H: <span id="hue-value">0</span>°</label>
+                                <input type="range" id="hue-slider" min="0" max="360" value="0">
+                            </div>
+                            <div class="color-slider-group">
+                                <label>S: <span id="sat-value">100</span>%</label>
+                                <input type="range" id="sat-slider" min="0" max="100" value="100">
+                            </div>
+                            <div class="color-slider-group">
+                                <label>L: <span id="light-value">50</span>%</label>
+                                <input type="range" id="light-slider" min="0" max="100" value="50">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    
+               
+            <!-- AI Generation Panel -->
+            <div class="panel draggable" data-panel="ai">
+                <div class="panel-header">
+                    <h3>AI Generation</h3>
+                    <div class="panel-controls">
+                        <button class="panel-collapse">
+                            <i class="fas fa-chevron-down"></i>
+                        </button>
+                        <button class="panel-close">
+                            <i class="fas fa-times"></i>
+                        </button>
+                    </div>
+                </div>
+                <div class="panel-content">
+                    <div class="form-group">
+                        <label>Prompt</label>
+                        <textarea class="prompt-input" placeholder="Describe what you want to generate..."></textarea>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Model</label>
+                        <select class="model-select">
+                            <option>Leonardo Diffusion XL</option>
+                            <option>Leonardo Vision XL</option>
+                            <option>Leonardo Anime XL</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Guidance Scale: <span class="value">7</span></label>
+                        <input type="range" class="slider" min="1" max="20" value="7">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Steps: <span class="value">30</span></label>
+                        <input type="range" class="slider" min="10" max="50" value="30">
+                    </div>
+                    
+                    <button class="generate-btn">
+                        <i class="fas fa-magic"></i>
+                        Generate
+                    </button>
+                </div>
+            </div>
+        </aside>
+    </div>
+
+    <!-- Bottom Bar -->
+    <footer class="bottom-bar">
+        <div class="bottom-bar-left">
+            <div class="collaboration-indicator">                
+                    <div class="user-avatar" style="background: #9365c9;">L</div>
+                    <div class="user-avatar" style="background: #116e00;">U</div>
+                    <div class="user-avatar" style="background: #6e0e00;">M</div>
+                    <div class="user-avatar" style="background: #2e6e6a;">I</div>
+                    <div class="user-avatar" style="background: #ff808a;">X</div>
+                    <span class="user-count">+2</span>
+                </div>
+                <span class="collaboration-text">3 users editing</span>
+            </div>
+        </div>
+        
+        <div class="bottom-bar-center">
+            <div class="canvas-status">               
+                <span class="separator">|</span>
+                <span id="cursor-position">0, 0</span>
+                <span class="separator">|</span>
+                <span id="current-tool">Brush</span>
+            </div>
+        </div>
+        
+        <div class="bottom-bar-right">
+           
+        </div>
+    </footer>
+
+    <!-- Context Menu -->
+    <div class="context-menu" id="context-menu">
+        <div class="context-item" data-action="cut">
+            <i class="fas fa-cut"></i>
+            Cut
+        </div>
+        <div class="context-item" data-action="copy">
+            <i class="fas fa-copy"></i>
+            Copy
+        </div>
+        <div class="context-item" data-action="paste">
+            <i class="fas fa-paste"></i>
+            Paste
+        </div>
+        <div class="context-separator"></div>
+        <div class="context-item" data-action="clear-layer">
+            <i class="fas fa-eraser"></i>
+            Clear Layer
+        </div>
+        <div class="context-item" data-action="duplicate-layer">
+            <i class="fas fa-copy"></i>
+            Duplicate Layer
+        </div>
+        <div class="context-separator"></div>
+        <div class="context-item" data-action="transform">
+            <i class="fas fa-arrows-alt"></i>
+            Transform
+        </div>
+    </div>
+
+    <!-- Text Input Modal -->
+    <div class="modal-overlay" id="text-modal-overlay">
+        <div class="modal" id="text-modal">
+            <div class="modal-header">
+                <h3>Add Text</h3>
+                <button class="modal-close" id="text-modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-content">
+                <div class="form-group">
+                    <label>Text</label>
+                    <textarea id="text-input" placeholder="Enter your text..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Font Family</label>
+                    <select id="font-family">
+                        <option value="Arial">Arial</option>
+                        <option value="Helvetica">Helvetica</option>
+                        <option value="Times New Roman">Times New Roman</option>
+                        <option value="Georgia">Georgia</option>
+                        <option value="Verdana">Verdana</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Font Size: <span id="font-size-display">24</span>px</label>
+                    <input type="range" id="font-size" min="8" max="120" value="24">
+                </div>
+                <div class="form-group">
+                    <label>Color</label>
+                    <input type="color" id="text-color" value="#000000">
+                </div>
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" id="text-bold"> Bold
+                    </label>
+                    <label>
+                        <input type="checkbox" id="text-italic"> Italic
+                    </label>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" id="text-cancel">Cancel</button>
+                <button class="btn-primary" id="text-apply">Apply</button>
+            </div>
+        </div>
+    </div>
+
+<!-- Modal Overlay and Popup -->
+<div id="deviceModalOverlay" style="
+  position: fixed;
+  top: 0; left: 0;
+  width: 100vw;
+  height: 100vh;
+  backdrop-filter: blur(8px);
+  background: rgba(0, 0, 0, 0.3);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+">
+  <div style="
+    background: #fff;
+    padding: 24px 28px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    font-family: sans-serif;
+  ">
+    <h3 style="margin-bottom: 10px;">View on Desktop to use all features</h3>
+    <p style="margin-bottom: 20px; font-size: 15px; color: #555;">
+      Some tools may not work properly on mobile devices.
+    </p>
+    <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+      <button onclick="closeModal()" style="
+        padding: 10px 16px;
+        background: #f1f1f1;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+      ">Use on Current Device</button>
+      <button onclick="toggleDesktopMode()" style="
+        padding: 10px 16px;
+        background: #4a90e2;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+      ">Toggle Desktop Mode</button>
+    </div>
+  </div>
+</div>
+
+<!-- JavaScript -->
+<script>
+  function closeModal() {
+    document.getElementById('deviceModalOverlay').style.display = 'none';
+  }
+
+  function toggleDesktopMode() {
+    alert("Try enabling 'Desktop Site' from your browser menu.");
+    document.getElementById('deviceModalOverlay').style.display = 'none';
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+      document.getElementById('deviceModalOverlay').style.display = 'flex';
+    }, 2000);
+  });
+</script>
+
+    <!-- Color Picker Modal -->
+    <div class="modal-overlay" id="color-picker-modal-overlay">
+        <div class="modal color-picker-modal" id="color-picker-modal">
+            <div class="modal-header">
+                <h3>Color Picker</h3>
+                <button class="modal-close" id="color-picker-modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-content">
+                <div class="color-picker-container">
+                    <canvas id="color-picker-wheel" width="200" height="200"></canvas>
+                    <div class="color-picker-controls">
+                        <div class="color-preview-large" id="color-preview-large"></div>
+                        <input type="color" id="color-picker-input">
+                        <input type="text" id="hex-input-modal" placeholder="#000000">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" id="color-picker-cancel">Cancel</button>
+                <button class="btn-primary" id="color-picker-apply">Apply</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- File Upload Modal -->
+    <div class="modal-overlay" id="upload-modal-overlay">
+        <div class="modal" id="upload-modal">
+            <div class="modal-header">
+                <h3>Upload Image</h3>
+                <button class="modal-close" id="upload-modal-close">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-content">
+                <div class="upload-area" id="upload-area">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <p>Drag & drop an image here or click to browse</p>
+                    <input type="file" id="file-input" accept="image/*" hidden>
+                </div>
+                <div class="upload-preview" id="upload-preview" style="display: none;">
+                    <img id="preview-image" alt="Preview">
+                    <div class="upload-info">
+                        <p id="file-name"></p>
+                        <p id="file-size"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" id="upload-cancel">Cancel</button>
+                <button class="btn-primary" id="upload-apply" >Upload</button>
+            </div>
+        </div>
+    </div>
+    <script src="./assets/js/lumix-styles.js"></script>
+    <script src="./assets/js/rm.js"></script>
+    <script src="./assets/js/app.lumix.js"></script>
+</body>
+</html>
